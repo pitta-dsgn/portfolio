@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Интерфейс для HMI панели крана-манипулятора</title>
+  <meta name="description" content="Кейс: дизайн интерфейса HMI панели крана-манипулятора в Siemens TIA Portal. Светлая и тёмная темы, UI-Kit, экраны системы." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #1A1A1A;
+      --muted: #666666;
+      --border: #EAEAEA;
+      --hover: #F7F7F7;
+      --max: 900px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .page { padding: 40px 0 100px; }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: color 0.15s ease;
+    }
+    .back:hover { color: var(--text); }
+
+    .quote {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      line-height: 1.25;
+      margin: 8px 0 32px;
+    }
+
+    h2 {
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin: 64px 0 8px;
+    }
+
+    p { margin: 20px 0; }
+
+    figure { margin: 28px 0; }
+    .page img.full {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    figcaption {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .quote { font-size: 25px; }
+      h2 { font-size: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <div class="wrap">
+      <a class="back" href="../">← На главную</a>
+
+      <p class="quote">«Сложное оборудование нуждается в простом интерфейсе»</p>
+
+      <p>Была поставлена задача создать дизайн для HMI панели крана-манипулятора. В таких системах интерфейс имеет большое значение для безопасности людей. Оператор в аварийной ситуации должен быстро оценить все важные параметры и предпринять правильные действия по устранению неисправности. Именно чистое, аккуратное оформление, понятные состояния элементов, заметные уведомления помогают контролировать всю систему.</p>
+
+      <figure><img class="full" src="../HMI_01.png" alt="HMI панель крана-манипулятора" /></figure>
+
+      <p>Было реализовано 2 темы: светлая и темная, чтобы оператору было удобно работать в любое время суток.</p>
+
+      <figure><img class="full" src="../HMI_02.png" alt="Цветовые палитры светлой и тёмной тем" /></figure>
+
+      <p>Был составлен UI-Kit с разными состояниями элементов. Так как проект был реализован в HMI от компании Siemens в Tia Portal, то состояний у кнопок только 2, нет hover, disabled и т.д., есть только нажата/не нажата. В ПО нет возможности реализовать больше.</p>
+
+      <figure><img class="full" src="../HMI_03.png" alt="UI-Kit с состояниями элементов" /></figure>
+
+      <h2>Представление визуала</h2>
+
+      <figure>
+        <img class="full" src="../HMI_04.png" alt="Главный экран HMI" />
+        <figcaption>Главный экран — отслеживание основных параметров: нагрузки, длины каната, положения крана, включенных режимов.</figcaption>
+      </figure>
+
+      <figure>
+        <img class="full" src="../HMI_05.png" alt="Архив аварий" />
+        <figcaption>Архив аварий — просмотр текущих и произошедших ранее происшествий аварийного и предупреждающего характера.</figcaption>
+      </figure>
+
+      <figure>
+        <img class="full" src="../HMI_06.png" alt="Насосная станция" />
+        <figcaption>Насосная станция — отображение состояний всех датчиков, расположенных в насосной станции, а также обогрева и охладителя.</figcaption>
+      </figure>
+
+      <figure>
+        <img class="full" src="../HMI_07.png" alt="Диагностика" />
+        <figcaption>Диагностика — отображение состояний всех остальных устройств системы.</figcaption>
+      </figure>
+
+      <figure>
+        <img class="full" src="../HMI_08.png" alt="Настройки" />
+        <figcaption>Настройки — выбор темы и яркости экрана в режиме доступа пользователя.</figcaption>
+      </figure>
+    </div>
+  </article>
+</body>
+</html>
