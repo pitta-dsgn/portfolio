@@ -8,16 +8,16 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       --bg: #FFFFFF;
-      --text: #1A1A1A;
-      --muted: #666666;
-      --border: #EAEAEA;
-      --hover: #F7F7F7;
-      --max: 900px;
+      --text: #111111;
+      --muted: #8A8A8E;
+      --border: #ECECEC;
+      --hover: #F5F5F4;
+      --max: 920px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,7 +30,9 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
       font-size: 17px;
       line-height: 1.7;
+      letter-spacing: -0.01em;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -42,15 +44,38 @@
       padding: 0 24px;
     }
 
+    /* ---------- Top bar ---------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      font-size: 14px;
+    }
+    .topbar .brand { font-weight: 600; letter-spacing: -0.02em; }
+    .topbar .role {
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar .role::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22C55E;
+    }
+
     /* ---------- Hero ---------- */
     .hero {
-      min-height: 100vh;
+      min-height: calc(100vh - 84px);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 80px 0 60px;
+      padding: 60px 0;
     }
 
     .avatar {
@@ -59,13 +84,21 @@
       border-radius: 50%;
       object-fit: cover;
       background: var(--hover);
-      border: 1px solid var(--border);
     }
 
     .intro {
-      max-width: 600px;
-      margin: 28px auto 0;
+      max-width: 620px;
+      margin: 32px auto 0;
+      font-size: clamp(20px, 2.6vw, 26px);
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    /* highlighted key phrases in the greeting */
+    .intro b {
       color: var(--text);
+      font-weight: 600;
     }
 
     /* ---------- Links row ---------- */
@@ -73,60 +106,62 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 12px;
-      margin-top: 28px;
+      gap: 10px;
+      margin-top: 34px;
     }
 
     .links a {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
+      padding: 11px 20px;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 999px;
       font-size: 15px;
       font-weight: 500;
       color: var(--text);
-      transition: background 0.15s ease, border-color 0.15s ease;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
-
     .links a:hover {
-      background: var(--hover);
-      border-color: #d8d8d8;
+      background: var(--text);
+      color: #fff;
+      border-color: var(--text);
+      transform: translateY(-1px);
     }
 
     /* ---------- Projects ---------- */
-    .projects {
-      padding: 40px 0 100px;
-    }
+    .projects { padding: 20px 0 120px; }
 
-    .projects h2 {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+    .section-head {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
       margin-bottom: 28px;
     }
 
     .project {
       display: block;
-      margin-bottom: 40px;
+      margin-bottom: 24px;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 20px;
       overflow: hidden;
-      transition: border-color 0.15s ease, transform 0.15s ease;
+      background: #fff;
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     }
-
     .project:hover {
-      border-color: #d0d0d0;
+      transform: translateY(-4px);
+      border-color: #dcdcdc;
+      box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.25);
     }
 
     .project-media {
       position: relative;
       width: 100%;
-      aspect-ratio: 1400 / 900;
+      aspect-ratio: 1440 / 900;
       background: var(--hover);
+      overflow: hidden;
     }
-
     .project-media iframe,
     .project-media img {
       position: absolute;
@@ -136,7 +171,9 @@
       object-fit: cover;
       border: 0;
       display: block;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
+    .project:hover .project-media img { transform: scale(1.03); }
 
     /* transparent layer so a click navigates instead of interacting with the iframe */
     .project-media .overlay {
@@ -147,63 +184,90 @@
     }
 
     .project-info {
-      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 24px;
     }
-
     .project-info h3 {
       font-size: 19px;
       font-weight: 600;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
       margin-bottom: 12px;
     }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--muted);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 3px 10px;
+      border-radius: 999px;
+      padding: 3px 11px;
+    }
+    .arrow {
+      flex: none;
+      font-size: 22px;
+      color: var(--muted);
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+    .project:hover .arrow { transform: translate(3px, -3px); color: var(--text); }
+
+    /* ---------- Load animation ---------- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.15s; }
+    .d3 { animation-delay: 0.25s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade { opacity: 1; animation: none; }
+      .project, .project-media img, .arrow { transition: none; }
     }
 
     @media (max-width: 600px) {
       body { font-size: 16px; }
       .avatar { width: 128px; height: 128px; }
-      .projects h2 { font-size: 23px; }
+      .project-info { flex-direction: column; align-items: flex-start; }
+      .arrow { align-self: flex-end; }
     }
   </style>
 </head>
 <body>
+  <header class="topbar wrap">
+    <span class="brand">Екатерина Стойилкович</span>
+    <span class="role">UX/UI Designer</span>
+  </header>
+
   <section class="hero">
     <div class="wrap">
-      <img class="avatar" src="images/profile.png" alt="Екатерина Стойилкович" />
-      <p class="intro">
-        Привет! Я UX/UI-дизайнер с техническим бэкграундом и опытом проектирования мобильных
-        приложений и сложных интерфейсов с нуля. В своей работе использую продуктовый подход:
-        провожу глубинные интервью, юзабилити-тестирования.
+      <img class="avatar fade d1" src="images/profile.png" alt="Екатерина Стойилкович" />
+      <p class="intro fade d2">
+        Привет! Я <b>UX/UI-дизайнер</b> с <b>техническим бэкграундом</b> и опытом проектирования
+        мобильных приложений и сложных интерфейсов с нуля. В своей работе использую
+        <b>продуктовый подход</b>: провожу <b>глубинные интервью</b>, <b>юзабилити-тестирования</b>.
       </p>
 
-      <div class="links">
-        <a href="mailto:ekaterina.kotelok@yandex.ru">✉️ ekaterina.kotelok@yandex.ru</a>
-        <a href="https://t.me/kotellocek" target="_blank" rel="noopener noreferrer">✈️ @kotellocek</a>
-        <a href="images/CV_Stojilkovic.pdf" download>📄 CV</a>
+      <div class="links fade d3">
+        <a href="mailto:ekaterina.kotelok@yandex.ru">ekaterina.kotelok@yandex.ru</a>
+        <a href="https://t.me/kotellocek" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="images/CV_Stojilkovic.pdf" download>CV</a>
       </div>
     </div>
   </section>
 
   <section class="projects">
     <div class="wrap">
-      <h2>Проекты</h2>
+      <div class="section-head">Проекты</div>
 
       <a class="project" href="mendi/">
         <div class="project-media">
           <iframe
-            src="https://kinescope.io/embed/mTtKC8UrDo6jcyBAGGBWBa"
+            src="https://kinescope.io/embed/vY6WLLRFN5hAHQCnBv5vT2"
             allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
             frameborder="0"
             allowfullscreen
@@ -211,11 +275,14 @@
           <span class="overlay"></span>
         </div>
         <div class="project-info">
-          <h3>Mendi — приложение для отслеживания приема лекарств</h3>
-          <div class="tags">
-            <span class="tag">UX/UI</span>
-            <span class="tag">Mobile App</span>
+          <div>
+            <h3>Mendi — приложение для отслеживания приема лекарств</h3>
+            <div class="tags">
+              <span class="tag">UX/UI</span>
+              <span class="tag">Mobile App</span>
+            </div>
           </div>
+          <span class="arrow">↗</span>
         </div>
       </a>
 
@@ -224,11 +291,14 @@
           <img src="images/HMI_preview.png" alt="Интерфейс HMI панели крана-манипулятора" />
         </div>
         <div class="project-info">
-          <h3>Интерфейс для HMI панели крана-манипулятора</h3>
-          <div class="tags">
-            <span class="tag">UX/UI</span>
-            <span class="tag">Siemens HMI</span>
+          <div>
+            <h3>Интерфейс для HMI панели крана-манипулятора</h3>
+            <div class="tags">
+              <span class="tag">UX/UI</span>
+              <span class="tag">Siemens HMI</span>
+            </div>
           </div>
+          <span class="arrow">↗</span>
         </div>
       </a>
     </div>
