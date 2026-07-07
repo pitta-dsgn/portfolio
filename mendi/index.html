@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mendi — приложение для отслеживания приема лекарств</title>
+  <meta name="description" content="Кейс Mendi: UX/UI мобильного приложения для контроля приёма лекарств. Бенчмаркинг, глубинные интервью, прототип." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #1A1A1A;
+      --muted: #666666;
+      --border: #EAEAEA;
+      --hover: #F7F7F7;
+      --max: 900px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .page { padding: 40px 0 100px; }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: color 0.15s ease;
+    }
+    .back:hover { color: var(--text); }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin: 64px 0 8px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin: 32px 0 8px;
+    }
+
+    p { margin: 14px 0; }
+
+    .muted { color: var(--muted); }
+
+    ul { margin: 14px 0 14px 22px; }
+    li { margin: 6px 0; }
+
+    /* video */
+    .video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1400 / 900;
+      margin: 8px 0 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--hover);
+    }
+    .video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* images */
+    figure { margin: 28px 0; }
+    .page img.full {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    figcaption {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    /* callout */
+    .callout {
+      background: var(--hover);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin: 24px 0;
+    }
+    .callout p { margin: 8px 0; }
+    .callout p:first-child { margin-top: 0; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* table */
+    .table-scroll { overflow-x: auto; margin: 20px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      line-height: 1.6;
+      min-width: 640px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--hover);
+      font-weight: 600;
+    }
+    td:first-child, th:first-child { white-space: nowrap; font-weight: 600; }
+
+    /* respondent cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .card .name { font-weight: 600; margin-bottom: 6px; }
+    .card .desc { font-size: 15px; color: var(--muted); }
+
+    /* accordion */
+    details {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px 18px;
+      margin: 20px 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 14px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    details[open] summary::after { content: "–"; }
+    .guide { padding-bottom: 12px; }
+    .guide p { margin: 12px 0 4px; font-weight: 600; }
+    .guide ul { margin-top: 4px; }
+    .guide li { color: var(--muted); }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      h1 { font-size: 29px; }
+      h2 { font-size: 23px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <div class="wrap">
+      <a class="back" href="../">← На главную</a>
+
+      <h1>Mendi — приложение для отслеживания приема лекарств</h1>
+
+      <div class="video">
+        <iframe
+          src="https://kinescope.io/embed/mTtKC8UrDo6jcyBAGGBWBa"
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+          frameborder="0"
+          allowfullscreen
+          title="Mendi"></iframe>
+      </div>
+
+      <div class="callout">
+        <p><strong>Проблема:</strong> Пациенты клиники путаются в графике приема нескольких препаратов, пропускают дозы и бросают лечение раньше времени.</p>
+        <p><strong>Задача:</strong> Разработать минималистичный и мотивирующий интерфейс, который поможет пользователям и их близким соблюдать график лечения.</p>
+      </div>
+
+      <h3>Ключевые требования</h3>
+      <ul>
+        <li>Добавление лекарств из базы данных компании</li>
+        <li>График приёма с возможностью отмечать дозы</li>
+        <li>Отслеживание прогресса по курсам лечения</li>
+        <li>Добавление нескольких членов семьи со своими графиками</li>
+        <li>Интуитивная навигация и визуальная эстетика</li>
+      </ul>
+
+      <figure>
+        <img class="full" src="../images/Mendi_01.png" alt="План работ по проекту Mendi" />
+        <figcaption>План работ по проекту</figcaption>
+      </figure>
+
+      <!-- ============ 1. Бенчмаркинг ============ -->
+      <h2>1. Бенчмаркинг</h2>
+      <h3>Прямые конкуренты</h3>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Юзабилити</th>
+              <th>Визуал</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Мои таблетки</td>
+              <td>Пользователя всегда сопровождают подсказки, он не теряется и понимает, что делать. Лекарство легко добавить — всего за 3 шага. Нельзя отметить лекарство пропущенным — приложение вынуждает отметить как принятое или завершить курс. Нет графика, но есть шкала прогресса. Невозможно добавить другого человека. Нет возможности добавить комментарий.</td>
+              <td>Все изображения в одном стиле. Минимализм. Соблюдён гайдлайн iOS. Акцентные цвета приятные, понятно, какой компонент активный. Расположение элементов местами хромает — текст и иконки накладываются на изображение.</td>
+            </tr>
+            <tr>
+              <td>MediSafe</td>
+              <td>Слишком много экранов для заполнения информации. Нет отслеживания прогресса — непонятно, когда будет последний экран. Большая вариабельность: частота, время, продолжительность, напоминания о том, что таблетки заканчиваются. Выпадающий список при поиске. Календарь показывает только неделю, месяц нельзя. Лекарство можно отметить как принятое (с указанием времени), перенести или пропустить.</td>
+              <td>Приятный, но простой и плоский. Аккуратный и понятный, но эстетически не выделяется.</td>
+            </tr>
+            <tr>
+              <td>MyTherapy</td>
+              <td>Долгое добавление лекарства. Есть лишние пункты (диагноз). Отсутствует календарь. Есть подсказки для пользователя.</td>
+              <td>Картинки неправильного формата — растянуты. Ошибки в тексте (возможно, некорректный перевод). Анимации приятные, выбор цветов хороший.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Косвенные конкуренты</h3>
+      <p><strong>Flo.</strong> Мягкая пастельная палитра (розовый, фиолетовый). Главный экран — хаб с ключевыми данными. Крупные понятные карточки. Мотивирует через прогнозы и статистику. Тёплый, поддерживающий тон.</p>
+      <p><strong>Todoist.</strong> Приложение для управления задачами. Вдохновляющие аспекты: чистая иерархия (проекты → подзадачи → теги), интуитивная система приоритетов (цветные флаги), быстрый ввод задач через естественный язык. Минималистичный интерфейс без лишнего визуального шума, где фокус всегда на контенте. Мотивирует через статистику продуктивности (карма) и ежедневные цели.</p>
+
+      <h3>Выводы</h3>
+      <ul>
+        <li>Прямые конкуренты перегружены экранами и формами, нет единого «хаба» с ключевой информацией</li>
+        <li>Ни у кого нет удобного переключения между несколькими пациентами</li>
+        <li>Отсутствует гибкость в настройке времени приёма (опционально)</li>
+        <li>Мотивация и поддержка пользователей реализована слабо</li>
+        <li>Возможность комментирования (побочные эффекты, заметки) отсутствует</li>
+        <li>Косвенные конкуренты показывают, что минимализм + тёплый тон = доверие и удержание</li>
+      </ul>
+
+      <!-- ============ 2. Глубинные интервью ============ -->
+      <h2>2. Глубинные интервью</h2>
+      <p>Провела 3 глубинных интервью с пользователями, чтобы проверить гипотезы и понять, чего люди ждут от приложения. Респонденты были выбраны из разных возрастных и социальных групп — это помогло собрать полную картину потребностей и увидеть общие боли на пересечении аудиторий.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="name">Виктория, 25</div>
+          <div class="desc">Учится, восстанавливается после болезни</div>
+        </div>
+        <div class="card">
+          <div class="name">Татьяна, 49</div>
+          <div class="desc">Заботится о дочери и о маме после инсульта</div>
+        </div>
+        <div class="card">
+          <div class="name">Аля, 25</div>
+          <div class="desc">Работает, принимает антидепрессанты</div>
+        </div>
+      </div>
+
+      <details>
+        <summary>Гайд интервью</summary>
+        <div class="guide">
+          <p>Знакомство и контекст</p>
+          <ul>
+            <li>Расскажите немного о себе: чем занимаетесь, как проходит обычный день?</li>
+            <li>Приходилось ли вам принимать лекарства курсом? Как долго?</li>
+            <li>Принимаете ли вы сейчас несколько препаратов одновременно?</li>
+          </ul>
+
+          <p>Опыт приёма лекарств</p>
+          <ul>
+            <li>Как вы сейчас запоминаете, что и когда нужно принять?</li>
+            <li>Случалось ли пропускать приём или принимать лекарство дважды? Из-за чего?</li>
+            <li>Что вы чувствуете, когда понимаете, что пропустили дозу?</li>
+            <li>Бросали ли вы курс раньше времени? Почему?</li>
+          </ul>
+
+          <p>Организация графика</p>
+          <ul>
+            <li>Пользовались ли вы приложениями, заметками или будильниками для контроля приёма?</li>
+            <li>Что было удобно, а что раздражало?</li>
+            <li>Важно ли вам видеть прогресс по курсу лечения?</li>
+            <li>Насколько важно учитывать, как принимать лекарство (до / во время / после еды)?</li>
+          </ul>
+
+          <p>Забота о близких</p>
+          <ul>
+            <li>Помогаете ли вы кому-то из близких следить за приёмом лекарств?</li>
+            <li>Как вы это делаете и с какими трудностями сталкиваетесь?</li>
+            <li>Было бы полезно вести несколько графиков в одном приложении?</li>
+          </ul>
+
+          <p>Мотивация и тон</p>
+          <ul>
+            <li>Что помогает вам не бросить лечение?</li>
+            <li>Как вы относитесь к напоминаниям и словам поддержки от приложений?</li>
+            <li>Хотелось бы оставлять заметки о самочувствии или побочных эффектах?</li>
+          </ul>
+
+          <p>Завершение</p>
+          <ul>
+            <li>Каким было бы идеальное приложение для контроля приёма лекарств?</li>
+            <li>Чего вам не хватало в тех решениях, что вы пробовали?</li>
+          </ul>
+        </div>
+      </details>
+
+      <h3>Результаты интервью</h3>
+      <p><strong>Все гипотезы подтвердились!</strong></p>
+      <ul>
+        <li>Пользователи выбрали заполнение всей информации о лекарстве на одном экране. Пошаговый сценарий показался им медленным.</li>
+        <li>Пользователи хотят оставлять заметки к лекарствам, например, свои побочные эффекты.</li>
+        <li>Пользователи хотят сами решать, для каких препаратов указывать время приема (например, есть те, которые надо принимать каждые 6 часов). Функция будет реализована опционально.</li>
+        <li>Дружелюбный тон и слова поддержки очень ценятся. Поощрения после завершения курса и во время приема помогут не бросить лечение на полпути.</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Инсайты:</strong> Респонденты упомянули, что важно указывать, когда принимать лекарство (до/во время/после еды) и как (рассасывать, глотать, растворять).</p>
+      </div>
+
+      <figure><img class="full" src="../images/Mendi_02.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_03.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_04.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_05.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_06.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_07.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_08.png" alt="Mendi — экран приложения" /></figure>
+      <figure><img class="full" src="../images/Mendi_09.png" alt="Mendi — экран приложения" /></figure>
+    </div>
+  </article>
+</body>
+</html>
