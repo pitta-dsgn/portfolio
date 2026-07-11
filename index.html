@@ -86,19 +86,27 @@
       background: var(--hover);
     }
 
+    .name {
+      margin: 24px auto 0;
+      font-size: clamp(24px, 3.4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .name .sep {
+      color: var(--muted);
+      font-weight: 400;
+      margin: 0 12px;
+    }
+
     .intro {
-      max-width: 620px;
-      margin: 32px auto 0;
-      font-size: clamp(20px, 2.6vw, 26px);
-      line-height: 1.5;
-      letter-spacing: -0.02em;
+      max-width: 600px;
+      margin: 18px auto 0;
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.55;
+      letter-spacing: -0.01em;
       color: var(--muted);
       font-weight: 500;
-    }
-    /* highlighted key phrases in the greeting */
-    .intro b {
-      color: var(--text);
-      font-weight: 600;
     }
 
     /* ---------- Links row ---------- */
@@ -139,6 +147,16 @@
       color: var(--muted);
       margin-bottom: 28px;
     }
+
+    .project-period {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 34px 0 14px;
+    }
+    .project-period .place { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+    .project-period .years { font-size: 14px; color: var(--muted); white-space: nowrap; }
 
     .project {
       display: block;
@@ -246,14 +264,14 @@
   <section class="hero">
     <div class="wrap">
       <img class="avatar fade d1" src="images/profile.png" alt="Екатерина Стойилкович" />
+      <h1 class="name fade d2">Екатерина Стойилкович<span class="sep">·</span>22 года<span class="sep">·</span>Продуктовый дизайнер</h1>
       <p class="intro fade d2">
-        Привет! Я <b>UX/UI-дизайнер</b> с <b>техническим бэкграундом</b> и опытом проектирования
-        мобильных приложений и сложных интерфейсов с нуля. В своей работе использую
-        <b>продуктовый подход</b>: провожу <b>глубинные интервью</b>, <b>юзабилити-тестирования</b>.
+        Привет! Я Катя. Продуктовый дизайнер с техническим бекграундом и опытом проектирования
+        мобильных приложений и сложных интерфейсов с нуля.
       </p>
 
       <div class="links fade d3">
-        <a href="mailto:ekaterina.kotelok@yandex.ru">ekaterina.kotelok@yandex.ru</a>
+        <a href="mailto:ekaterina.kotelok@yandex.ru">Email</a>
         <a href="https://t.me/kotellocek" target="_blank" rel="noopener noreferrer">Telegram</a>
         <a href="images/CV_Stojilkovic.pdf" download>CV</a>
       </div>
@@ -263,6 +281,11 @@
   <section class="projects">
     <div class="wrap">
       <div class="section-head">Проекты</div>
+
+      <div class="project-period">
+        <span class="place">Проектная деятельность</span>
+        <span class="years">2025 — наст. время</span>
+      </div>
 
       <a class="project" href="mendi/">
         <div class="project-media">
@@ -285,6 +308,11 @@
           <span class="arrow">↗</span>
         </div>
       </a>
+
+      <div class="project-period">
+        <span class="place">Троицкий крановый завод</span>
+        <span class="years">2023 — 2025</span>
+      </div>
 
       <a class="project" href="hmi/">
         <div class="project-media">

@@ -78,13 +78,46 @@
       width: 100%;
       height: auto;
       display: block;
-      border: 1px solid var(--border);
       border-radius: 10px;
+      cursor: zoom-in;
     }
-    figcaption {
-      margin-top: 10px;
-      font-size: 15px;
-      color: var(--muted);
+
+    /* lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+      overflow: auto;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      cursor: zoom-in;
+      border-radius: 6px;
+    }
+    .lightbox.zoomed { align-items: flex-start; justify-content: flex-start; }
+    .lightbox.zoomed img { max-width: none; max-height: none; width: auto; cursor: zoom-out; }
+    .lightbox-close {
+      position: fixed;
+      top: 14px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      font-size: 30px;
+      line-height: 1;
+      color: #fff;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      z-index: 1001;
     }
 
     @media (max-width: 600px) {
@@ -115,31 +148,55 @@
 
       <h2>Представление визуала</h2>
 
-      <figure>
-        <img class="full" src="../images/HMI_04.png" alt="Главный экран HMI" />
-        <figcaption>Главный экран — отслеживание основных параметров: нагрузки, длины каната, положения крана, включенных режимов.</figcaption>
-      </figure>
+      <p>Главный экран — отслеживание основных параметров: нагрузки, длины каната, положения крана, включенных режимов.</p>
+      <figure><img class="full" src="../images/HMI_04.png" alt="Главный экран HMI" /></figure>
 
-      <figure>
-        <img class="full" src="../images/HMI_05.png" alt="Архив аварий" />
-        <figcaption>Архив аварий — просмотр текущих и произошедших ранее происшествий аварийного и предупреждающего характера.</figcaption>
-      </figure>
+      <p>Архив аварий — просмотр текущих и произошедших ранее происшествий аварийного и предупреждающего характера.</p>
+      <figure><img class="full" src="../images/HMI_05.png" alt="Архив аварий" /></figure>
 
-      <figure>
-        <img class="full" src="../images/HMI_06.png" alt="Насосная станция" />
-        <figcaption>Насосная станция — отображение состояний всех датчиков, расположенных в насосной станции, а также обогрева и охладителя.</figcaption>
-      </figure>
+      <p>Насосная станция — отображение состояний всех датчиков, расположенных в насосной станции, а также обогрева и охладителя.</p>
+      <figure><img class="full" src="../images/HMI_06.png" alt="Насосная станция" /></figure>
 
-      <figure>
-        <img class="full" src="../images/HMI_07.png" alt="Диагностика" />
-        <figcaption>Диагностика — отображение состояний всех остальных устройств системы.</figcaption>
-      </figure>
+      <p>Диагностика — отображение состояний всех остальных устройств системы.</p>
+      <figure><img class="full" src="../images/HMI_07.png" alt="Диагностика" /></figure>
 
-      <figure>
-        <img class="full" src="../images/HMI_08.png" alt="Настройки" />
-        <figcaption>Настройки — выбор темы и яркости экрана в режиме доступа пользователя.</figcaption>
-      </figure>
+      <p>Настройки — выбор темы и яркости экрана в режиме доступа пользователя.</p>
+      <figure><img class="full" src="../images/HMI_08.png" alt="Настройки" /></figure>
     </div>
   </article>
+
+  <script>
+    (function () {
+      var imgs = document.querySelectorAll('.page img.full');
+      if (!imgs.length) return;
+      var lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.innerHTML = '<button class="lightbox-close" aria-label="Закрыть">×</button><img alt="" />';
+      document.body.appendChild(lb);
+      var lbImg = lb.querySelector('img');
+      var closeBtn = lb.querySelector('.lightbox-close');
+
+      function open(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        lb.classList.remove('zoomed');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open', 'zoomed');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      imgs.forEach(function (im) {
+        im.addEventListener('click', function () { open(im.currentSrc || im.src, im.alt); });
+      });
+      lbImg.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('zoomed'); });
+      closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
 </body>
 </html>
