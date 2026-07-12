@@ -17,7 +17,8 @@
       --muted: #6B6B70;
       --border: #ECECEC;
       --hover: #F5F5F4;
-      --max: 900px;
+      --max: 1440px;
+      --measure: 860px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,8 +43,19 @@
       padding: 0 24px;
     }
 
-    .page { padding: 40px 0 100px; }
+    .page { padding: 24px 0 100px; }
 
+    /* sticky back bar */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topnav .wrap { padding-top: 14px; padding-bottom: 14px; }
     .back {
       display: inline-flex;
       align-items: center;
@@ -51,10 +63,20 @@
       font-size: 15px;
       color: var(--muted);
       text-decoration: none;
-      margin-bottom: 40px;
       transition: color 0.15s ease;
     }
     .back:hover { color: var(--text); }
+
+    /* readable text measure inside a wide container */
+    .page .wrap > h1,
+    .page .wrap > h2,
+    .page .wrap > h3,
+    .page .wrap > p,
+    .page .wrap > ul,
+    .page .wrap > ol,
+    .page .wrap > .callout,
+    .page .wrap > details,
+    .page .wrap > .cards { max-width: var(--measure); }
 
     h1 {
       font-size: 38px;
@@ -207,7 +229,7 @@
       justify-content: center;
       padding: 24px;
       cursor: zoom-out;
-      overflow: auto;
+      overflow: hidden;
     }
     .lightbox.open { display: flex; }
     .lightbox img {
@@ -217,8 +239,8 @@
       cursor: zoom-in;
       border-radius: 6px;
     }
-    .lightbox.zoomed { align-items: flex-start; justify-content: flex-start; }
-    .lightbox.zoomed img { max-width: none; max-height: none; width: auto; cursor: zoom-out; }
+    .lightbox img { transition: transform 0.25s ease; }
+    .lightbox.zoomed img { transform: scale(1.8); cursor: zoom-out; }
     .lightbox-close {
       position: fixed;
       top: 14px;
@@ -243,10 +265,12 @@
   </style>
 </head>
 <body>
+  <div class="topnav">
+    <div class="wrap"><a class="back" href="../">← На главную</a></div>
+  </div>
+
   <article class="page">
     <div class="wrap">
-      <a class="back" href="../">← На главную</a>
-
       <h1>Mendi — приложение для отслеживания приема лекарств</h1>
 
       <div class="video">
@@ -480,6 +504,8 @@
         <li><strong>Знакомый паттерн.</strong> Дизайн «сторис» не нужно объяснять — пользователи уже знают, как с ним работать.</li>
       </ul>
       <figure><img class="full" src="../images/Mendi_09.png" alt="Сценарий управления профилями подопечных" /></figure>
+
+      <p>Проект Mendi стал для меня важным этапом в развитии как продуктового дизайнера. Я прошла полный путь: от глубокого анализа, интервью и гипотез до прототипа. Я убедилась, что даже в медицинской теме интерфейс может быть тёплым и человечным. Главное — не перегружать пользователя, давать ему поддержку и гибкость.</p>
     </div>
   </article>
 
