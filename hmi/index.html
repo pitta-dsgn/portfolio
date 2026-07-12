@@ -17,8 +17,8 @@
       --muted: #6B6B70;
       --border: #ECECEC;
       --hover: #F5F5F4;
-      --max: 1440px;
-      --measure: 860px;
+      --max: 1000px;
+      --measure: 100%;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,10 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      background: #fff;
     }
     .topnav .wrap { padding-top: 14px; padding-bottom: 14px; }
     .back {
@@ -301,6 +298,30 @@
   </article>
 
   <script>
+    /* Типографика: привязываем короткие предлоги и союзы к следующему слову
+       неразрывным пробелом, чтобы они не «висели» в конце строки. */
+    (function () {
+      var re = /(^|[\s(«„"'—–-])([A-Za-zА-Яа-яЁё]{1,2}|как|что|чтобы|это|или|для|при|под|над|про|без|чем|так|уже|где|там|его|её|их|они|она|оно|же|бы|ли)(\s)/g;
+      function fix(s) {
+        var prev;
+        do { prev = s; s = s.replace(re, '$1$2\u00A0'); } while (s !== prev);
+        return s;
+      }
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (n) {
+          var t = n.parentNode && n.parentNode.nodeName;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEXTAREA') return NodeFilter.FILTER_REJECT;
+          return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      var nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var v = fix(node.nodeValue);
+        if (v !== node.nodeValue) node.nodeValue = v;
+      });
+    })();
+
     (function () {
       var imgs = document.querySelectorAll('.page img.full');
       if (!imgs.length) return;
