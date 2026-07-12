@@ -123,12 +123,21 @@
       border-radius: 10px;
       cursor: zoom-in;
     }
-    .page video.full {
+    /* responsive embedded video */
+    .video {
+      position: relative;
       width: 100%;
-      height: auto;
-      display: block;
+      padding-top: 55.79%;
       border-radius: 10px;
+      overflow: hidden;
       background: #000;
+    }
+    .video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
 
     /* lightbox */
@@ -279,7 +288,15 @@
         <li>Управлять краном в перчатках без ошибок</li>
       </ul>
 
-      <figure><video class="full" src="../images/HMI_Video.mp4" controls playsinline preload="metadata"></video></figure>
+      <figure>
+        <div class="video">
+          <iframe
+            src="https://kinescope.io/embed/vvgrqAofqqbyzfd3bASBne"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+            frameborder="0"
+            allowfullscreen></iframe>
+        </div>
+      </figure>
     </div>
   </article>
 
