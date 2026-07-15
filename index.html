@@ -278,6 +278,40 @@
     .mini-grid .tile.r2 { aspect-ratio: 1280 / 960; }
     .mini-grid .tile.dark { background: #262626; }
 
+    /* ---------- About ---------- */
+    .about { padding: 20px 0 120px; }
+    .about-title {
+      font-size: clamp(26px, 3.6vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+      margin: 6px 0 18px;
+    }
+    .about p {
+      max-width: 720px;
+      margin: 14px 0;
+      font-size: 18px;
+      color: var(--text);
+    }
+    .about .video {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      padding-top: 56.25%;
+      margin: 24px 0 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+    .about .video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .about-links { justify-content: flex-start; margin-top: 40px; }
+
     /* ---------- Load animation ---------- */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
@@ -367,6 +401,30 @@
         <div class="tile r1"><img src="images/Zavod_preview_02_1.png" alt="Панель пульта дистанционного управления" /></div>
         <div class="tile r2 dark"><img src="images/Zavod_preview_01.png" alt="Панель пульта дистанционного управления" /></div>
         <div class="tile r2"><img src="images/Zavod_preview_03.png" alt="Панель пульта дистанционного управления" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap">
+      <div class="section-head">Обо мне</div>
+      <h2 class="about-title">Давайте познакомимся ближе!</h2>
+      <p>Я быстро обучаюсь, активная и командный игрок.</p>
+      <p>В свободное время люблю рисовать, а еще записываю и коллекционирую видео с птицами. Вот, например, горихвостка-чернушка:</p>
+
+      <div class="video">
+        <iframe
+          src="https://kinescope.io/embed/iYT3aVEmBGVLwBWBXCp72x"
+          allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+          frameborder="0"
+          allowfullscreen
+          title="Горихвостка-чернушка"></iframe>
+      </div>
+
+      <div class="links about-links">
+        <a href="mailto:ekaterina.kotelok@yandex.ru">Email</a>
+        <a href="https://t.me/kotellocek" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="images/CV_Stojilkovic.pdf" download>CV</a>
       </div>
     </div>
   </section>
