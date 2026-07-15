@@ -11,14 +11,14 @@
   <meta property="og:site_name" content="Екатерина Стойилкович — портфолио" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:url" content="https://pitta-dsgn.github.io/portfolio/" />
-  <meta property="og:title" content="Екатерина Стойилкович — продуктовый дизайнер" />
+  <meta property="og:title" content="Продуктовый дизайнер" />
   <meta property="og:description" content="Продуктовый дизайнер с техническим бэкграундом. Проектирую мобильные приложения и сложные интерфейсы с нуля." />
   <meta property="og:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Екатерина Стойилкович — продуктовый дизайнер" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Екатерина Стойилкович — продуктовый дизайнер" />
+  <meta name="twitter:title" content="Продуктовый дизайнер" />
   <meta name="twitter:description" content="Продуктовый дизайнер с техническим бэкграундом. Проектирую мобильные приложения и сложные интерфейсы с нуля." />
   <meta name="twitter:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
 
@@ -259,11 +259,20 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
-    .mini-grid img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .mini-grid .tile {
+      aspect-ratio: 616 / 900;
+      background: #262626;
       border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mini-grid .tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     /* ---------- Load animation ---------- */
@@ -351,10 +360,10 @@
 
       <p class="mini-note">Дизайн небольших панелей для пультов дистанционного управления</p>
       <div class="mini-grid">
-        <img src="images/Zavod_preview_01.png" alt="Панель пульта дистанционного управления" />
-        <img src="images/Zavod_preview_03.png" alt="Панель пульта дистанционного управления" />
-        <img src="images/Zavod_preview_02.png" alt="Панель пульта дистанционного управления" />
-        <img src="images/Zavod_preview_02_1.png" alt="Панель пульта дистанционного управления" />
+        <div class="tile"><img src="images/Zavod_preview_02.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile"><img src="images/Zavod_preview_02_1.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile"><img src="images/Zavod_preview_01.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile"><img src="images/Zavod_preview_03.png" alt="Панель пульта дистанционного управления" /></div>
       </div>
     </div>
   </section>
