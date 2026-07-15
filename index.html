@@ -12,14 +12,12 @@
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:url" content="https://pitta-dsgn.github.io/portfolio/" />
   <meta property="og:title" content="Продуктовый дизайнер" />
-  <meta property="og:description" content="Продуктовый дизайнер с техническим бэкграундом. Проектирую мобильные приложения и сложные интерфейсы с нуля." />
   <meta property="og:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Екатерина Стойилкович — продуктовый дизайнер" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Продуктовый дизайнер" />
-  <meta name="twitter:description" content="Продуктовый дизайнер с техническим бэкграундом. Проектирую мобильные приложения и сложные интерфейсы с нуля." />
   <meta name="twitter:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
 
   <link rel="icon" type="image/png" href="images/profile.png" />
@@ -260,8 +258,6 @@
       gap: 16px;
     }
     .mini-grid .tile {
-      aspect-ratio: 616 / 900;
-      background: #262626;
       border-radius: 12px;
       overflow: hidden;
       display: flex;
@@ -274,6 +270,11 @@
       object-fit: contain;
       display: block;
     }
+    /* top row: portraits (02, 02_1) keep their own proportion */
+    .mini-grid .tile.r1 { aspect-ratio: 616 / 900; }
+    /* bottom row: 01 and 03 share one height (03's 4:3 proportion) */
+    .mini-grid .tile.r2 { aspect-ratio: 1280 / 960; }
+    .mini-grid .tile.dark { background: #262626; }
 
     /* ---------- Load animation ---------- */
     @keyframes fadeUp {
@@ -360,10 +361,10 @@
 
       <p class="mini-note">Дизайн небольших панелей для пультов дистанционного управления</p>
       <div class="mini-grid">
-        <div class="tile"><img src="images/Zavod_preview_02.png" alt="Панель пульта дистанционного управления" /></div>
-        <div class="tile"><img src="images/Zavod_preview_02_1.png" alt="Панель пульта дистанционного управления" /></div>
-        <div class="tile"><img src="images/Zavod_preview_01.png" alt="Панель пульта дистанционного управления" /></div>
-        <div class="tile"><img src="images/Zavod_preview_03.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile r1"><img src="images/Zavod_preview_02.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile r1"><img src="images/Zavod_preview_02_1.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile r2 dark"><img src="images/Zavod_preview_01.png" alt="Панель пульта дистанционного управления" /></div>
+        <div class="tile r2"><img src="images/Zavod_preview_03.png" alt="Панель пульта дистанционного управления" /></div>
       </div>
     </div>
   </section>
