@@ -6,6 +6,9 @@
   <title>Интерфейс для HMI панели крана-манипулятора</title>
   <meta name="description" content="Кейс: дизайн интерфейса HMI панели крана-манипулятора в Siemens TIA Portal. Безопасность оператора, структура экранов, светлая и тёмная темы, UI-Kit." />
 
+  <link rel="icon" type="image/png" href="../images/profile.png" />
+  <link rel="apple-touch-icon" href="../images/profile.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -120,6 +123,13 @@
       border-radius: 10px;
       cursor: zoom-in;
     }
+    /* keep natural size, don't stretch */
+    .page img.natural {
+      width: auto;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
     /* responsive embedded video */
     .video {
       position: relative;
@@ -191,6 +201,8 @@
     <div class="wrap">
       <h1>Интерфейс для HMI панели крана-манипулятора</h1>
 
+      <figure><img class="full natural" src="../images/HMI_01.png" alt="HMI панель крана-манипулятора" /></figure>
+
       <div class="callout">
         <p><strong>Проблема:</strong> Промышленный интерфейс имеет большое значение для безопасности людей. Оператор в аварийной ситуации должен быстро оценить все важные параметры и предпринять правильные действия по устранению неисправности, иначе может случиться травма или поломка оборудования.</p>
         <p><strong>Задача:</strong> Сделать интерфейс безопасным и понятным для операторов, работающих в стрессовых условиях.</p>
@@ -203,8 +215,6 @@
         <li>Управление сенсорным экраном в перчатках (крупные кнопки)</li>
         <li>Минимализм и чёткая структура</li>
       </ul>
-
-      <figure><img class="full" src="../images/HMI_01.png" alt="HMI панель крана-манипулятора" /></figure>
 
       <!-- ============ Процесс и проектные решения ============ -->
       <h2>Процесс и проектные решения</h2>

@@ -6,6 +6,9 @@
   <title>Екатерина Стойилкович — UX/UI-дизайнер</title>
   <meta name="description" content="Портфолио Екатерины Стойилкович — UX/UI-дизайнер с техническим бэкграундом. Мобильные приложения и сложные интерфейсы с нуля." />
 
+  <link rel="icon" type="image/png" href="images/profile.png" />
+  <link rel="apple-touch-icon" href="images/profile.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -229,6 +232,24 @@
     }
     .project:hover .arrow { transform: translate(3px, -3px); color: var(--text); }
 
+    /* small extra panels (no case study) */
+    .mini-note {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 18px 0 14px;
+    }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .mini-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
     /* ---------- Load animation ---------- */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(14px); }
@@ -310,6 +331,13 @@
           <span class="arrow">↗</span>
         </div>
       </a>
+
+      <p class="mini-note">Ещё несколько панелей, спроектированных на заводе</p>
+      <div class="mini-grid">
+        <img src="images/Zavod_preview_01.png" alt="Панель Троицкого кранового завода" />
+        <img src="images/Zavod_preview_02.png" alt="Панель Троицкого кранового завода" />
+        <img src="images/Zavod_preview_03.png" alt="Панель Троицкого кранового завода" />
+      </div>
     </div>
   </section>
 
