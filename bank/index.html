@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Редизайн накопительной системы МТС Банка</title>
+  <meta name="description" content="UX-кейс: аудит и редизайн накопительной системы МТС Банка. UX-тестирование, бенчмаркинг, гипотезы и решения." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Екатерина Стойилкович — портфолио" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://pitta-dsgn.github.io/portfolio/bank/" />
+  <meta property="og:title" content="Редизайн накопительной системы МТС Банка" />
+  <meta property="og:description" content="UX-кейс: аудит, тестирование, бенчмаркинг, гипотезы и решения." />
+  <meta property="og:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Екатерина Стойилкович — продуктовый дизайнер" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Редизайн накопительной системы МТС Банка" />
+  <meta name="twitter:description" content="UX-кейс: аудит, тестирование, бенчмаркинг, гипотезы и решения." />
+  <meta name="twitter:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
+
+  <link rel="icon" type="image/png" href="../images/profile.png" />
+  <link rel="apple-touch-icon" href="../images/profile.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #111111;
+      --muted: #6B6B70;
+      --border: #ECECEC;
+      --hover: #F5F5F4;
+      --max: 1000px;
+      --measure: 100%;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .page { padding: 24px 0 100px; }
+
+    /* sticky back bar */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+    }
+    .topnav .wrap { padding-top: 14px; padding-bottom: 14px; }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .back:hover { color: var(--text); }
+
+    /* readable text measure inside a wide container */
+    .page .wrap > h1,
+    .page .wrap > h2,
+    .page .wrap > h3,
+    .page .wrap > p,
+    .page .wrap > ul,
+    .page .wrap > ol,
+    .page .wrap > .callout,
+    .page .wrap > details { max-width: var(--measure); }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin: 64px 0 8px;
+    }
+
+    p { margin: 14px 0; }
+
+    ul, ol { margin: 14px 0 14px 22px; }
+    li { margin: 6px 0; }
+
+    /* images */
+    figure { margin: 28px 0; }
+    .page img.full {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      cursor: zoom-in;
+    }
+
+    /* callout */
+    .callout {
+      background: var(--hover);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin: 24px 0;
+    }
+    .callout p { margin: 8px 0; }
+    .callout p:first-child { margin-top: 0; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* accordion */
+    details {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px 18px;
+      margin: 20px 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 14px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    details[open] summary::after { content: "–"; }
+    .guide { padding-bottom: 12px; }
+    .guide p { margin: 10px 0; }
+    .guide .gsec {
+      font-weight: 700;
+      font-size: 17px;
+      margin-top: 22px;
+    }
+    .guide ul { margin-top: 4px; }
+    .guide li { color: var(--muted); }
+
+    /* numbered step (text + image) */
+    .step { margin: 26px 0 0; }
+
+    /* lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+      overflow: hidden;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      cursor: zoom-in;
+      border-radius: 6px;
+      transition: transform 0.25s ease;
+    }
+    .lightbox.zoomed img { transform: scale(1.8); cursor: zoom-out; }
+    .lightbox-close {
+      position: fixed;
+      top: 14px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      font-size: 30px;
+      line-height: 1;
+      color: #fff;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      h1 { font-size: 29px; }
+      h2 { font-size: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="wrap"><a class="back" href="../">← На главную</a></div>
+  </div>
+
+  <article class="page">
+    <div class="wrap">
+      <h1>Редизайн накопительной системы МТС Банка</h1>
+
+      <figure><img class="full" src="../images/Bank_preview.png" alt="Редизайн накопительной системы МТС Банка" /></figure>
+
+      <!-- ============ Погружение в проблему ============ -->
+      <h2>Погружение в проблему</h2>
+      <p>В МТС Банке можно хранить и копить деньги на вкладе или накопительном счете. Реальные отзывы об использовании системы накопления достаточно негативные, я решила разобраться в чем может быть истинная причина.</p>
+      <p>Я прошла сценарий открытия накопительного счёта, решила сфокусироваться и проработать именно его — потому что возникло достаточно большое количество сложностей:</p>
+      <ul>
+        <li>Тяжело найти как открыть счет</li>
+        <li>Неочевидна выгода разных продуктов</li>
+        <li>Сложные условия вызывают недоверие</li>
+      </ul>
+      <p>Если проблематика подтвердится, я смогу доработать сценарии, чтобы обеспечить выгоду как для пользователя, так и для бизнеса.</p>
+      <p>Банк сможет эффективно продвигать свои продукты, повысит уровень доверия и лояльности, если клиент будет видеть выгоду в использовании систем накопления, позитивно о них отзываться и рекомендовать знакомым.</p>
+
+      <figure><img class="full" src="../images/Bank_1.png" alt="Погружение в проблему — МТС Банк" /></figure>
+
+      <!-- ============ Гипотезы ============ -->
+      <h2>Гипотезы</h2>
+      <ul>
+        <li><strong>Сложный путь.</strong> Продукт закопан глубоко в витрине. Нужно потратить много времени, чтобы его найти.</li>
+        <li><strong>Неочевидность выгоды.</strong> Описания на карточках дублируются. Пользователь не может быстро понять, какой счёт лучше выбрать для себя.</li>
+        <li><strong>Описание не ориентировано на пользователя.</strong> Пункты в описании счёта чрезмерно объемные и не каждый понятен.</li>
+      </ul>
+
+      <!-- ============ UX-тестирование оригинала ============ -->
+      <h2>UX-тестирование оригинала</h2>
+      <div class="callout">
+        <p><strong>Задача для пользователей:</strong> Ты хочешь накопить на отпуск и прямо сейчас у тебя есть какая-то сумма денег. Тебе выгодно положить ее под процент. Но в любой момент времени тебе может понадобиться снять часть этих денег. Открой подходящий под твою задачу продукт банка. После открытия: найди свой счет.</p>
+      </div>
+      <p><strong>Результаты:</strong> Все три респондента путались в приложении. Двое застряли на пополнении счёта (не поняли переключатель). Один не смог найти накопительный счёт. Респонденты чувствовали раздражение, непонимание, гнев и испытывали желание закрыть приложение.</p>
+
+      <details>
+        <summary>Гайд интервью</summary>
+        <div class="guide">
+          <p class="gsec">Валидационные вопросы</p>
+          <ul>
+            <li>Как ты обычно копишь деньги? Используешь для этого банковские приложения?</li>
+            <li>Какими банками пользуешься?</li>
+            <li>Что для тебя самое важное при выборе накопительного счета?</li>
+            <li>Было ли такое что ты открывал накопительный счет, а потом жалел?</li>
+          </ul>
+
+          <p class="gsec">Тестирование</p>
+          <p>Предупреждаю, что если возникнут сложности это не вина пользователя, а интерфейса. Прошу респондента вести себя как обычно, не думая о том, что это тестирование. Также прошу комментировать свои действия, трудности, которые возникают, отмечать моменты, которые нравятся.</p>
+
+          <p class="gsec">Опрос после тестирования</p>
+          <ul>
+            <li>Опиши, что ты делал</li>
+            <li>Все ли было понятно?</li>
+            <li>Расскажите, что вас смутило или раздражало в процессе</li>
+            <li>Как ты понял, что выбрал подходящий счет?</li>
+            <li>Какая информация помогла выбрать счет?</li>
+            <li>Если бы ты мог что-то изменить в этом процессе, чтобы это было?</li>
+            <li>Что ты чувствовал на разных этапах: было спокойно или тревожно?</li>
+          </ul>
+        </div>
+      </details>
+
+      <figure><img class="full" src="../images/Bank_2.png" alt="UX-тестирование оригинала" /></figure>
+
+      <!-- ============ Какие были сложности? ============ -->
+      <h2>Какие были сложности?</h2>
+
+      <p class="step"><strong>1.</strong> Респонденты нажимали на карточку «Сбор денег». Это не система накопления, а способ организовать сбор с компании людей: например, на подарок другу или ремонт в подъезде. Я переименовала раздел.</p>
+      <figure><img class="full" src="../images/Bank_3.png" alt="Сложность 1 — раздел «Сбор денег»" /></figure>
+
+      <p class="step"><strong>2. Трудный выбор.</strong> Пользователям было сложно понять отличия счетов, также были жалобы на мелкий текст. После тестирования они не смогли объяснить как выбрали тот или иной счет. Я изменила карточки.</p>
+      <figure><img class="full" src="../images/Bank_4.png" alt="Сложность 2 — выбор счёта" /></figure>
+
+      <p class="step"><strong>3. Витрина оказалась сложной.</strong> Посмотреть все доступные для открытия счета возможно только через витрину, но люди её игнорировали. А когда все же переходили в нее, долго пытались найти вкладку счета.</p>
+      <figure><img class="full" src="../images/Bank_5.png" alt="Сложность 3 — витрина" /></figure>
+
+      <p class="step"><strong>4. Пополнение счета — камень преткновения.</strong> Респонденты нажимали переключатель на автомате, думая, что он обязателен. И застревали, потому что кнопка «Открыть счёт» становилась неактивной.</p>
+      <figure><img class="full" src="../images/Bank_6.png" alt="Сложность 4 — пополнение счёта" /></figure>
+
+      <p class="step"><strong>5.</strong> После открытия счёта респонденты не могли его найти. Есть подсказка, о том что счёт отобразится через несколько минут, но люди не обратили на это внимания. Они пытались найти счёт на главной, затем в истории и витрине.</p>
+      <figure><img class="full" src="../images/Bank_7.png" alt="Сложность 5 — поиск счёта после открытия" /></figure>
+
+      <!-- ============ Бенчмаркинг ============ -->
+      <h2>Бенчмаркинг</h2>
+      <p>Я проанализировала решения конкурентов: Т-Банк, Сбер, ВТБ, Альфа-Банк и Озон Банк.</p>
+      <p><strong>Что я взяла в работу:</strong> Т-Банк — понятные карточки продуктов с главной выгодой на виду; Сбер и ВТБ — чёткое разделение вкладов и счетов; Альфа и Озон — удобная витрина без горизонтального скролла.</p>
+      <p><strong>Вывод:</strong> Конкуренты уже решили часть проблем, которые я увидела в МТС Банке. Я взяла их лучшие практики и адаптировала под свой сценарий.</p>
+
+      <figure><img class="full" src="../images/Bank_8.png" alt="Бенчмаркинг конкурентов" /></figure>
+
+      <!-- ============ Решения ============ -->
+      <h2>Решения</h2>
+
+      <p class="step"><strong>1. Переработка витрины.</strong> Переименовала витрину в «Продукты», это название чаще других встречается в банках-конкурентах. Убрала горизонтальный скроллинг, сделала вертикальный. Добавила функцию поиска. Объединила вклады и счета в один раздел «Накопления».</p>
+      <figure><img class="full" src="../images/Bank_9.png" alt="Решение 1 — переработка витрины" /></figure>
+
+      <p class="step"><strong>2. UX-редактура текста.</strong> Изменила описание накопительных счетов, чтобы пользователь мог оценить выгоду для себя, а не терялся, пытаясь найти разницу.</p>
+      <figure><img class="full" src="../images/Bank_10.png" alt="Решение 2 — UX-редактура текста" /></figure>
+
+      <p class="step"><strong>3. Модернизация сценария открытия счёта.</strong> Добавила выбор цели, чтобы сделать накопительные счета более персонализированными для каждого человека. Пользователь указывает сумму и срок, а банк даёт подсказку — план пополнения. Этот пункт можно пропустить, выбрав вариант «Без цели».</p>
+      <figure><img class="full" src="../images/Bank_11.png" alt="Решение 3 — сценарий открытия счёта" /></figure>
+
+      <p class="step"><strong>4. Изменение в сценарии пополнения счёта.</strong> Убрала переключатель, который путал людей, вместо него сделала понятный выбор с помощью radio button.</p>
+      <figure><img class="full" src="../images/Bank_12.png" alt="Решение 4 — сценарий пополнения счёта" /></figure>
+
+      <p class="step"><strong>5. Отображение счёта после его открытия.</strong> Усилила подсказку, о том что счёт появится на главной странице через несколько минут, добавив уведомление об этом. Добавила иконку для счёта, которую можно изменить. Название теперь — выбранная цель.</p>
+      <figure><img class="full" src="../images/Bank_13.png" alt="Решение 5 — отображение счёта" /></figure>
+
+      <!-- ============ UX-тестирование новой версии ============ -->
+      <h2>UX-тестирование новой версии</h2>
+      <p>Провела тест нового прототипа на 3 респондентах. Все успешно справились с поставленной задачей, на этот раз я ее более конкретизировала.</p>
+      <div class="callout">
+        <p><strong>Задача:</strong> Ты хочешь накопить на отпуск 100 000 рублей до 1 января. Прямо сейчас у тебя есть какая-то сумма денег наличными. Тебе выгодно положить ее в банк под процент. Но в любой момент времени тебе может понадобиться снять часть этих денег. Открой подходящую под твою задачу систему накопления. После открытия: найди свой счет.</p>
+      </div>
+      <p>Обратная связь только положительная: все было понятно, при прохождении сценария пользователи чувствовали себя спокойно, интерфейс вызывал доверие.</p>
+
+      <figure><img class="full" src="../images/Bank_14.png" alt="UX-тестирование новой версии" /></figure>
+
+      <!-- ============ Одно но ============ -->
+      <h2>Одно но</h2>
+      <p>Все респонденты проигнорировали уведомление, о том что счёт появится через несколько минут. Сказали, что даже не заметили его. Проблема осталась: люди долго не могли найти счёт и не понимали где он появится.</p>
+      <p>Я убрала уведомление и заменила его на появление карточки со счетами. После этого снова провела тестирование уже на двух респондентах. Сложностей не возникло! Последняя доработка помогла исправить оставшуюся проблему.</p>
+
+      <figure><img class="full" src="../images/Bank_15.png" alt="Финальная доработка" /></figure>
+    </div>
+  </article>
+
+  <script>
+    /* Типографика: привязываем короткие предлоги и союзы к следующему слову
+       неразрывным пробелом, чтобы они не «висели» в конце строки. */
+    (function () {
+      var re = /(^|[\s(«„"'—–-])([A-Za-zА-Яа-яЁё]{1,2}|как|что|чтобы|это|или|для|при|под|над|про|без|чем|так|уже|где|там|его|её|их|они|она|оно|же|бы|ли)(\s)/g;
+      function fix(s) {
+        var prev;
+        do { prev = s; s = s.replace(re, '$1$2\u00A0'); } while (s !== prev);
+        return s;
+      }
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (n) {
+          var t = n.parentNode && n.parentNode.nodeName;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEXTAREA') return NodeFilter.FILTER_REJECT;
+          return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      var nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var v = fix(node.nodeValue);
+        if (v !== node.nodeValue) node.nodeValue = v;
+      });
+    })();
+
+    (function () {
+      var imgs = document.querySelectorAll('.page img.full');
+      if (!imgs.length) return;
+      var lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.innerHTML = '<button class="lightbox-close" aria-label="Закрыть">×</button><img alt="" />';
+      document.body.appendChild(lb);
+      var lbImg = lb.querySelector('img');
+      var closeBtn = lb.querySelector('.lightbox-close');
+
+      function open(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        lb.classList.remove('zoomed');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open', 'zoomed');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      imgs.forEach(function (im) {
+        im.addEventListener('click', function () { open(im.currentSrc || im.src, im.alt); });
+      });
+      lbImg.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('zoomed'); });
+      closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+</body>
+</html>
