@@ -238,29 +238,70 @@
       color: var(--muted);
       margin: 46px 0 16px;
     }
-    .mini-grid {
+    /* proportions 304:304:366 wide; the right column stacks 366×274 over
+       366×183; both tall panels (304×471) span the full height so the
+       bottoms line up */
+    .panels {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      grid-template-columns: 304fr 304fr 366fr;
+      column-gap: 12px;
+      row-gap: 14px;
     }
-    .mini-grid .tile {
-      border-radius: 14px;
+    .panels .panel {
+      border-radius: 16px;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-height: 0;
+      background: var(--hover);
     }
-    .mini-grid .tile img {
+    .panels .panel img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
+      cursor: zoom-in;
     }
-    /* top row: portraits (02, 02_1) keep their own proportion */
-    .mini-grid .tile.r1 { aspect-ratio: 616 / 900; }
-    /* bottom row: 01 and 03 share one height (03's 4:3 proportion) */
-    .mini-grid .tile.r2 { aspect-ratio: 1280 / 960; }
-    .mini-grid .tile.dark { background: #262626; }
+    .panels .p1 { grid-column: 1; grid-row: 1 / span 2; }
+    .panels .p2 { grid-column: 2; grid-row: 1 / span 2; }
+    .panels .p3 { grid-column: 3; grid-row: 1; aspect-ratio: 366 / 274; }
+    .panels .p4 { grid-column: 3; grid-row: 2; aspect-ratio: 366 / 183; }
+
+    /* lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+      overflow: hidden;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      cursor: zoom-in;
+      border-radius: 6px;
+      transition: transform 0.25s ease;
+    }
+    .lightbox.zoomed img { transform: scale(1.8); cursor: zoom-out; }
+    .lightbox-close {
+      position: fixed;
+      top: 14px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      font-size: 30px;
+      line-height: 1;
+      color: #fff;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      z-index: 1001;
+    }
 
     /* ---------- About ---------- */
     .about { padding: 20px 0 120px; }
@@ -324,7 +365,9 @@
       .links { gap: 10px; }
       .btn { padding: 12px 22px; font-size: 14px; }
       .project { margin-bottom: 18px; }
-      .mini-grid { grid-template-columns: 1fr; }
+      .panels { grid-template-columns: 1fr; }
+      .panels .panel { grid-column: 1 !important; grid-row: auto !important; }
+      .panels .p1, .panels .p2 { aspect-ratio: 304 / 471; }
     }
   </style>
 </head>
@@ -388,11 +431,11 @@
       </a>
 
       <p class="mini-note">Дизайн небольших панелей для пультов дистанционного управления</p>
-      <div class="mini-grid">
-        <div class="tile r1"><img src="images/Zavod_preview_02.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
-        <div class="tile r1"><img src="images/Zavod_preview_02_1.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
-        <div class="tile r2 dark"><img src="images/Zavod_preview_01.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
-        <div class="tile r2"><img src="images/Zavod_preview_03.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
+      <div class="panels">
+        <div class="panel p1"><img src="images/Zavod_preview_02.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
+        <div class="panel p2"><img src="images/Zavod_preview_02_1.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
+        <div class="panel p3"><img src="images/Zavod_preview_03.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
+        <div class="panel p4"><img src="images/Zavod_preview_01.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
       </div>
     </div>
   </section>
@@ -446,6 +489,39 @@
         var v = fix(node.nodeValue);
         if (v !== node.nodeValue) node.nodeValue = v;
       });
+    })();
+
+    /* Клик по панели открывает изображение в полноэкранном режиме. */
+    (function () {
+      var imgs = document.querySelectorAll('.panels img');
+      if (!imgs.length) return;
+      var lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.innerHTML = '<button class="lightbox-close" aria-label="Закрыть">×</button><img alt="" />';
+      document.body.appendChild(lb);
+      var lbImg = lb.querySelector('img');
+      var closeBtn = lb.querySelector('.lightbox-close');
+
+      function open(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        lb.classList.remove('zoomed');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open', 'zoomed');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      imgs.forEach(function (im) {
+        im.addEventListener('click', function () { open(im.currentSrc || im.src, im.alt); });
+      });
+      lbImg.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('zoomed'); });
+      closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     })();
   </script>
 </body>
