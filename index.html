@@ -40,12 +40,9 @@
       --max: 1000px;
       --measure: 800px;
 
-      /* holographic palette */
-      --blue: #6DBEFF;
-      --purple: #BF6DFF;
       --pink: #FF6DBE;
+      --blue: #6DBEFF;
       --mint: #56F5AE;
-      --sun: #FFE96D;
 
       --mono: 'Victor Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
@@ -79,134 +76,30 @@
     /* every text block keeps a comfortable 800px measure, images stay full width */
     .measure { max-width: var(--measure); }
 
-    /* ---------- Holographic helpers ---------- */
-    @keyframes holo-spin { to { transform: rotate(1turn); } }
-    @keyframes holo-slide { to { background-position: 300% 50%; } }
-    @keyframes holo-sweep {
-      0%   { background-position: -90% 50%, -30% 50%; }
-      100% { background-position: 190% 50%, 130% 50%; }
-    }
-    @keyframes foil-drift {
-      0%   { background-position: 0% 50%, 0 0; }
-      100% { background-position: 250% 50%, 90px 60px; }
-    }
-    @keyframes glitter {
-      0%, 100% { opacity: 0.35; }
-      50%      { opacity: 0.9; }
-    }
-
-    .holo-text {
-      background: linear-gradient(100deg, var(--blue), var(--purple), var(--pink), var(--sun), var(--mint), var(--blue));
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: holo-slide 9s linear infinite;
-    }
-
     /* ---------- Hero ---------- */
     .hero { padding: 72px 0 24px; }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
+      grid-template-columns: 268px minmax(0, 1fr);
       align-items: center;
       gap: 40px;
     }
 
-    /* --- profile photo as a holographic sticker --- */
-    .sticker {
-      position: relative;
-      width: 220px;
-      aspect-ratio: 1;
-      flex: none;
-      border: 6px solid #fff;
-      padding: 9px;
-      border-radius: 38px;
+    /* profile photo pokes 25px out of the grid to the left */
+    .photo {
+      width: 268px;
+      height: 280px;
+      margin-left: -25px;
+      border-radius: 24px;
       overflow: hidden;
-      background: #fff;
-      box-shadow:
-        0 22px 44px -26px rgba(191, 109, 255, 0.85),
-        0 6px 18px -12px rgba(109, 190, 255, 0.6),
-        0 0 0 1px rgba(16, 16, 16, 0.06);
-      transform: rotate(-2.5deg);
-      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
-    }
-    .sticker:hover { transform: rotate(0deg) scale(1.02); }
-
-    /* rotating holographic foil ring */
-    .sticker .ring {
-      position: absolute;
-      inset: -60%;
-      background: conic-gradient(from 0deg, var(--blue), var(--purple), var(--pink), var(--sun), var(--mint), var(--blue));
-      filter: saturate(125%);
-      animation: holo-spin 9s linear infinite;
-    }
-
-    .sticker .photo {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      border-radius: 27px;
-      overflow: hidden;
-      isolation: isolate;
       background: var(--hover);
-      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.85);
     }
-    .sticker .photo img {
+    .photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    /* translucent foil sheen over the photo */
-    .sticker .foil {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      opacity: 0.6;
-      background:
-        linear-gradient(112deg,
-          rgba(255, 255, 255, 0) 24%,
-          rgba(255, 255, 255, 0.55) 36%,
-          rgba(109, 190, 255, 0.5) 46%,
-          rgba(191, 109, 255, 0.45) 55%,
-          rgba(255, 109, 190, 0.45) 64%,
-          rgba(86, 245, 174, 0.4) 72%,
-          rgba(255, 255, 255, 0) 86%),
-        repeating-linear-gradient(68deg,
-          rgba(255, 255, 255, 0.16) 0 3px,
-          rgba(255, 255, 255, 0) 3px 10px);
-      background-size: 250% 100%, auto;
-      animation: foil-drift 11s linear infinite;
-      transition: opacity 0.45s ease;
-    }
-    .sticker:hover .foil { opacity: 0.8; }
-
-    /* glitter specks */
-    .sticker .glitter {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      animation: glitter 3.6s ease-in-out infinite;
-      background-repeat: no-repeat;
-      background-image:
-        radial-gradient(circle at 14% 21%, rgba(255,255,255,0.95) 0 1.1px, rgba(255,255,255,0) 2.2px),
-        radial-gradient(circle at 32% 9%,  rgba(255,255,255,0.85) 0 1.4px, rgba(255,255,255,0) 2.6px),
-        radial-gradient(circle at 68% 15%, rgba(255,255,255,0.9)  0 1px,   rgba(255,255,255,0) 2px),
-        radial-gradient(circle at 87% 30%, rgba(255,255,255,0.8)  0 1.5px, rgba(255,255,255,0) 2.8px),
-        radial-gradient(circle at 8%  56%, rgba(255,255,255,0.75) 0 1.2px, rgba(255,255,255,0) 2.4px),
-        radial-gradient(circle at 45% 44%, rgba(255,255,255,0.7)  0 1px,   rgba(255,255,255,0) 2px),
-        radial-gradient(circle at 76% 60%, rgba(255,255,255,0.9)  0 1.3px, rgba(255,255,255,0) 2.6px),
-        radial-gradient(circle at 22% 78%, rgba(255,255,255,0.85) 0 1.4px, rgba(255,255,255,0) 2.7px),
-        radial-gradient(circle at 55% 88%, rgba(255,255,255,0.8)  0 1.1px, rgba(255,255,255,0) 2.2px),
-        radial-gradient(circle at 92% 82%, rgba(255,255,255,0.9)  0 1.2px, rgba(255,255,255,0) 2.4px),
-        radial-gradient(circle at 38% 66%, rgba(255,255,255,0.65) 0 0.9px, rgba(255,255,255,0) 1.8px),
-        radial-gradient(circle at 63% 33%, rgba(255,255,255,0.7)  0 1px,   rgba(255,255,255,0) 2px);
     }
 
     /* --- hero copy --- */
@@ -218,6 +111,7 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      color: var(--muted);
       margin-bottom: 14px;
     }
     .kicker .sep { padding: 0 2px; }
@@ -239,7 +133,7 @@
       font-weight: 500;
     }
 
-    /* ---------- Holographic buttons ---------- */
+    /* ---------- Buttons ---------- */
     .links {
       display: flex;
       flex-wrap: wrap;
@@ -255,90 +149,36 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 26px;
+      padding: 13px 28px;
       border-radius: 999px;
-      border: 1.5px solid var(--ink);
       background: var(--btn);
       color: var(--ink);
       font-family: var(--mono);
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.02em;
-      box-shadow: 0 4px 0 0 var(--ink);
-      transition:
-        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-        background-color 0.35s ease;
+      transition: transform 0.3s ease;
     }
     .btn-mail { --btn: #FF6DBE; }
     .btn-tg   { --btn: #6DBEFF; }
     .btn-cv   { --btn: #56F5AE; }
 
-    /* layer 1 — slowly rotating multicolour foil */
-    .btn::before {
-      content: "";
-      position: absolute;
-      inset: -70%;
-      z-index: -2;
-      background: conic-gradient(from 0deg, var(--blue), var(--purple), var(--pink), var(--sun), var(--mint), var(--blue));
-      filter: saturate(135%) blur(5px);
-      opacity: 0;
-      animation: holo-spin 4.5s linear infinite;
-      animation-play-state: paused;
-      transition: opacity 0.4s ease, filter 0.4s ease;
-    }
-    /* layer 2 — sweeping highlight + fine foil striations */
+    /* holo_texture.png laid over the button — Figma «overlay», прозрачность 80% */
     .btn::after {
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(100deg,
-          rgba(255, 255, 255, 0) 34%,
-          rgba(255, 255, 255, 0.9) 48%,
-          rgba(255, 255, 255, 0) 62%),
-        repeating-linear-gradient(76deg,
-          rgba(255, 255, 255, 0.3) 0 2px,
-          rgba(255, 255, 255, 0) 2px 7px);
-      background-size: 240% 100%, 200% 100%;
-      background-position: -90% 50%, -30% 50%;
-      opacity: 0;
-      animation: holo-sweep 2.8s linear infinite;
-      animation-play-state: paused;
-      transition: opacity 0.4s ease;
+      background-image: url("images/holo_texture.png");
+      background-size: cover;
+      background-position: center;
+      mix-blend-mode: overlay;
+      opacity: 0.8;
+      pointer-events: none;
     }
 
     .btn:hover,
-    .btn:focus-visible {
-      transform: translateY(-3px);
-      box-shadow: 0 7px 0 0 var(--ink);
-      outline: none;
-    }
-    .btn:hover::before,
-    .btn:focus-visible::before {
-      opacity: 0.95;
-      animation-play-state: running;
-    }
-    .btn:hover::after,
-    .btn:focus-visible::after {
-      opacity: 0.75;
-      animation-play-state: running;
-    }
-
-    .btn:active {
-      transform: translateY(2px) scale(0.985);
-      box-shadow: 0 1px 0 0 var(--ink);
-    }
-    .btn:active::before {
-      opacity: 1;
-      filter: saturate(210%) contrast(115%) blur(2px);
-      animation-duration: 1.4s;
-    }
-    .btn:active::after {
-      opacity: 1;
-      animation-duration: 0.9s;
-    }
+    .btn:focus-visible { transform: translateY(-2px); outline: none; }
+    .btn:active { transform: translateY(1px); }
 
     /* ---------- Projects ---------- */
     .projects { padding: 84px 0 120px; }
@@ -349,6 +189,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.18em;
+      color: var(--muted);
       margin-bottom: 26px;
     }
 
@@ -369,138 +210,26 @@
       font-family: var(--mono);
       font-size: 13px;
       font-weight: 600;
-      color: var(--ink);
+      color: var(--muted);
       white-space: nowrap;
-      padding: 3px 12px;
-      border-radius: 999px;
-      border: 1.5px solid var(--ink);
-      background: linear-gradient(100deg, var(--blue), var(--purple), var(--pink), var(--mint), var(--blue));
-      background-size: 300% 100%;
-      animation: holo-slide 12s linear infinite;
     }
 
-    /* preview card: image only, bends slightly on hover */
+    /* preview card: image only, no hover animation */
     .project {
-      position: relative;
       display: block;
       width: 100%;
       aspect-ratio: 1000 / 600;
       margin-bottom: 26px;
-      perspective: 1200px;
-      perspective-origin: 50% 50%;
-    }
-
-    /* holographic glow behind the card */
-    .project .glow {
-      position: absolute;
-      inset: 12% 4%;
-      z-index: -1;
-      border-radius: 40px;
-      background: conic-gradient(from 0deg, var(--blue), var(--purple), var(--pink), var(--sun), var(--mint), var(--blue));
-      filter: blur(40px) saturate(150%);
-      opacity: 0;
-      transform: translateY(10px) scale(0.98);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-      pointer-events: none;
-    }
-    .project:hover .glow { opacity: 0.75; transform: translateY(30px) scale(1); }
-
-    /* flat preview — also the fallback when the slices are not built */
-    .project .shot {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
       border-radius: 22px;
+      overflow: hidden;
+      background: var(--hover);
     }
-    .project .shot img {
+    .project img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-
-    /* the preview is split into six vertical slices that follow a shallow arc:
-       the left and right edges tilt away while the middle comes forward */
-    .project .s {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      overflow: hidden;
-      isolation: isolate;
-      backface-visibility: hidden;
-      background: var(--hover);
-      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    /* every slice but the last overlaps its neighbour by 1px, so the folds
-       never show a hairline gap */
-    .project .s1 { left: 0;                  width: calc(100% / 6 + 1px); border-radius: 22px 0 0 22px; }
-    .project .s2 { left: calc(100% * 1 / 6); width: calc(100% / 6 + 1px); }
-    .project .s3 { left: calc(100% * 2 / 6); width: calc(100% / 6 + 1px); }
-    .project .s4 { left: calc(100% * 3 / 6); width: calc(100% / 6 + 1px); }
-    .project .s5 { left: calc(100% * 4 / 6); width: calc(100% / 6 + 1px); }
-    .project .s6 { left: calc(100% * 5 / 6); width: calc(100% / 6);       border-radius: 0 22px 22px 0; }
-
-    .project .s img {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .project .s1 img { left: 0;                 width: calc(600% - 6px); }
-    .project .s2 img { left: calc(-100% + 1px); width: calc(600% - 6px); }
-    .project .s3 img { left: calc(-200% + 2px); width: calc(600% - 6px); }
-    .project .s4 img { left: calc(-300% + 3px); width: calc(600% - 6px); }
-    .project .s5 img { left: calc(-400% + 4px); width: calc(600% - 6px); }
-    .project .s6 img { left: -500%;             width: 600%; }
-
-    /* holographic wash, continuous across all slices */
-    .project .s::after,
-    .project .shot::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      mix-blend-mode: soft-light;
-      opacity: 0;
-      background:
-        linear-gradient(115deg,
-          rgba(255, 255, 255, 0) 20%,
-          rgba(109, 190, 255, 0.55) 34%,
-          rgba(191, 109, 255, 0.5) 47%,
-          rgba(255, 109, 190, 0.5) 60%,
-          rgba(86, 245, 174, 0.45) 72%,
-          rgba(255, 255, 255, 0) 88%),
-        repeating-linear-gradient(72deg,
-          rgba(255, 255, 255, 0.14) 0 3px,
-          rgba(255, 255, 255, 0) 3px 11px);
-      background-size: 600% 100%, 600% 100%;
-      transition: opacity 0.45s ease;
-    }
-    .project .shot::after { background-size: 100% 100%, 100% 100%; }
-    .project .s1::after { background-position: 0% center, 0% center; }
-    .project .s2::after { background-position: 20% center, 20% center; }
-    .project .s3::after { background-position: 40% center, 40% center; }
-    .project .s4::after { background-position: 60% center, 60% center; }
-    .project .s5::after { background-position: 80% center, 80% center; }
-    .project .s6::after { background-position: 100% center, 100% center; }
-    .project:hover .s::after,
-    .project:hover .shot::after { opacity: 1; }
-
-    .project:hover .s1 { transform: translateZ(-9px) rotateY(-6.67deg); }
-    .project:hover .s2 { transform: translateZ(5.7px) rotateY(-4deg); }
-    .project:hover .s3 { transform: translateZ(13.1px) rotateY(-1.33deg); }
-    .project:hover .s4 { transform: translateZ(13.1px) rotateY(1.33deg); }
-    .project:hover .s5 { transform: translateZ(5.7px) rotateY(4deg); }
-    .project:hover .s6 { transform: translateZ(-9px) rotateY(6.67deg); }
-
-    /* pressing the card flattens the arc a little */
-    .project:active .s1 { transform: translateZ(-5px) rotateY(-3.4deg); }
-    .project:active .s2 { transform: translateZ(2.9px) rotateY(-2deg); }
-    .project:active .s3 { transform: translateZ(6.7px) rotateY(-0.7deg); }
-    .project:active .s4 { transform: translateZ(6.7px) rotateY(0.7deg); }
-    .project:active .s5 { transform: translateZ(2.9px) rotateY(2deg); }
-    .project:active .s6 { transform: translateZ(-5px) rotateY(3.4deg); }
 
     /* small extra panels (no case study) */
     .mini-note {
@@ -520,11 +249,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
-    }
-    .mini-grid .tile:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 22px 40px -26px rgba(191, 109, 255, 0.8);
     }
     .mini-grid .tile img {
       width: 100%;
@@ -575,11 +299,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .fade { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .fade.holo-text {
-      animation:
-        fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-        holo-slide 9s linear infinite;
-    }
     .d1 { animation-delay: 0.05s; }
     .d2 { animation-delay: 0.15s; }
     .d3 { animation-delay: 0.25s; }
@@ -587,19 +306,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .fade { opacity: 1; animation: none; }
-      .sticker .ring,
-      .sticker .foil,
-      .sticker .glitter,
-      .holo-text,
-      .project-period .years,
-      .btn::before,
-      .btn::after { animation: none; }
-      .project .s,
-      .project .shot::after,
-      .project .glow,
-      .btn,
-      .sticker,
-      .mini-grid .tile { transition: none; }
+      .btn { transition: none; }
     }
 
     @media (max-width: 900px) {
@@ -608,14 +315,14 @@
         grid-template-columns: 1fr;
         gap: 28px;
       }
+      .photo { margin-left: 0; }
     }
 
     @media (max-width: 600px) {
       body { font-size: 16px; }
-      .sticker { width: 176px; border-width: 5px; padding: 7px; border-radius: 30px; }
-      .sticker .photo { border-radius: 21px; }
+      .photo { width: 100%; max-width: 268px; height: auto; aspect-ratio: 268 / 280; }
       .links { gap: 10px; }
-      .btn { padding: 11px 20px; font-size: 14px; }
+      .btn { padding: 12px 22px; font-size: 14px; }
       .project { margin-bottom: 18px; }
       .mini-grid { grid-template-columns: 1fr; }
     }
@@ -625,18 +332,13 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="fade d1">
-        <div class="sticker">
-          <span class="ring" aria-hidden="true"></span>
-          <div class="photo">
-            <img src="images/profile.png" alt="Екатерина Стойилкович" />
-            <span class="foil" aria-hidden="true"></span>
-            <span class="glitter" aria-hidden="true"></span>
-          </div>
+        <div class="photo">
+          <img src="images/profile.png" alt="Екатерина Стойилкович" />
         </div>
       </div>
 
       <div class="hero-text">
-        <p class="kicker holo-text fade d1">Екатерина Стойилкович<span class="sep">·</span>22 года<span class="sep">·</span>продуктовый дизайнер</p>
+        <p class="kicker fade d1">Екатерина Стойилкович<span class="sep">·</span>22 года<span class="sep">·</span>продуктовый дизайнер</p>
         <h1 class="intro fade d2">
           Привет! Я&nbsp;Катя, продуктовый дизайнер
           <br />с&nbsp;техническим бэкграундом.
@@ -657,7 +359,7 @@
 
   <section class="projects">
     <div class="wrap">
-      <div class="section-head holo-text">Проекты</div>
+      <div class="section-head">Проекты</div>
 
       <div class="project-period">
         <span class="place">Проектная деятельность</span>
@@ -665,18 +367,15 @@
       </div>
 
       <a class="project" href="bank/">
-        <span class="glow" aria-hidden="true"></span>
-        <span class="shot"><img src="images/Bank_preview.png" alt="Редизайн накопительной системы МТС Банка" /></span>
+        <img src="images/Bank_preview.png" alt="Редизайн накопительной системы МТС Банка" />
       </a>
 
       <a class="project" href="pitboard/">
-        <span class="glow" aria-hidden="true"></span>
-        <span class="shot"><img src="images/Pitboard_preview.png" loading="lazy" decoding="async" alt="Pitboard — приложение для менеджеров гоночных команд" /></span>
+        <img src="images/Pitboard_preview.png" loading="lazy" decoding="async" alt="Pitboard — приложение для менеджеров гоночных команд" />
       </a>
 
       <a class="project" href="mendi/">
-        <span class="glow" aria-hidden="true"></span>
-        <span class="shot"><img src="images/Mendi_preview.png" loading="lazy" decoding="async" alt="Mendi — приложение для отслеживания приема лекарств" /></span>
+        <img src="images/Mendi_preview.png" loading="lazy" decoding="async" alt="Mendi — приложение для отслеживания приема лекарств" />
       </a>
 
       <div class="project-period">
@@ -685,8 +384,7 @@
       </div>
 
       <a class="project" href="hmi/">
-        <span class="glow" aria-hidden="true"></span>
-        <span class="shot"><img src="images/Zavod_preview.png" loading="lazy" decoding="async" alt="Интерфейс для HMI панели крана-манипулятора" /></span>
+        <img src="images/Zavod_preview.png" loading="lazy" decoding="async" alt="Интерфейс для HMI панели крана-манипулятора" />
       </a>
 
       <p class="mini-note">Дизайн небольших панелей для пультов дистанционного управления</p>
@@ -701,7 +399,7 @@
 
   <section class="about">
     <div class="wrap">
-      <div class="section-head holo-text">Обо мне</div>
+      <div class="section-head">Обо мне</div>
       <h2 class="place">Давайте познакомимся поближе!</h2>
       <p>Я быстро обучаюсь, активная и командный игрок.</p>
       <p>В свободное время люблю рисовать, а еще записываю и коллекционирую видео с птицами. Вот, например, горихвостка-чернушка:</p>
@@ -726,31 +424,6 @@
   </section>
 
   <script>
-    /* Превью проектов разрезаем на вертикальные полосы, чтобы при наведении
-       они складывались по плавной дуге. Без скрипта остаётся плоская картинка. */
-    (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var SLICES = 6;
-      document.querySelectorAll('.project .shot').forEach(function (shot) {
-        var img = shot.querySelector('img');
-        if (!img) return;
-        var frag = document.createDocumentFragment();
-        for (var i = 1; i <= SLICES; i++) {
-          var slice = document.createElement('span');
-          slice.className = 's s' + i;
-          var copy = img;
-          if (i > 1) {
-            copy = img.cloneNode(false);
-            copy.alt = '';
-            copy.setAttribute('aria-hidden', 'true');
-          }
-          slice.appendChild(copy);
-          frag.appendChild(slice);
-        }
-        shot.replaceWith(frag);
-      });
-    })();
-
     /* Типографика: привязываем короткие предлоги и союзы к следующему слову
        неразрывным пробелом, чтобы они не «висели» в конце строки. */
     (function () {
