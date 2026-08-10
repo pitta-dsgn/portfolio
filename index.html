@@ -27,7 +27,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Victor+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -44,7 +44,6 @@
       --blue: #6DBEFF;
       --mint: #56F5AE;
 
-      --mono: 'Victor Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,7 +53,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 17px;
       line-height: 1.7;
       letter-spacing: -0.01em;
@@ -64,7 +63,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    ::selection { background: var(--pink); color: var(--ink); }
 
     .wrap {
       width: 100%;
@@ -93,7 +91,6 @@
       margin-left: -25px;
       border-radius: 24px;
       overflow: hidden;
-      background: var(--hover);
     }
     .photo img {
       width: 100%;
@@ -103,18 +100,7 @@
     }
 
     /* --- hero copy --- */
-    .hero-text { max-width: var(--measure); }
-
-    .kicker {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-    .kicker .sep { padding: 0 2px; }
+    .hero-text { max-width: var(--measure); text-align: center; }
 
     .intro {
       font-size: clamp(25px, 3.2vw, 34px);
@@ -130,7 +116,7 @@
       line-height: 1.5;
       letter-spacing: -0.015em;
       color: var(--ink);
-      font-weight: 500;
+      font-weight: 300;
     }
 
     /* ---------- Buttons ---------- */
@@ -153,7 +139,6 @@
       border-radius: 999px;
       background: var(--btn);
       color: var(--ink);
-      font-family: var(--mono);
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.02em;
@@ -184,12 +169,12 @@
     .projects { padding: 84px 0 120px; overflow-x: clip; }
 
     .section-head {
-      font-family: var(--mono);
       font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--muted);
+      text-align: center;
       margin-bottom: 26px;
     }
 
@@ -198,7 +183,6 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      max-width: var(--measure);
       margin: 40px 0 18px;
     }
     .project-period .place {
@@ -207,7 +191,6 @@
       letter-spacing: -0.01em;
     }
     .project-period .years {
-      font-family: var(--mono);
       font-size: 13px;
       font-weight: 600;
       color: var(--muted);
@@ -236,7 +219,8 @@
       max-width: var(--measure);
       font-size: 15px;
       color: var(--muted);
-      margin: 46px 0 16px;
+      text-align: center;
+      margin: 46px auto 16px;
     }
     /* proportions 304:304:366 wide; the right column stacks 366×274 over
        366×183; both tall panels (304×471) span the full height so the
@@ -253,8 +237,8 @@
        proportional to the gallery width so it scales with the layout) */
     .panels .cat {
       position: absolute;
-      left: -25.35%;
-      top: 17.83%;
+      left: 25.35%;
+      top: 68.15%;
       width: 43.19%;
       height: auto;
       z-index: 2;
@@ -323,13 +307,15 @@
       font-size: 16px;
       font-weight: 600;
       letter-spacing: -0.01em;
-      margin: 34px 0 14px;
+      text-align: center;
+      margin: 34px auto 14px;
     }
     .about p {
       max-width: var(--measure);
-      margin: 14px 0;
+      margin: 14px auto;
       font-size: 18px;
       color: var(--ink);
+      text-align: center;
     }
     .about .video-wrap { margin: 26px 0 8px; }
     .about .video {
@@ -345,7 +331,7 @@
       border: 0;
       display: block;
     }
-    .about-links { margin-top: 40px; }
+    .about-links { margin-top: 40px; justify-content: center; }
 
     /* ---------- Load animation ---------- */
     @keyframes fadeUp {
@@ -395,7 +381,6 @@
       </div>
 
       <div class="hero-text">
-        <p class="kicker fade d1">Екатерина Стойилкович<span class="sep">·</span>22 года<span class="sep">·</span>продуктовый дизайнер</p>
         <h1 class="intro fade d2">
           Привет! Я&nbsp;Катя, продуктовый дизайнер
           <br />с&nbsp;техническим бэкграундом.
