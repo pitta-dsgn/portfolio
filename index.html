@@ -405,41 +405,58 @@
     }
     .project:hover .glow { opacity: 0.75; transform: translateY(30px) scale(1); }
 
-    /* two halves that fold back at the outer edges */
-    .project .half {
+    /* flat preview — also the fallback when the slices are not built */
+    .project .shot {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 22px;
+    }
+    .project .shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* the preview is split into six vertical slices that follow a shallow arc:
+       the left and right edges tilt away while the middle comes forward */
+    .project .s {
       position: absolute;
       top: 0;
       height: 100%;
-      width: calc(50% + 1px);
       overflow: hidden;
       isolation: isolate;
       backface-visibility: hidden;
       background: var(--hover);
-      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .project .half.l {
-      left: 0;
-      transform-origin: 100% 50%;
-      border-radius: 22px 0 0 22px;
-    }
-    .project .half.r {
-      right: 0;
-      transform-origin: 0% 50%;
-      border-radius: 0 22px 22px 0;
-    }
-    .project .half img {
+    /* every slice but the last overlaps its neighbour by 1px, so the folds
+       never show a hairline gap */
+    .project .s1 { left: 0;                  width: calc(100% / 6 + 1px); border-radius: 22px 0 0 22px; }
+    .project .s2 { left: calc(100% * 1 / 6); width: calc(100% / 6 + 1px); }
+    .project .s3 { left: calc(100% * 2 / 6); width: calc(100% / 6 + 1px); }
+    .project .s4 { left: calc(100% * 3 / 6); width: calc(100% / 6 + 1px); }
+    .project .s5 { left: calc(100% * 4 / 6); width: calc(100% / 6 + 1px); }
+    .project .s6 { left: calc(100% * 5 / 6); width: calc(100% / 6);       border-radius: 0 22px 22px 0; }
+
+    .project .s img {
       position: absolute;
       top: 0;
       height: 100%;
-      width: calc(200% - 2px);
       object-fit: cover;
       display: block;
     }
-    .project .half.l img { left: 0; }
-    .project .half.r img { right: 0; }
+    .project .s1 img { left: 0;                 width: calc(600% - 6px); }
+    .project .s2 img { left: calc(-100% + 1px); width: calc(600% - 6px); }
+    .project .s3 img { left: calc(-200% + 2px); width: calc(600% - 6px); }
+    .project .s4 img { left: calc(-300% + 3px); width: calc(600% - 6px); }
+    .project .s5 img { left: calc(-400% + 4px); width: calc(600% - 6px); }
+    .project .s6 img { left: -500%;             width: 600%; }
 
-    /* holographic wash, continuous across both halves */
-    .project .half::after {
+    /* holographic wash, continuous across all slices */
+    .project .s::after,
+    .project .shot::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -457,18 +474,33 @@
         repeating-linear-gradient(72deg,
           rgba(255, 255, 255, 0.14) 0 3px,
           rgba(255, 255, 255, 0) 3px 11px);
-      background-size: 200% 100%, 200% 100%;
+      background-size: 600% 100%, 600% 100%;
       transition: opacity 0.45s ease;
     }
-    .project .half.l::after { background-position: left center, left center; }
-    .project .half.r::after { background-position: right center, right center; }
-    .project:hover .half::after { opacity: 1; }
+    .project .shot::after { background-size: 100% 100%, 100% 100%; }
+    .project .s1::after { background-position: 0% center, 0% center; }
+    .project .s2::after { background-position: 20% center, 20% center; }
+    .project .s3::after { background-position: 40% center, 40% center; }
+    .project .s4::after { background-position: 60% center, 60% center; }
+    .project .s5::after { background-position: 80% center, 80% center; }
+    .project .s6::after { background-position: 100% center, 100% center; }
+    .project:hover .s::after,
+    .project:hover .shot::after { opacity: 1; }
 
-    /* left and right edges tilt away, the middle comes forward */
-    .project:hover .half.l { transform: translateZ(24px) rotateY(-6.5deg); }
-    .project:hover .half.r { transform: translateZ(24px) rotateY(6.5deg); }
-    .project:active .half.l { transform: translateZ(12px) rotateY(-3.5deg); }
-    .project:active .half.r { transform: translateZ(12px) rotateY(3.5deg); }
+    .project:hover .s1 { transform: translateZ(-9px) rotateY(-6.67deg); }
+    .project:hover .s2 { transform: translateZ(5.7px) rotateY(-4deg); }
+    .project:hover .s3 { transform: translateZ(13.1px) rotateY(-1.33deg); }
+    .project:hover .s4 { transform: translateZ(13.1px) rotateY(1.33deg); }
+    .project:hover .s5 { transform: translateZ(5.7px) rotateY(4deg); }
+    .project:hover .s6 { transform: translateZ(-9px) rotateY(6.67deg); }
+
+    /* pressing the card flattens the arc a little */
+    .project:active .s1 { transform: translateZ(-5px) rotateY(-3.4deg); }
+    .project:active .s2 { transform: translateZ(2.9px) rotateY(-2deg); }
+    .project:active .s3 { transform: translateZ(6.7px) rotateY(-0.7deg); }
+    .project:active .s4 { transform: translateZ(6.7px) rotateY(0.7deg); }
+    .project:active .s5 { transform: translateZ(2.9px) rotateY(2deg); }
+    .project:active .s6 { transform: translateZ(-5px) rotateY(3.4deg); }
 
     /* small extra panels (no case study) */
     .mini-note {
@@ -543,6 +575,11 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .fade { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .fade.holo-text {
+      animation:
+        fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+        holo-slide 9s linear infinite;
+    }
     .d1 { animation-delay: 0.05s; }
     .d2 { animation-delay: 0.15s; }
     .d3 { animation-delay: 0.25s; }
@@ -557,7 +594,8 @@
       .project-period .years,
       .btn::before,
       .btn::after { animation: none; }
-      .project .half,
+      .project .s,
+      .project .shot::after,
       .project .glow,
       .btn,
       .sticker,
@@ -626,22 +664,19 @@
         <span class="years">2025 — наст. время</span>
       </div>
 
-      <a class="project" href="bank/" aria-label="Редизайн накопительной системы МТС Банка">
+      <a class="project" href="bank/">
         <span class="glow" aria-hidden="true"></span>
-        <span class="half l"><img src="images/Bank_preview.png" alt="Редизайн накопительной системы МТС Банка" /></span>
-        <span class="half r"><img src="images/Bank_preview.png" alt="" aria-hidden="true" /></span>
+        <span class="shot"><img src="images/Bank_preview.png" alt="Редизайн накопительной системы МТС Банка" /></span>
       </a>
 
-      <a class="project" href="pitboard/" aria-label="Pitboard — приложение для менеджеров гоночных команд">
+      <a class="project" href="pitboard/">
         <span class="glow" aria-hidden="true"></span>
-        <span class="half l"><img src="images/Pitboard_preview.png" loading="lazy" decoding="async" alt="Pitboard — приложение для менеджеров гоночных команд" /></span>
-        <span class="half r"><img src="images/Pitboard_preview.png" loading="lazy" decoding="async" alt="" aria-hidden="true" /></span>
+        <span class="shot"><img src="images/Pitboard_preview.png" loading="lazy" decoding="async" alt="Pitboard — приложение для менеджеров гоночных команд" /></span>
       </a>
 
-      <a class="project" href="mendi/" aria-label="Mendi — приложение для отслеживания приема лекарств">
+      <a class="project" href="mendi/">
         <span class="glow" aria-hidden="true"></span>
-        <span class="half l"><img src="images/Mendi_preview.png" loading="lazy" decoding="async" alt="Mendi — приложение для отслеживания приема лекарств" /></span>
-        <span class="half r"><img src="images/Mendi_preview.png" loading="lazy" decoding="async" alt="" aria-hidden="true" /></span>
+        <span class="shot"><img src="images/Mendi_preview.png" loading="lazy" decoding="async" alt="Mendi — приложение для отслеживания приема лекарств" /></span>
       </a>
 
       <div class="project-period">
@@ -649,10 +684,9 @@
         <span class="years">2023 — 2025</span>
       </div>
 
-      <a class="project" href="hmi/" aria-label="Интерфейс для HMI панели крана-манипулятора">
+      <a class="project" href="hmi/">
         <span class="glow" aria-hidden="true"></span>
-        <span class="half l"><img src="images/Zavod_preview.png" loading="lazy" decoding="async" alt="Интерфейс для HMI панели крана-манипулятора" /></span>
-        <span class="half r"><img src="images/Zavod_preview.png" loading="lazy" decoding="async" alt="" aria-hidden="true" /></span>
+        <span class="shot"><img src="images/Zavod_preview.png" loading="lazy" decoding="async" alt="Интерфейс для HMI панели крана-манипулятора" /></span>
       </a>
 
       <p class="mini-note">Дизайн небольших панелей для пультов дистанционного управления</p>
@@ -692,6 +726,31 @@
   </section>
 
   <script>
+    /* Превью проектов разрезаем на вертикальные полосы, чтобы при наведении
+       они складывались по плавной дуге. Без скрипта остаётся плоская картинка. */
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var SLICES = 6;
+      document.querySelectorAll('.project .shot').forEach(function (shot) {
+        var img = shot.querySelector('img');
+        if (!img) return;
+        var frag = document.createDocumentFragment();
+        for (var i = 1; i <= SLICES; i++) {
+          var slice = document.createElement('span');
+          slice.className = 's s' + i;
+          var copy = img;
+          if (i > 1) {
+            copy = img.cloneNode(false);
+            copy.alt = '';
+            copy.setAttribute('aria-hidden', 'true');
+          }
+          slice.appendChild(copy);
+          frag.appendChild(slice);
+        }
+        shot.replaceWith(frag);
+      });
+    })();
+
     /* Типографика: привязываем короткие предлоги и союзы к следующему слову
        неразрывным пробелом, чтобы они не «висели» в конце строки. */
     (function () {
