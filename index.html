@@ -206,12 +206,19 @@
       border-radius: 40px;
       overflow: hidden;
       background: var(--hover);
+      transform-origin: center;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
     .project img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+    /* fixed 3D tilt on hover (matched to the reference site) */
+    .project:hover {
+      transform: matrix3d(0.96277, 0.0144066, -0.120961, 0, 0, 0.96277, 0.121869, 0, 0.118213, -0.117332, 0.985148, 0, 0, 0, 0, 1);
     }
 
     /* small extra panels (no case study) */
@@ -402,6 +409,8 @@
       .btn { transition: none; }
       .pack { animation: none; }
       .deck .card { animation: none; opacity: 1; }
+      .project { transition: none; }
+      .project:hover { transform: none; }
     }
 
     @media (max-width: 900px) {
