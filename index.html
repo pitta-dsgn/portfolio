@@ -181,7 +181,7 @@
     .btn:active { transform: translateY(1px); }
 
     /* ---------- Projects ---------- */
-    .projects { padding: 84px 0 120px; }
+    .projects { padding: 84px 0 120px; overflow-x: clip; }
 
     .section-head {
       font-family: var(--mono);
@@ -242,10 +242,23 @@
        366×183; both tall panels (304×471) span the full height so the
        bottoms line up */
     .panels {
+      position: relative;
       display: grid;
       grid-template-columns: 304fr 304fr 366fr;
       column-gap: 12px;
       row-gap: 14px;
+    }
+    /* decorative cat laid over the top-left of the gallery, offset from
+       Zavod_preview_02 by 253px left / 84px down (design px, kept
+       proportional to the gallery width so it scales with the layout) */
+    .panels .cat {
+      position: absolute;
+      left: -25.35%;
+      top: 17.83%;
+      width: 43.19%;
+      height: auto;
+      z-index: 2;
+      pointer-events: none;
     }
     .panels .panel {
       border-radius: 16px;
@@ -368,6 +381,7 @@
       .panels { grid-template-columns: 1fr; }
       .panels .panel { grid-column: 1 !important; grid-row: auto !important; }
       .panels .p1, .panels .p2 { aspect-ratio: 304 / 471; }
+      .panels .cat { display: none; }
     }
   </style>
 </head>
@@ -436,6 +450,7 @@
         <div class="panel p2"><img src="images/Zavod_preview_02_1.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
         <div class="panel p3"><img src="images/Zavod_preview_03.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
         <div class="panel p4"><img src="images/Zavod_preview_01.png" loading="lazy" decoding="async" alt="Панель пульта дистанционного управления" /></div>
+        <img class="cat" src="images/Cat_Zavod.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -493,7 +508,7 @@
 
     /* Клик по панели открывает изображение в полноэкранном режиме. */
     (function () {
-      var imgs = document.querySelectorAll('.panels img');
+      var imgs = document.querySelectorAll('.panels .panel img');
       if (!imgs.length) return;
       var lb = document.createElement('div');
       lb.className = 'lightbox';
