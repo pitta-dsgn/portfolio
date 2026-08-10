@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pitboard — приложение для менеджеров гоночных команд</title>
+  <meta name="description" content="Кейс Pitboard: приложение для менеджеров картинговых команд — контроль стинтов, аналитика картов и замена доски с магнитами." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Екатерина Стойилкович — портфолио" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://pitta-dsgn.github.io/portfolio/pitboard/" />
+  <meta property="og:title" content="Pitboard — приложение для менеджеров гоночных команд" />
+  <meta property="og:description" content="От доски с магнитами к приложению с крутой аналитикой." />
+  <meta property="og:image" content="https://pitta-dsgn.github.io/portfolio/images/Pitboard_preview.png" />
+  <meta property="og:image:width" content="1000" />
+  <meta property="og:image:height" content="600" />
+  <meta property="og:image:alt" content="Pitboard — приложение для менеджеров гоночных команд" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pitboard — приложение для менеджеров гоночных команд" />
+  <meta name="twitter:description" content="От доски с магнитами к приложению с крутой аналитикой." />
+  <meta name="twitter:image" content="https://pitta-dsgn.github.io/portfolio/images/Pitboard_preview.png" />
+
+  <link rel="icon" type="image/png" href="../images/profile.png" />
+  <link rel="apple-touch-icon" href="../images/profile.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Victor+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --ink: #101010;
+      --text: #101010;
+      --muted: #6B6B70;
+      --border: #ECECEC;
+      --hover: #F5F5F4;
+      --max: 1000px;
+      --measure: 800px;
+
+      --blue: #6DBEFF;
+      --purple: #BF6DFF;
+      --pink: #FF6DBE;
+      --mint: #56F5AE;
+      --sun: #FFE96D;
+
+      --mono: 'Victor Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .page { padding: 24px 0 100px; }
+
+    @keyframes holo-slide { to { background-position: 300% 50%; } }
+
+    /* sticky back bar */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: #fff;
+    }
+    .topnav .wrap { padding-top: 14px; padding-bottom: 14px; }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .back:hover { color: var(--ink); }
+
+    /* readable text measure inside a wide container */
+    .page .wrap > h1,
+    .page .wrap > h2,
+    .page .wrap > h3,
+    .page .wrap > p,
+    .page .wrap > ul,
+    .page .wrap > ol,
+    .page .wrap > .callout,
+    .page .wrap > details,
+    .page .wrap > .cards { max-width: var(--measure); }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin: 64px 0 8px;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      margin: 32px 0 8px;
+    }
+
+    p { margin: 14px 0; }
+
+    .muted { color: var(--muted); }
+
+    ul, ol { margin: 14px 0 14px 22px; }
+    li { margin: 6px 0; }
+
+    /* accent label */
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink);
+      padding: 3px 12px;
+      margin-bottom: 18px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      background: linear-gradient(100deg, var(--blue), var(--purple), var(--pink), var(--mint), var(--blue));
+      background-size: 300% 100%;
+      animation: holo-slide 12s linear infinite;
+    }
+
+    /* images */
+    figure { margin: 28px 0; }
+    .page img.full {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+      cursor: zoom-in;
+    }
+
+    /* callout */
+    .callout {
+      background: var(--hover);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin: 24px 0;
+    }
+    .callout p { margin: 8px 0; }
+    .callout p:first-child { margin-top: 0; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* benchmarking cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .card .name {
+      font-family: var(--mono);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .card .desc { font-size: 15px; color: var(--muted); }
+
+    /* lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+      overflow: hidden;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      cursor: zoom-in;
+      border-radius: 6px;
+      transition: transform 0.25s ease;
+    }
+    .lightbox.zoomed img { transform: scale(1.8); cursor: zoom-out; }
+    .lightbox-close {
+      position: fixed;
+      top: 14px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      font-size: 30px;
+      line-height: 1;
+      color: #fff;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .eyebrow { animation: none; }
+    }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      h1 { font-size: 29px; }
+      h2 { font-size: 23px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <div class="wrap"><a class="back" href="../">← На главную</a></div>
+  </div>
+
+  <article class="page">
+    <div class="wrap">
+      <span class="eyebrow">В работе</span>
+      <h1>Pitboard — приложение для менеджеров гоночных команд</h1>
+
+      <figure><img class="full" src="../images/Pitboard_preview.png" alt="Pitboard — от доски с магнитами к приложению с крутой аналитикой" /></figure>
+
+      <!-- ============ Контекст ============ -->
+      <h2>Контекст</h2>
+      <p>В гоночных соревнованиях команда состоит не только из участников заезда, но и из людей, координирующих их — менеджеров.</p>
+      <p>Задача менеджеров отслеживать время стинта (один заезд одного человека, как правило, длится от 10 до 20-30 минут) и, когда оно подходит к концу, сообщать, что пора меняться со следующим сокомандником.</p>
+      <p>Без хорошего менеджера практически невозможно выиграть гонку в современном прокатном картинге.</p>
+
+      <!-- ============ Погружение в проблему ============ -->
+      <h2>Погружение в проблему</h2>
+      <p>Результат участника зависит не только от его мастерства, но и от состояния карта.</p>
+      <p>Менеджер на протяжении всей гонки оценивает какие карты едут быстро, а какие медленно. Своей команде во время смены участника он говорит брать лучшие из них.</p>
+      <p>Раньше для этого использовалась доска с магнитами, перестановка магнитов занимала много времени, а уследить за 30+ картами было сложно. Поэтому было решено сделать оптимизированное приложение с автоматическим выводом аналитики во время заезда. Это упростит задачу менеджера, устранит путаницу и позволит достичь команде новых высот.</p>
+
+      <!-- ============ Начало работы ============ -->
+      <h2>Начало работы</h2>
+      <p>Заказчик — менеджер гоночной команды. Вместе с ним и командой разработчиков мы провели несколько созвонов, где глубоко погрузились в пользователький опыт, постарались раскопать все подводные камни и сформулировать основные требования.</p>
+      <p>Было принято решение создавать MVP, чтобы выпустить в тесты продукт, который решал бы главные текущие проблемы, а затем итерационно его дорабатывать и сделать лучшим уникальным предложением на рынке.</p>
+      <p>Заказчик сделал зарисовки будущего интерфейса.</p>
+
+      <!-- ============ Бенчмаркинг ============ -->
+      <h2>Бенчмаркинг</h2>
+      <p>Я проанализировала существующие решения:</p>
+      <div class="cards">
+        <div class="card">
+          <div class="name">Go Kart Team Manager</div>
+          <div class="desc">Выполняет базовые функции, но без глубокой аналитики. В целом, достаточно неудобное, интерфейс недружелюбный. Непопулярное среди менеджеров.</div>
+        </div>
+        <div class="card">
+          <div class="name">RaceMann</div>
+          <div class="desc">Мощное приложение, коннектится с системой трека, показывает время и лидеров. Однако оно неуниверсально — его может подключить только сам картинг-центр. Использовать его там, где оно не подключено, не получится.</div>
+        </div>
+      </div>
+
+      <!-- ============ Первая версия ============ -->
+      <h2>Первая версия</h2>
+      <p>Изначально решили ориентироваться на Go Kart Team Manager. Взять аналогичное отображение картов в виде таблицы, но сделать интерфейс более приятным, перемещение картов с трека в питлейн удобнее, добавить в функционал аналитику.</p>
+      <p>Но заказчик запросил расширение. Команда разработчиков утвердила, что программно возможно подтягивать все данные о гонке: время заезда каждого участника, кол-во кругов, место на треке и тд.</p>
+      <p>На этом этапе было принято решение сделать полноценную замену RaceMann, с уникальной возможностью связать ее с любым картинг-центром и полноценной аналитикой во время и после заезда.</p>
+
+      <!-- ============ Прототип ============ -->
+      <h2>Прототип</h2>
+      <p>Чтобы заказчик и команда разработчиков могли «пощупать» приложение и внести правки, я собрала прототип. На созвоне все вместе прошлись по главному сценарию и обсудили, что следует переработать.</p>
+    </div>
+  </article>
+
+  <script>
+    /* Типографика: привязываем короткие предлоги и союзы к следующему слову
+       неразрывным пробелом, чтобы они не «висели» в конце строки. */
+    (function () {
+      var re = /(^|[\s(«„"'—–-])([A-Za-zА-Яа-яЁё]{1,2}|как|что|чтобы|это|или|для|при|под|над|про|без|чем|так|уже|где|там|его|её|их|они|она|оно|же|бы|ли)(\s)/g;
+      function fix(s) {
+        var prev;
+        do { prev = s; s = s.replace(re, '$1$2\u00A0'); } while (s !== prev);
+        return s;
+      }
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (n) {
+          var t = n.parentNode && n.parentNode.nodeName;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEXTAREA') return NodeFilter.FILTER_REJECT;
+          return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      var nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function (node) {
+        var v = fix(node.nodeValue);
+        if (v !== node.nodeValue) node.nodeValue = v;
+      });
+    })();
+
+    (function () {
+      var imgs = document.querySelectorAll('.page img.full');
+      if (!imgs.length) return;
+      var lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.innerHTML = '<button class="lightbox-close" aria-label="Закрыть">×</button><img alt="" />';
+      document.body.appendChild(lb);
+      var lbImg = lb.querySelector('img');
+      var closeBtn = lb.querySelector('.lightbox-close');
+
+      function open(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        lb.classList.remove('zoomed');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open', 'zoomed');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      }
+
+      imgs.forEach(function (im) {
+        im.addEventListener('click', function () { open(im.currentSrc || im.src, im.alt); });
+      });
+      lbImg.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('zoomed'); });
+      closeBtn.addEventListener('click', close);
+      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
+</body>
+</html>
