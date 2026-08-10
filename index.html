@@ -27,7 +27,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Victor+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -44,7 +44,6 @@
       --blue: #6DBEFF;
       --mint: #56F5AE;
 
-      --mono: 'Victor Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,7 +53,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 17px;
       line-height: 1.7;
       letter-spacing: -0.01em;
@@ -64,7 +63,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    ::selection { background: var(--pink); color: var(--ink); }
 
     .wrap {
       width: 100%;
@@ -93,7 +91,6 @@
       margin-left: -25px;
       border-radius: 24px;
       overflow: hidden;
-      background: var(--hover);
     }
     .photo img {
       width: 100%;
@@ -104,17 +101,6 @@
 
     /* --- hero copy --- */
     .hero-text { max-width: var(--measure); }
-
-    .kicker {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-    .kicker .sep { padding: 0 2px; }
 
     .intro {
       font-size: clamp(25px, 3.2vw, 34px);
@@ -130,7 +116,7 @@
       line-height: 1.5;
       letter-spacing: -0.015em;
       color: var(--ink);
-      font-weight: 500;
+      font-weight: 300;
     }
 
     /* ---------- Buttons ---------- */
@@ -153,7 +139,6 @@
       border-radius: 999px;
       background: var(--btn);
       color: var(--ink);
-      font-family: var(--mono);
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.02em;
@@ -184,13 +169,13 @@
     .projects { padding: 84px 0 120px; overflow-x: clip; }
 
     .section-head {
-      font-family: var(--mono);
+      max-width: var(--measure);
+      margin: 0 auto 26px;
       font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--muted);
-      margin-bottom: 26px;
     }
 
     .project-period {
@@ -198,7 +183,6 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      max-width: var(--measure);
       margin: 40px 0 18px;
     }
     .project-period .place {
@@ -207,7 +191,6 @@
       letter-spacing: -0.01em;
     }
     .project-period .years {
-      font-family: var(--mono);
       font-size: 13px;
       font-weight: 600;
       color: var(--muted);
@@ -236,7 +219,7 @@
       max-width: var(--measure);
       font-size: 15px;
       color: var(--muted);
-      margin: 46px 0 16px;
+      margin: 46px auto 16px;
     }
     /* proportions 304:304:366 wide; the right column stacks 366×274 over
        366×183; both tall panels (304×471) span the full height so the
@@ -253,8 +236,8 @@
        proportional to the gallery width so it scales with the layout) */
     .panels .cat {
       position: absolute;
-      left: -25.35%;
-      top: 17.83%;
+      left: 25.35%;
+      top: 68.15%;
       width: 43.19%;
       height: auto;
       z-index: 2;
@@ -323,29 +306,86 @@
       font-size: 16px;
       font-weight: 600;
       letter-spacing: -0.01em;
-      margin: 34px 0 14px;
+      margin: 34px auto 14px;
     }
     .about p {
       max-width: var(--measure);
-      margin: 14px 0;
+      margin: 14px auto;
       font-size: 18px;
       color: var(--ink);
     }
-    .about .video-wrap { margin: 26px 0 8px; }
-    .about .video {
-      width: 100%;
-      aspect-ratio: 1778 / 1000;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #000;
+    /* ---------- Collection (card pack -> deck) ---------- */
+    .collection {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 26px auto 8px;
+      min-height: 380px;
     }
-    .about .video iframe {
-      width: 100%;
-      height: 100%;
+    .pack {
       border: 0;
-      display: block;
+      background: none;
+      padding: 0;
+      width: 240px;
+      cursor: pointer;
+      animation: pack-wiggle 3s ease-in-out infinite;
+      transition: transform 0.3s ease, opacity 0.35s ease;
     }
-    .about-links { margin-top: 40px; }
+    .pack img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 18px 30px rgba(109, 190, 255, 0.35))
+              drop-shadow(0 8px 16px rgba(191, 109, 255, 0.25));
+    }
+    .pack:hover { transform: scale(1.04) rotate(-1deg); }
+    /* a small shake roughly every 3 seconds to invite a click */
+    @keyframes pack-wiggle {
+      0%, 84%, 100% { transform: rotate(0deg) translateY(0); }
+      87% { transform: rotate(-5deg) translateY(-2px); }
+      90% { transform: rotate(5deg); }
+      93% { transform: rotate(-4deg); }
+      96% { transform: rotate(3deg); }
+      98% { transform: rotate(-1deg); }
+    }
+
+    .deck {
+      display: none;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .collection.opened .pack { display: none; }
+    .collection.opened .deck { display: flex; }
+
+    .deck .card {
+      position: relative;
+      width: 172px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 12px 26px -14px rgba(16, 16, 16, 0.5);
+      transform-origin: bottom center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+      cursor: pointer;
+      opacity: 0;
+      animation: card-in 0.45s ease forwards;
+    }
+    .deck .card img { width: 100%; height: auto; display: block; }
+    .deck .card:not(:first-child) { margin-left: -46px; }
+    /* fan the deck out */
+    .deck .card:nth-child(1) { transform: rotate(-10deg) translateY(14px); animation-delay: 0.02s; }
+    .deck .card:nth-child(2) { transform: rotate(-5deg) translateY(4px); animation-delay: 0.08s; }
+    .deck .card:nth-child(3) { transform: rotate(0deg); animation-delay: 0.14s; }
+    .deck .card:nth-child(4) { transform: rotate(5deg) translateY(4px); animation-delay: 0.20s; }
+    .deck .card:nth-child(5) { transform: rotate(10deg) translateY(14px); animation-delay: 0.26s; }
+    /* on hover the card tumbles out to the front */
+    .deck .card:hover {
+      transform: rotate(0deg) translateY(-30px) scale(1.1);
+      z-index: 5;
+      box-shadow: 0 30px 60px -20px rgba(16, 16, 16, 0.55);
+    }
+    @keyframes card-in { from { opacity: 0; } to { opacity: 1; } }
+    .about-links { margin-top: 40px; justify-content: center; }
 
     /* ---------- Load animation ---------- */
     @keyframes fadeUp {
@@ -361,6 +401,8 @@
       html { scroll-behavior: auto; }
       .fade { opacity: 1; animation: none; }
       .btn { transition: none; }
+      .pack { animation: none; }
+      .deck .card { animation: none; opacity: 1; }
     }
 
     @media (max-width: 900px) {
@@ -382,6 +424,10 @@
       .panels .panel { grid-column: 1 !important; grid-row: auto !important; }
       .panels .p1, .panels .p2 { aspect-ratio: 304 / 471; }
       .panels .cat { display: none; }
+      .collection { min-height: 300px; }
+      .pack { width: 176px; }
+      .deck .card { width: 108px; border-radius: 12px; }
+      .deck .card:not(:first-child) { margin-left: -38px; }
     }
   </style>
 </head>
@@ -395,7 +441,6 @@
       </div>
 
       <div class="hero-text">
-        <p class="kicker fade d1">Екатерина Стойилкович<span class="sep">·</span>22 года<span class="sep">·</span>продуктовый дизайнер</p>
         <h1 class="intro fade d2">
           Привет! Я&nbsp;Катя, продуктовый дизайнер
           <br />с&nbsp;техническим бэкграундом.
@@ -460,16 +505,18 @@
       <div class="section-head">Обо мне</div>
       <h2 class="place">Давайте познакомимся поближе!</h2>
       <p>Я быстро обучаюсь, активная и командный игрок.</p>
-      <p>В свободное время люблю рисовать, а еще записываю и коллекционирую видео с птицами. Вот, например, горихвостка-чернушка:</p>
+      <p>В свободное время люблю рисовать, а еще записываю и коллекционирую видео с птицами. Зацените немного моей коллекции!</p>
 
-      <div class="video-wrap">
-        <div class="video">
-          <iframe
-            src="https://kinescope.io/embed/iYT3aVEmBGVLwBWBXCp72x"
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
-            frameborder="0"
-            allowfullscreen
-            title="Горихвостка-чернушка"></iframe>
+      <div class="collection" id="collection">
+        <button class="pack" type="button" aria-label="Открыть пачку коллекционных карточек">
+          <img src="images/Cards.png" alt="Пачка коллекционных карточек с птицами" />
+        </button>
+        <div class="deck" aria-hidden="true">
+          <div class="card"><img src="images/Bird_1.png" loading="lazy" decoding="async" alt="Коллекционная карточка с птицей" /></div>
+          <div class="card"><img src="images/Bird_2.png" loading="lazy" decoding="async" alt="Коллекционная карточка с птицей" /></div>
+          <div class="card"><img src="images/Bird_3.png" loading="lazy" decoding="async" alt="Коллекционная карточка с птицей" /></div>
+          <div class="card"><img src="images/Bird_4.png" loading="lazy" decoding="async" alt="Коллекционная карточка с птицей" /></div>
+          <div class="card"><img src="images/Bird_5.png" loading="lazy" decoding="async" alt="Коллекционная карточка с птицей" /></div>
         </div>
       </div>
 
@@ -537,6 +584,18 @@
       closeBtn.addEventListener('click', close);
       lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+
+    /* Пачка карточек: по клику прячем её и раскрываем колоду. */
+    (function () {
+      var col = document.getElementById('collection');
+      if (!col) return;
+      var pack = col.querySelector('.pack');
+      var deck = col.querySelector('.deck');
+      pack.addEventListener('click', function () {
+        col.classList.add('opened');
+        deck.setAttribute('aria-hidden', 'false');
+      });
     })();
   </script>
 </body>
