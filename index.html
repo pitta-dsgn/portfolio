@@ -252,6 +252,8 @@
       transform-origin: center;
       transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: transform;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
     }
     .project img {
       width: 100%;
@@ -382,7 +384,7 @@
     }
 
     .trait:nth-child(1) { grid-column: 1 / span 4; }
-    .trait:nth-child(2) { grid-column: 6 / span 5; }
+    .trait:nth-child(2) { grid-column: 6 / span 6; }
     .trait:nth-child(3) { grid-column: 12 / span 5; }
 
     .trait-head {
@@ -515,15 +517,22 @@
       transform-origin: 50% 100%;
       transform: rotate(var(--card-rotate)) translateY(var(--card-y));
       transition:
-        transform 0.58s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.58s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 0.58s cubic-bezier(0.16, 1, 0.3, 1);
+        transform 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+        translate 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.62s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.62s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
       opacity: 0;
       animation: card-in 0.68s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       will-change: transform;
     }
-    .deck .card img { width: 100%; height: auto; display: block; }
+    .deck .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
     .deck .card:not(:first-child) { margin-left: -58px; }
 
     /* Fan shape + staggered reveal. */
@@ -533,19 +542,23 @@
     .deck .card:nth-child(4) { --card-rotate: 5deg;   --card-y: 4px;  animation-delay: 0.21s; }
     .deck .card:nth-child(5) { --card-rotate: 10deg;  --card-y: 14px; animation-delay: 0.28s; }
 
-    /* The selected card clearly comes forward without a heavy shadow. */
+    /* Hover: the card moves toward the viewer instead of only scaling in place. */
     .deck .card:hover {
-      transform: translateY(-78px) rotate(0deg) scale(1.28);
-      z-index: 10;
+      transform: translate3d(0, -92px, 120px) rotate(0deg) scale(1.20);
+      z-index: 20;
       box-shadow:
-        0 6px 16px rgba(16, 16, 16, 0.06),
-        0 28px 60px rgba(16, 16, 16, 0.14);
-      filter: saturate(1.03);
+        0 10px 24px rgba(16, 16, 16, 0.055),
+        0 34px 72px rgba(16, 16, 16, 0.10);
+      filter: saturate(1.025) contrast(1.01);
     }
 
     .deck:hover .card:not(:hover) {
-      filter: saturate(0.94) brightness(0.985);
+      filter: saturate(0.96) brightness(0.99);
     }
+
+    /* Give the hovered card a little more breathing room in the fan. */
+    .deck .card:hover + .card { translate: 12px 0; }
+    .deck .card:has(+ .card:hover) { translate: -12px 0; }
 
     @keyframes card-in {
       0% {
