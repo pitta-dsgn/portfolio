@@ -34,7 +34,7 @@
       --bg: #FFFFFF;
       --ink: #101010;
       --text: #101010;
-      --muted: #7A7A80;
+      --muted: #878787;
       --border: #ECECEC;
       --hover: #F5F5F4;
       --max: 1000px;
@@ -78,17 +78,16 @@
     .hero { padding: 72px 0 24px; }
 
     .hero-grid {
-      display: grid;
-      grid-template-columns: 268px minmax(0, 1fr);
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 40px;
+      text-align: center;
     }
 
-    /* profile photo pokes 25px out of the grid to the left */
     .photo {
-      width: 268px;
-      height: 280px;
-      margin-left: -25px;
+      width: 241px;
+      height: 241px;
+      margin: 0 auto;
       border-radius: 24px;
       overflow: hidden;
     }
@@ -100,70 +99,114 @@
     }
 
     /* --- hero copy --- */
-    .hero-text { max-width: var(--measure); }
+    .hero-text {
+      width: 100%;
+      max-width: var(--measure);
+      margin-top: 32px;
+      text-align: center;
+    }
 
     .intro {
-      font-size: clamp(25px, 3.2vw, 34px);
-      line-height: 1.22;
+      font-size: 32px;
+      line-height: 1.36;
       letter-spacing: -0.03em;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--ink);
     }
 
     .subtitle {
-      margin-top: 16px;
-      font-size: clamp(17px, 1.9vw, 20px);
+      margin-top: 12px;
+      font-size: 24px;
       line-height: 1.5;
       letter-spacing: -0.015em;
-      color: var(--ink);
+      color: var(--muted);
       font-weight: 400;
     }
 
-    /* ---------- Buttons ---------- */
+    /* ---------- Top navigation / text links ---------- */
+    .topbar {
+      width: 100%;
+      padding: 28px 80px 0;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      width: 100%;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      color: #27388A;
+      font-size: 20px;
+      line-height: 1.36;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
     .links {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 20px;
+      margin-top: 0;
     }
 
+    .topbar-links { justify-content: flex-end; gap: 48px; }
+
     .btn {
-      --btn: var(--pink);
       position: relative;
-      isolation: isolate;
-      overflow: hidden;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 13px 28px;
-      border-radius: 999px;
-      background: var(--btn);
-      color: var(--ink);
-      font-size: 15px;
+      padding: 0 0 4px;
+      background: transparent;
+      color: #27388A;
+      font-size: 20px;
+      line-height: 1.36;
       font-weight: 600;
-      letter-spacing: 0.02em;
-      transition: transform 0.3s ease;
+      letter-spacing: -0.02em;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
-    .btn-mail { --btn: #FF6DBE; }
-    .btn-tg   { --btn: #6DBEFF; }
-    .btn-cv   { --btn: #56F5AE; }
 
-    /* holo_texture.png laid over the button — Figma «overlay», прозрачность 80% */
     .btn::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background-image: url("images/holo_texture.png");
-      background-size: cover;
-      background-position: center;
-      mix-blend-mode: overlay;
-      opacity: 0.8;
-      pointer-events: none;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: right center;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .btn:hover,
-    .btn:focus-visible { transform: translateY(-2px); outline: none; }
-    .btn:active { transform: translateY(1px); }
+    .btn:focus-visible {
+      transform: translateY(-3px);
+      outline: none;
+    }
+
+    .btn:hover::after,
+    .btn:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+
+    .btn:active { transform: translateY(0); opacity: 0.7; }
 
     /* ---------- Projects ---------- */
     .projects { padding: 84px 0 120px; overflow-x: clip; }
@@ -191,8 +234,8 @@
       letter-spacing: -0.01em;
     }
     .project-period .years {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 400;
       color: var(--muted);
       white-space: nowrap;
     }
@@ -306,32 +349,116 @@
 
     /* ---------- About ---------- */
     .about { padding: 20px 0 120px; }
-    .about h2.place {
+
+    .about-title {
       max-width: var(--measure);
-      font-size: 16px;
+      margin: 34px auto 0;
+      font-size: 32px;
+      line-height: 1.36;
+      letter-spacing: -0.03em;
       font-weight: 600;
-      letter-spacing: -0.01em;
-      margin: 34px auto 14px;
+      color: var(--ink);
+      text-align: center;
     }
-    .about p {
-      max-width: var(--measure);
-      margin: 14px auto;
-      font-size: 18px;
+
+    /* 1440px viewport: 1000px content area = 220px margins.
+       16 columns with 12px gutters; cards start at columns 1, 6 and 12. */
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(16, minmax(0, 1fr));
+      column-gap: 12px;
+      margin-top: 60px;
+    }
+
+    .trait:nth-child(1) { grid-column: 1 / span 4; }
+    .trait:nth-child(2) { grid-column: 6 / span 5; }
+    .trait:nth-child(3) { grid-column: 12 / span 5; }
+
+    .trait-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .trait-icon {
+      flex: 0 0 auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .trait-icon.flashlight { width: 32px; height: 40px; }
+    .trait-icon.brain { width: 43px; height: 40px; }
+    .trait-icon.hands { width: 47px; height: 40px; }
+
+    .trait-title {
+      font-size: 24px;
+      line-height: 1.36;
+      font-weight: 400;
+      letter-spacing: -0.02em;
       color: var(--ink);
     }
+
+    .trait-text {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.5;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .birds-intro {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .birds-title,
+    .birds-subtitle {
+      max-width: var(--measure);
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .birds-title {
+      color: var(--ink);
+    }
+
+    .birds-subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .birds-subtitle .accent {
+      color: #27388A;
+      font-weight: 525;
+    }
+
+    .birds-arrow {
+      width: 114px;
+      height: 125px;
+      margin-top: 12px;
+      display: block;
+      object-fit: contain;
+    }
+
     /* ---------- Collection (card pack -> deck) ---------- */
     .collection {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 26px auto 8px;
-      min-height: 440px;
+      margin: 32px auto 0;
+      min-height: 547px;
     }
     .pack {
       border: 0;
       background: none;
       padding: 0;
-      width: 240px;
+      width: 368px;
+      max-width: 100%;
       cursor: pointer;
       animation: pack-wiggle 3s ease-in-out infinite;
       transition: transform 0.3s ease, opacity 0.35s ease;
@@ -389,7 +516,33 @@
       box-shadow: 0 38px 72px -22px rgba(16, 16, 16, 0.6);
     }
     @keyframes card-in { from { opacity: 0; } to { opacity: 1; } }
-    .about-links { margin-top: 40px; justify-content: center; }
+
+    .cta {
+      margin-top: 128px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .cta-title {
+      max-width: var(--measure);
+      font-size: 32px;
+      line-height: 1.36;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .cta-kitty {
+      width: 241px;
+      height: 241px;
+      margin-top: 32px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .about-links { margin-top: 48px; justify-content: center; }
 
     /* ---------- Load animation ---------- */
     @keyframes fadeUp {
@@ -413,31 +566,83 @@
 
     @media (max-width: 900px) {
       .hero { padding: 48px 0 16px; }
-      .hero-grid {
+      .topbar { padding-left: 40px; padding-right: 40px; }
+
+      .traits-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        row-gap: 40px;
       }
-      .photo { margin-left: 0; }
+
+      .trait:nth-child(1),
+      .trait:nth-child(2),
+      .trait:nth-child(3) {
+        grid-column: 1;
+      }
+
+      .birds-intro { margin-top: 72px; }
+      .birds-title,
+      .birds-subtitle { font-size: 22px; }
+      .collection { min-height: 500px; }
+      .pack { width: 320px; }
+      .cta { margin-top: 104px; }
     }
 
     @media (max-width: 600px) {
       body { font-size: 16px; }
-      .photo { width: 100%; max-width: 268px; height: auto; aspect-ratio: 268 / 280; }
-      .links { gap: 10px; }
-      .btn { padding: 12px 22px; font-size: 14px; }
+      .photo { width: 241px; height: 241px; }
+      .intro { font-size: 28px; }
+      .subtitle { font-size: 20px; }
+      .about-title,
+      .cta-title { font-size: 28px; }
+      .traits-grid { margin-top: 40px; row-gap: 36px; }
+      .trait-title { font-size: 22px; }
+      .trait-text { font-size: 17px; }
+      .birds-intro { margin-top: 64px; }
+      .birds-title,
+      .birds-subtitle { font-size: 20px; }
+      .birds-arrow { width: 84px; height: auto; }
+      .topbar { padding: 20px 24px 0; }
+      .topbar-inner { align-items: flex-start; gap: 20px; }
+      .brand { gap: 12px; font-size: 16px; }
+      .brand-icon { width: 24px; height: 24px; }
+      .topbar-links { gap: 12px; }
+      .btn { font-size: 16px; }
       .project { margin-bottom: 18px; }
       .panels { grid-template-columns: 1fr; }
       .panels .panel { grid-column: 1 !important; grid-row: auto !important; }
       .panels .p1, .panels .p2 { aspect-ratio: 304 / 471; }
       .panels .cat { display: none; }
-      .collection { min-height: 300px; }
-      .pack { width: 176px; }
+      .collection { min-height: 360px; margin-top: 24px; }
+      .pack { width: min(240px, 100%); }
       .deck .card { width: 108px; border-radius: 12px; }
       .deck .card:not(:first-child) { margin-left: -38px; }
+      .cta { margin-top: 88px; }
+      .cta-kitty { width: 200px; height: 200px; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .topbar-links { justify-content: flex-start; }
     }
   </style>
 </head>
 <body>
+  <header class="topbar fade d1">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img class="brand-icon" src="images/Icon_Star.png" alt="" aria-hidden="true" />
+        <span>Екатерина Стойилкович</span>
+      </div>
+      <nav class="links topbar-links" aria-label="Контакты">
+        <a class="btn" href="mailto:ekaterina.kotelok@yandex.ru">E-mail</a>
+        <a class="btn" href="https://t.me/kotellocek" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="btn" href="images/CV_Stojilkovic.pdf" download>CV</a>
+      </nav>
+    </div>
+  </header>
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="fade d1">
@@ -448,19 +653,12 @@
 
       <div class="hero-text">
         <h1 class="intro fade d2">
-          Привет! Я&nbsp;Катя, продуктовый&nbsp;дизайнер
-          <br />с&nbsp;техническим бэкграундом.
+          Привет! Я&nbsp;Катя, продуктовый дизайнер
+          <br />с&nbsp;техническим бэкграундом
         </h1>
         <p class="subtitle fade d2">
-          Проектирую мобильные приложения
-          <br />и&nbsp;сложные интерфейсы с&nbsp;нуля.
+          Проектирую мобильные приложения и&nbsp;сложные интерфейсы с&nbsp;нуля
         </p>
-
-        <div class="links fade d3">
-          <a class="btn btn-mail" href="mailto:ekaterina.kotelok@yandex.ru">E-mail</a>
-          <a class="btn btn-tg" href="https://t.me/kotellocek" target="_blank" rel="noopener noreferrer">Telegram</a>
-          <a class="btn btn-cv" href="images/CV_Stojilkovic.pdf" download>CV</a>
-        </div>
       </div>
     </div>
   </section>
@@ -506,9 +704,39 @@
 
   <section class="about">
     <div class="wrap">
-      <h2 class="place">Давайте познакомимся поближе!</h2>
-      <p>Я быстро обучаюсь, активная и командный игрок.</p>
-      <p>В свободное время люблю рисовать, а еще записываю и коллекционирую видео с птицами. Зацените немного моей коллекции!</p>
+      <h2 class="about-title">Давайте познакомимся поближе!</h2>
+
+      <div class="traits-grid">
+        <article class="trait">
+          <div class="trait-head">
+            <img class="trait-icon flashlight" src="images/Icon_Flashlight.png" alt="" aria-hidden="true" />
+            <h3 class="trait-title">Активная</h3>
+          </div>
+          <p class="trait-text">Беру инициативу на себя, нахожу проблемы и предлагаю решения</p>
+        </article>
+
+        <article class="trait">
+          <div class="trait-head">
+            <img class="trait-icon brain" src="images/Icon_Brain.png" alt="" aria-hidden="true" />
+            <h3 class="trait-title">Быстро адаптируюсь</h3>
+          </div>
+          <p class="trait-text">Легко вхожу в новые задачи, запоминаю процессы с первого раза</p>
+        </article>
+
+        <article class="trait">
+          <div class="trait-head">
+            <img class="trait-icon hands" src="images/Icon_Hands.png" alt="" aria-hidden="true" />
+            <h3 class="trait-title">В команде</h3>
+          </div>
+          <p class="trait-text">Спрашиваю, советуюсь и делюсь опытом, расписываю все решения, передаю макеты чистыми</p>
+        </article>
+      </div>
+
+      <div class="birds-intro">
+        <p class="birds-title">Мое увлечение — коллекционирование видео с птицами</p>
+        <p class="birds-subtitle">Ниже кое-что интересное, <span class="accent">открой</span> пачку карточек!</p>
+        <img class="birds-arrow" src="images/Arrow_Down_1.png" alt="Стрелка вниз" loading="lazy" decoding="async" />
+      </div>
 
       <div class="collection" id="collection">
         <button class="pack" type="button" aria-label="Открыть пачку коллекционных карточек">
@@ -523,14 +751,9 @@
         </div>
       </div>
 
-<!-- Котик и призыв к действию -->
-      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 48px auto 32px; max-width: var(--measure);">
-        <img src="images/Kitty.png" alt="Котик" loading="lazy" decoding="async" style="width: 140px; height: auto; display: block; border-radius: 20px;" />
-        <p style="font-size: 24px; font-weight: 600; color: var(--ink); margin-top: 18px; text-align: center; line-height: 1.4;">
-          Давайте работать вместе :)<br />
-          Свяжитесь со мной!
-          
-        </p>
+      <div class="cta">
+        <h2 class="cta-title">Давайте работать вместе :)<br />Свяжитесь со мной!</h2>
+        <img class="cta-kitty" src="images/Kitty.png" alt="Котик" loading="lazy" decoding="async" />
       </div>
       
       <div class="links about-links">
