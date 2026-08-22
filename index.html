@@ -464,7 +464,7 @@
       align-items: center;
       justify-content: center;
       margin: 32px auto 0;
-      min-height: 547px;
+      min-height: 650px;
     }
     .pack {
       border: 0;
@@ -498,7 +498,7 @@
       justify-content: center;
       align-items: flex-end;
       perspective: 1400px;
-      padding: 72px 0 24px;
+      padding: 126px 0 48px;
     }
     .collection.opened .pack { display: none; }
     .collection.opened .deck { display: flex; }
@@ -542,23 +542,38 @@
     .deck .card:nth-child(4) { --card-rotate: 5deg;   --card-y: 4px;  animation-delay: 0.21s; }
     .deck .card:nth-child(5) { --card-rotate: 10deg;  --card-y: 14px; animation-delay: 0.28s; }
 
-    /* Hover: the card moves toward the viewer instead of only scaling in place. */
+    /* Hover: enlarge the selected card to approximately 318×520px. */
     .deck .card:hover {
-      transform: translate3d(0, -92px, 120px) rotate(0deg) scale(1.20);
-      z-index: 20;
+      transform: translate3d(0, -118px, 150px) rotate(0deg)
+        scale3d(1.5142857143, 1.5135714286, 1);
+      z-index: 30;
       box-shadow:
-        0 10px 24px rgba(16, 16, 16, 0.055),
-        0 34px 72px rgba(16, 16, 16, 0.10);
-      filter: saturate(1.025) contrast(1.01);
+        0 14px 30px rgba(16, 16, 16, 0.045),
+        0 42px 88px rgba(16, 16, 16, 0.085);
+      filter: saturate(1.015) contrast(1.005);
     }
 
     .deck:hover .card:not(:hover) {
-      filter: saturate(0.96) brightness(0.99);
+      filter: saturate(0.94) brightness(0.985);
     }
 
-    /* Give the hovered card a little more breathing room in the fan. */
-    .deck .card:hover + .card { translate: 12px 0; }
-    .deck .card:has(+ .card:hover) { translate: -12px 0; }
+    /* Give the enlarged card extra room so neighboring cards do not cover it. */
+    .deck .card:hover + .card { translate: 24px 0; }
+    .deck .card:has(+ .card:hover) { translate: -24px 0; }
+
+
+    @media (hover: none), (pointer: coarse) {
+      .deck .card:hover {
+        transform: rotate(var(--card-rotate)) translateY(var(--card-y));
+        box-shadow:
+          0 2px 6px rgba(16, 16, 16, 0.05),
+          0 12px 30px rgba(16, 16, 16, 0.09);
+        filter: none;
+      }
+      .deck:hover .card:not(:hover) { filter: none; }
+      .deck .card:hover + .card,
+      .deck .card:has(+ .card:hover) { translate: 0 0; }
+    }
 
     @keyframes card-in {
       0% {
@@ -807,7 +822,7 @@
             <img class="trait-icon brain" src="images/Icon_Brain.png" alt="" aria-hidden="true" />
             <h3 class="trait-title">Быстро адаптируюсь</h3>
           </div>
-          <p class="trait-text">Легко вхожу в новые задачи, запоминаю процессы с первого раза</p>
+          <p class="trait-text">Легко вхожу в новые задачи,<br />запоминаю процессы с первого раза</p>
         </article>
 
         <article class="trait">
