@@ -188,7 +188,6 @@
       height: auto;
       display: block;
       border-radius: 14px;
-      cursor: zoom-in;
     }
 
     .body-strong {
@@ -231,6 +230,7 @@
       height: 142px;
       object-fit: contain;
       display: block;
+      transform: translateY(-40px);
       margin-bottom: -40px;
       position: relative;
       z-index: 2;
@@ -281,8 +281,8 @@
       text-align: left;
     }
 
-    .compare-card.replacement { grid-column: 1 / span 8; }
-    .compare-card.before { grid-column: 10 / span 9; }
+    .compare-card.before { grid-column: 1 / span 8; }
+    .compare-card.replacement { grid-column: 10 / span 9; }
 
     .pill {
       display: inline-flex;
@@ -316,7 +316,6 @@
       object-fit: cover;
       display: block;
       border-radius: 14px;
-      cursor: zoom-in;
     }
 
     .summary-text {
@@ -362,43 +361,6 @@
       color: var(--muted);
     }
 
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.92);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      cursor: zoom-out;
-      overflow: hidden;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      cursor: zoom-in;
-      border-radius: 6px;
-      transition: transform 0.25s ease;
-    }
-    .lightbox.zoomed img { transform: scale(1.8); cursor: zoom-out; }
-    .lightbox-close {
-      position: fixed;
-      top: 14px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      font-size: 30px;
-      line-height: 1;
-      color: #fff;
-      background: none;
-      border: 0;
-      cursor: pointer;
-      z-index: 1001;
-    }
-
 
     .hero-figure,
     .context-main,
@@ -431,7 +393,6 @@
       flex: 0 0 241px;
       border-radius: 14px;
       object-fit: cover;
-      cursor: zoom-in;
     }
 
     .bench-copy {
@@ -478,7 +439,6 @@
       display: block;
       height: auto;
       border-radius: 14px;
-      cursor: zoom-in;
       object-fit: cover;
     }
 
@@ -488,7 +448,7 @@
 
     .center-copy {
       grid-column: 1 / -1;
-      margin: 40px 0 0;
+      margin: 40px 0 60px;
       text-align: center;
     }
 
@@ -617,14 +577,6 @@
       <p>Менеджер на&nbsp;протяжении всей гонки оценивает какие карты едут быстро, а&nbsp;какие медленно. Своей команде во&nbsp;время смены участника он&nbsp;говорит брать лучшие из&nbsp;них.</p>
 
       <div class="compare-grid">
-        <section class="compare-card replacement">
-          <div class="pill">Что взамен</div>
-          <p class="compare-copy">— Приложение для оптимизации
-— Пара кликов вместо долгой перестановки
-— Продуманная аналитика — большое преимущество</p>
-          <figure class="compare-image"><img src="../images/Pitboard_4.png" loading="lazy" decoding="async" alt="Pitboard — что взамен" /></figure>
-        </section>
-
         <section class="compare-card before">
           <div class="pill">Оценка картов раньше</div>
           <p class="compare-copy">— Доска с магнитами
@@ -632,6 +584,14 @@
 — Сложно уследить, высокий риск
 путаницы</p>
           <figure class="compare-image"><img src="../images/Pitboard_3.png" loading="lazy" decoding="async" alt="Pitboard — оценка картов раньше" /></figure>
+        </section>
+
+        <section class="compare-card replacement">
+          <div class="pill">Что взамен</div>
+          <p class="compare-copy">— Приложение для оптимизации
+— Пара кликов вместо долгой перестановки
+— Продуманная аналитика — большое преимущество</p>
+          <figure class="compare-image"><img src="../images/Pitboard_4.png" loading="lazy" decoding="async" alt="Pitboard — что взамен" /></figure>
         </section>
       </div>
 
@@ -684,12 +644,12 @@
 
       <p class="scenario-title">— Аналитика</p>
       <p>После занесения номера карта приложение начинает записывать по&nbsp;нему аналитику: за&nbsp;сколько времени проезжаются круги, какое среднее время стинта. Именно эта информация помогает быстро оценить на сколько хорош карт.</p>
-      <figure class="scenario-image"><img class="full" src="../images/Pitboard_8.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту" style="aspect-ratio: 1000 / 720;" /></figure>
-      <figure class="scenario-image tight-top"><img class="full" src="../images/Pitboard_9.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту, подробности" style="aspect-ratio: 1000 / 720;" /></figure>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_9.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту" style="aspect-ratio: 1000 / 720;" /></figure>
+      <figure class="scenario-image tight-top"><img class="full" src="../images/Pitboard_10.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту, подробности" style="aspect-ratio: 1000 / 720;" /></figure>
 
       <p class="scenario-title">— Аналитика по командам</p>
       <p>Чтобы посмотреть аналитику уже&nbsp;прошедших стинтов и&nbsp;как их&nbsp;проехали участники из&nbsp;других команд, нужно перейти в&nbsp;аналитику по&nbsp;командам. Там представлен список всех прошедших и&nbsp;текущего стинтов.</p>
-      <figure class="scenario-image"><img class="full" src="../images/Pitboard_10.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по командам" style="aspect-ratio: 1000 / 698;" /></figure>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_11.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по командам" style="aspect-ratio: 1000 / 698;" /></figure>
 
       <h2>Результаты</h2>
       <p class="results-copy">Проект находится в активной разработке. На данный момент я:
@@ -728,37 +688,7 @@
       });
     })();
 
-    (function () {
-      var imgs = document.querySelectorAll('.page img.full');
-      if (!imgs.length) return;
-      var lb = document.createElement('div');
-      lb.className = 'lightbox';
-      lb.innerHTML = '<button class="lightbox-close" aria-label="Закрыть">×</button><img alt="" />';
-      document.body.appendChild(lb);
-      var lbImg = lb.querySelector('img');
-      var closeBtn = lb.querySelector('.lightbox-close');
 
-      function open(src, alt) {
-        lbImg.src = src;
-        lbImg.alt = alt || '';
-        lb.classList.add('open');
-        lb.classList.remove('zoomed');
-        document.body.style.overflow = 'hidden';
-      }
-      function close() {
-        lb.classList.remove('open', 'zoomed');
-        document.body.style.overflow = '';
-        lbImg.src = '';
-      }
-
-      imgs.forEach(function (im) {
-        im.addEventListener('click', function () { open(im.currentSrc || im.src, im.alt); });
-      });
-      lbImg.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('zoomed'); });
-      closeBtn.addEventListener('click', close);
-      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    })();
   </script>
 </body>
 </html>
