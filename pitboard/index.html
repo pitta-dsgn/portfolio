@@ -34,18 +34,11 @@
       --bg: #FFFFFF;
       --ink: #101010;
       --text: #101010;
-      --muted: #6B6B70;
+      --muted: #878787;
       --border: #ECECEC;
       --hover: #F5F5F4;
+      --chip: #EFEFF6;
       --max: 1000px;
-      --measure: 800px;
-
-      --blue: #6DBEFF;
-      --purple: #BF6DFF;
-      --pink: #FF6DBE;
-      --mint: #56F5AE;
-      --sun: #FFE96D;
-
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,29 +49,43 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 17px;
-      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a { color: inherit; }
 
-
     .wrap {
+      width: calc(100% - 48px);
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .page .wrap {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(0, 1fr));
+      column-gap: 12px;
+    }
+
+    .grid-18 {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(0, 1fr));
+      column-gap: 12px;
+      grid-column: 1 / -1;
       width: 100%;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 24px;
     }
 
     .page { padding: 24px 0 100px; }
 
-    /* sticky back bar */
     .topnav {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
     }
     .topnav .wrap { padding-top: 14px; padding-bottom: 14px; }
     .back {
@@ -93,8 +100,8 @@
     }
     .back:hover { color: var(--ink); }
 
-    /* readable text measure inside a wide container */
     .page .wrap > h1,
+    .page .wrap > .case-subtitle,
     .page .wrap > h2,
     .page .wrap > h3,
     .page .wrap > p,
@@ -102,54 +109,81 @@
     .page .wrap > ol,
     .page .wrap > .callout,
     .page .wrap > details,
-    .page .wrap > .cards { max-width: var(--measure); margin-left: auto; margin-right: auto; }
+    .page .wrap > .cards {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .page .wrap > figure,
+    .page .wrap > .hero-figure,
+    .page .wrap > .context-visual,
+    .page .wrap > .compare-grid {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    h1, h2, h3 {
+      font-size: 32px;
+      line-height: 1.4;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      color: var(--ink);
+    }
 
     h1 {
-      font-size: 38px;
-      font-weight: 700;
-      letter-spacing: -0.8px;
-      line-height: 1.15;
-      margin-bottom: 32px;
+      text-align: left;
+      margin: 0 0 12px;
     }
 
     h2 {
-      font-size: 27px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      margin: 64px 0 8px;
+      margin: 72px 0 20px;
     }
 
     h3 {
+      margin: 56px 0 16px;
+    }
+
+    p,
+    li {
       font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      margin: 32px 0 8px;
-    }
-
-    p { margin: 14px 0; }
-
-    .muted { color: var(--muted); }
-
-    ul, ol { margin: 14px 0; padding-left: 22px; }
-    li { margin: 6px 0; }
-
-    /* accent label */
-    .eyebrow {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+      line-height: 1.5;
+      font-weight: 400;
       color: var(--muted);
-      padding: 3px 12px;
-      margin-bottom: 18px;
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
     }
 
-    /* images */
-    figure { margin: 28px 0; }
-    .page img.full {
+    p {
+      margin: 0 0 14px;
+    }
+
+    .case-subtitle {
+      margin: 0 0 32px;
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 400;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .hero-figure {
+      margin: 0 0 72px;
+    }
+
+    .hero-figure img {
+      width: 1000px;
+      max-width: 100%;
+      aspect-ratio: 1000 / 678;
+      object-fit: cover;
+    }
+
+    figure { margin: 28px auto; }
+    .page .wrap > figure { margin: 28px 0; }
+    .page img.full,
+    .page img.contained {
       width: 100%;
       height: auto;
       display: block;
@@ -157,8 +191,143 @@
       cursor: zoom-in;
     }
 
-    /* callout */
+    .body-strong {
+      color: var(--ink);
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .ink-text { color: var(--ink); }
+
+    .context-visual {
+      width: 100%;
+      margin: 32px 0 0;
+      align-items: end;
+      position: relative;
+    }
+
+    .context-main {
+      grid-column: 1 / -1;
+      position: relative;
+      z-index: 1;
+      width: 1000px;
+      max-width: 100%;
+    }
+
+    .context-main img {
+      width: 1000px;
+      max-width: 100%;
+      aspect-ratio: 1000 / 356;
+      object-fit: cover;
+    }
+
+    .context-arrow {
+      grid-column: 11 / span 5;
+      align-self: end;
+      justify-self: start;
+      width: 269px;
+      max-width: 100%;
+      height: 142px;
+      object-fit: contain;
+      display: block;
+      margin-bottom: -40px;
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .manager-copy {
+      grid-column: 1 / -1;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .manager-copy p {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .manager-title {
+      font-size: 24px;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .manager-subtitle {
+      font-size: 24px;
+      line-height: 1.4;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .context-task { margin-top: 52px; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(0, 1fr));
+      column-gap: 12px;
+      row-gap: 36px;
+      width: 100%;
+      margin-top: 32px;
+    }
+
+    .compare-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .compare-card.replacement { grid-column: 1 / span 8; }
+    .compare-card.before { grid-column: 10 / span 9; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--chip);
+      border-radius: 40px;
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .compare-copy {
+      margin-top: 24px;
+      margin-bottom: 0;
+      color: var(--ink);
+      white-space: pre-line;
+    }
+
+    .compare-image {
+      width: 368px;
+      max-width: 100%;
+      margin-top: 24px;
+    }
+
+    .compare-image img {
+      width: 368px;
+      max-width: 100%;
+      height: 296px;
+      object-fit: cover;
+      display: block;
+      border-radius: 14px;
+      cursor: zoom-in;
+    }
+
+    .summary-text {
+      margin-top: 32px;
+    }
+
+    ul, ol { max-width: none; margin: 14px 0; padding-left: 22px; }
+    li { margin: 6px 0; }
+
     .callout {
+      max-width: none;
       background: var(--hover);
       border-radius: 12px;
       padding: 20px 22px;
@@ -168,10 +337,10 @@
     .callout p:first-child { margin-top: 0; }
     .callout p:last-child { margin-bottom: 0; }
 
-    /* benchmarking cards */
     .cards {
+      max-width: none;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
       margin: 20px 0;
     }
@@ -181,12 +350,18 @@
       padding: 18px 20px;
     }
     .card .name {
+      font-size: 20px;
+      line-height: 1.4;
       font-weight: 600;
-      margin-bottom: 6px;
+      color: var(--ink);
+      margin-bottom: 8px;
     }
-    .card .desc { font-size: 15px; color: var(--muted); }
+    .card .desc {
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
 
-    /* lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -224,15 +399,187 @@
       z-index: 1001;
     }
 
+
+    .hero-figure,
+    .context-main,
+    .compare-image {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .context-main { margin-top: 0; margin-bottom: 0; }
+    .compare-image { margin-bottom: 0; }
+
+    .bench-list {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+      margin: 18px 0 32px;
+    }
+
+    .bench-item {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .bench-thumb {
+      width: 241px;
+      height: 115px;
+      flex: 0 0 241px;
+      border-radius: 14px;
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+
+    .bench-copy {
+      margin-left: 75px;
+      color: var(--ink);
+    }
+
+    .bench-copy p {
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .bench-copy strong,
+    .result-label {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .body-ink {
+      color: var(--ink);
+    }
+
+    .scenario-title {
+      grid-column: 1 / -1;
+      margin: 56px 0 16px;
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .scenario-image,
+    .scenario-image img {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .scenario-image {
+      margin: 28px 0 0;
+    }
+
+    .scenario-image img {
+      display: block;
+      height: auto;
+      border-radius: 14px;
+      cursor: zoom-in;
+      object-fit: cover;
+    }
+
+    .scenario-image.tight-top {
+      margin-top: 24px;
+    }
+
+    .center-copy {
+      grid-column: 1 / -1;
+      margin: 40px 0 0;
+      text-align: center;
+    }
+
+    .center-copy p {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .center-title {
+      font-size: 24px;
+      line-height: 1.4;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .center-subtitle {
+      font-size: 24px;
+      line-height: 1.4;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .results-copy {
+      white-space: pre-line;
+    }
+
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
     }
 
+    @media (max-width: 900px) {
+      .page .wrap > h1,
+      .page .wrap > .case-subtitle,
+      .page .wrap > h2,
+      .page .wrap > h3,
+      .page .wrap > p,
+      .page .wrap > ul,
+      .page .wrap > ol,
+      .page .wrap > .callout,
+      .page .wrap > details,
+      .page .wrap > .cards {
+        grid-column: 1 / -1;
+      }
+
+      .compare-card.replacement,
+      .compare-card.before,
+      .context-main,
+      .context-arrow {
+        grid-column: 1 / -1;
+      }
+
+      .context-arrow {
+        justify-self: center;
+        width: 140px;
+        margin-top: 12px;
+        margin-bottom: -28px;
+      }
+
+      .compare-grid {
+        row-gap: 28px;
+      }
+    }
+
     @media (max-width: 600px) {
-      body { font-size: 16px; }
-      h1 { font-size: 29px; }
-      h2 { font-size: 23px; }
+      .wrap {
+        width: calc(100% - 32px);
+        max-width: 1000px;
+      }
+
+      h1, h2, h3 { font-size: 28px; }
+      .case-subtitle,
+      .manager-title,
+      .manager-subtitle,
+      .center-title,
+      .center-subtitle { font-size: 20px; }
+      p, li,
+      .card .desc,
+      .compare-copy,
+      .card .name,
+      .pill,
+      .scenario-title { font-size: 18px; }
       .cards { grid-template-columns: 1fr; }
+      .context-arrow { width: 120px; height: auto; margin-bottom: -20px; }
+      .compare-image,
+      .compare-image img { width: 100%; height: auto; }
+      .bench-item { flex-direction: column; gap: 20px; }
+      .bench-copy { margin-left: 0; }
+      .bench-thumb { width: 100%; max-width: 241px; height: auto; }
+      .page { padding-bottom: 80px; }
     }
   </style>
 </head>
@@ -244,97 +591,115 @@
   <article class="page">
     <div class="wrap">
       <h1>Pitboard — приложение для менеджеров гоночных команд</h1>
+      <p class="case-subtitle">От доски с магнитами к приложению с крутой аналитикой</p>
 
-      <figure><img class="full" src="../images/Pitboard_preview.png" alt="Pitboard — от доски с магнитами к приложению с крутой аналитикой" /></figure>
+      <figure class="hero-figure"><img class="full" src="../images/Pitboard_1.png" alt="Pitboard — от доски с магнитами к приложению с крутой аналитикой" /></figure>
 
       <!-- ============ Контекст ============ -->
       <h2>Контекст</h2>
-      <p>В гоночных соревнованиях команда состоит не только из участников заезда, но и из людей, координирующих их — менеджеров.</p>
-      <p>Задача менеджеров отслеживать время стинта (один заезд одного человека, как правило, длится от 10 до 20-30 минут) и, когда оно подходит к концу, сообщать, что пора меняться со следующим сокомандником.</p>
-      <p>Без хорошего менеджера практически невозможно выиграть гонку в современном прокатном картинге.</p>
+      <p>Картинг — это вид спорта и развлечений, гонки на специализированных простейших машинах без кузова, которые называются карты.</p>
+      <p>Существует обычный и командные виды картинга, нас интересует второй, более сложный из них. Люди объединяются в команды и в длинном заезде по очереди сменяют друг друга, побеждает тот, чья команда проехала больше всего кругов за отведенное время.</p>
 
-      <figure><img class="full" src="../images/Pitboard_1.png" loading="lazy" decoding="async" alt="Pitboard — контекст" /></figure>
+      <div class="context-visual grid-18">
+        <figure class="context-main"><img class="full" src="../images/Pitboard_2.png" loading="lazy" decoding="async" alt="Pitboard — картинг и роль менеджера" /></figure>
+        <img class="context-arrow" src="../images/Arrow_Down_2.png" loading="lazy" decoding="async" alt="" aria-hidden="true" />
+      </div>
 
-      <!-- ============ Погружение в проблему ============ -->
-      <h2>Погружение в проблему</h2>
-      <p>Результат участника зависит не только от его мастерства, но и от состояния карта.</p>
-      <p>Менеджер на протяжении всей гонки оценивает какие карты едут быстро, а какие медленно. Своей команде во время смены участника он говорит брать лучшие из них.</p>
-      <p>Раньше для этого использовалась доска с магнитами, перестановка магнитов занимала много времени, а уследить за 30+ картами было сложно. Поэтому было решено сделать оптимизированное приложение с автоматическим выводом аналитики во время заезда. Это упростит задачу менеджера, устранит путаницу и позволит достичь команде новых высот.</p>
+      <div class="manager-copy">
+        <p class="manager-title">Это менеджер — человек, координирующий свою команду</p>
+        <p class="manager-subtitle">Победить без хорошего менеджера невозможно</p>
+      </div>
 
-      <figure><img class="full" src="../images/Pitboard_2.png" loading="lazy" decoding="async" alt="Pitboard — погружение в проблему" /></figure>
+      <p class="context-task">Главная задача менеджера отслеживать время стинта (один заезд одного человека, как&nbsp;правило, длится от&nbsp;10 до&nbsp;20-30 минут) и, когда оно&nbsp;подходит к&nbsp;концу, сообщать, что&nbsp;пора меняться со&nbsp;следующим сокомандником.</p>
 
-      <!-- ============ Начало работы ============ -->
-      <h2>Начало работы</h2>
-      <p>Заказчик — менеджер гоночной команды. Вместе с ним и командой разработчиков мы провели несколько созвонов, где глубоко погрузились в пользователький опыт, постарались раскопать все подводные камни и сформулировать основные требования.</p>
-      <p>Было принято решение создавать MVP, чтобы выпустить в тесты продукт, который решал бы главные текущие проблемы, а затем итерационно его дорабатывать и сделать лучшим уникальным предложением на рынке.</p>
-      <p>Заказчик сделал зарисовки будущего интерфейса.</p>
+      <h2>Проблема</h2>
+      <p class="body-strong">Результат гонщика зависит не&nbsp;только от&nbsp;его мастерства, но&nbsp;и от&nbsp;состояния карта.</p>
+      <p>Менеджер на&nbsp;протяжении всей гонки оценивает какие карты едут быстро, а&nbsp;какие медленно. Своей команде во&nbsp;время смены участника он&nbsp;говорит брать лучшие из&nbsp;них.</p>
 
-      <figure><img class="full" src="../images/Pitboard_3.png" loading="lazy" decoding="async" alt="Pitboard — начало работы" /></figure>
+      <div class="compare-grid">
+        <section class="compare-card replacement">
+          <div class="pill">Что взамен</div>
+          <p class="compare-copy">— Приложение для оптимизации
+— Пара кликов вместо долгой перестановки
+— Продуманная аналитика — большое преимущество</p>
+          <figure class="compare-image"><img src="../images/Pitboard_4.png" loading="lazy" decoding="async" alt="Pitboard — что взамен" /></figure>
+        </section>
 
-      <!-- ============ Бенчмаркинг ============ -->
+        <section class="compare-card before">
+          <div class="pill">Оценка картов раньше</div>
+          <p class="compare-copy">— Доска с магнитами
+— Занимает много времени
+— Сложно уследить, высокий риск
+путаницы</p>
+          <figure class="compare-image"><img src="../images/Pitboard_3.png" loading="lazy" decoding="async" alt="Pitboard — оценка картов раньше" /></figure>
+        </section>
+      </div>
+
+      <p class="summary-text">Приложение упростит задачу менеджера и&nbsp;позволит достичь команде новых высот.</p>
+
       <h2>Бенчмаркинг</h2>
-      <p>Я проанализировала существующие решения:</p>
-      <div class="cards">
-        <div class="card">
-          <div class="name">Go Kart Team Manager</div>
-          <div class="desc">Выполняет базовые функции, но без глубокой аналитики. В целом, достаточно неудобное, интерфейс недружелюбный. Непопулярное среди менеджеров.</div>
+      <p>Я провела анализ существующих решений.</p>
+
+      <div class="bench-list">
+        <div class="bench-item">
+          <img class="bench-thumb full" src="../images/Pitboard_Bench_1.png" loading="lazy" decoding="async" alt="Go Kart Team Manager" />
+          <div class="bench-copy">
+            <p><strong>Go&nbsp;Kart Team Manager</strong><br />Выполняет базовые функции, но&nbsp;без глубокой аналитики. В&nbsp;целом, достаточно неудобное, интерфейс недружелюбный. Непопулярное среди менеджеров.</p>
+          </div>
         </div>
-        <div class="card">
-          <div class="name">RaceMann</div>
-          <div class="desc">Мощное приложение, коннектится с системой трека, показывает время и лидеров. Однако оно неуниверсально — его может подключить только сам картинг-центр. Использовать его там, где оно не подключено, не получится.</div>
+
+        <div class="bench-item">
+          <img class="bench-thumb full" src="../images/Pitboard_Bench_2.png" loading="lazy" decoding="async" alt="RaceMann" />
+          <div class="bench-copy">
+            <p><strong>RaceMann</strong><br />Мощное приложение, коннектится с&nbsp;системой трека, показывает время и&nbsp;лидеров. Однако оно&nbsp;неуниверсально — его&nbsp;может подключить только сам картинг-центр. Использовать его&nbsp;там, где&nbsp;оно не&nbsp;подключено, не&nbsp;получится.</p>
+          </div>
         </div>
       </div>
 
-      <figure><img class="full" src="../images/Pitboard_4.png" loading="lazy" decoding="async" alt="Pitboard — бенчмаркинг" /></figure>
+      <p>Изначально решили ориентироваться на&nbsp;Go Kart Team Manager. Взять аналогичное отображение картов в&nbsp;виде таблицы, но&nbsp;сделать интерфейс более приятным, перемещение картов с&nbsp;трека в&nbsp;питлейн удобнее, добавить в&nbsp;функционал аналитику.</p>
+      <p>Но&nbsp;заказчик запросил расширение. Команда разработчиков утвердила, что&nbsp;программно возможно подтягивать все данные о&nbsp;гонке: время заезда каждого участника, кол-во&nbsp;кругов, место на&nbsp;треке и&nbsp;тд.</p>
+      <p>Было принято решение сделать полноценную замену RaceMann, с&nbsp;уникальной возможностью связать ее&nbsp;с любым картинг-центром и&nbsp;полноценной аналитикой во&nbsp;время и&nbsp;после заезда.</p>
 
-      <!-- ============ Первая версия ============ -->
-      <h2>Первая версия</h2>
-      <p>Изначально решили ориентироваться на Go Kart Team Manager. Взять аналогичное отображение картов в виде таблицы, но сделать интерфейс более приятным, перемещение картов с трека в питлейн удобнее, добавить в функционал аналитику.</p>
-      <p>Но заказчик запросил расширение. Команда разработчиков утвердила, что программно возможно подтягивать все данные о гонке: время заезда каждого участника, кол-во кругов, место на треке и тд.</p>
-      <p>На этом этапе было принято решение сделать полноценную замену RaceMann, с уникальной возможностью связать ее с любым картинг-центром и полноценной аналитикой во время и после заезда.</p>
-
-      <figure><img class="full" src="../images/Pitboard_5.png" loading="lazy" decoding="async" alt="Pitboard — первая версия" /></figure>
-
-      <!-- ============ Прототип ============ -->
-      <h2>Прототип</h2>
-      <p>Чтобы заказчик и команда разработчиков могли «пощупать» приложение и внести правки, я собрала прототип. На созвоне все вместе прошлись по главному сценарию и обсудили, что следует переработать.</p>
-
-      <figure><img class="full" src="../images/Pitboard_6.png" loading="lazy" decoding="async" alt="Pitboard — прототип" /></figure>
-
-      <!-- ============ Ключевые сценарии ============ -->
       <h2>Ключевые сценарии</h2>
 
-      <h3>Отслеживание гонки</h3>
-      <p>Экран гонки сделали максимально удобным для менеджера:</p>
-      <ul>
-        <li>Строка содержит в себе всю необходимую информацию: номер карта (N, если номер неизвестен), его оценка (характеризует цвет), номер участника, команда, фамилия гонщика, текущий стинт, среднее время прохождения круга, время, которое нужно наверстать, чтобы догнать участника спереди, пройденное количество кругов и полоска-индикатор текущего положения на треке</li>
-        <li>Питлейн можно свернуть, его не требуется просматривать постоянно, но это может понадобиться в любой момент, поэтому он всегда доступен на экране. Также есть возможность поменять направление питлейна</li>
-        <li>Отображается общая информация о гонке: наименование, время проведения и прошедшее время, в скобочках — оставшееся до конца</li>
-      </ul>
-      <figure><img class="full" src="../images/Pitboard_7.png" loading="lazy" decoding="async" alt="Pitboard — экран отслеживания гонки" /></figure>
+      <p class="scenario-title">— Отслеживание гонки</p>
+      <p>Экран гонки сделала максимально удобным для&nbsp;менеджера.</p>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_5.png" loading="lazy" decoding="async" alt="Pitboard — отслеживание гонки" style="aspect-ratio: 1000 / 720;" /></figure>
 
-      <h3>Быстрое переключение</h3>
-      <p>Так как теперь для того, чтобы посмотреть все карты, нужно пролистывать вниз, то на поиск нужного номера может уйти достаточно много времени. А наша задача — это время как раз сократить.</p>
-      <p>Поэтому реализовали удобный поиск картов: после нажатия на кнопку «Поиск» появляется окно-оверлей со списком уже указанных номеров картов и пока неизвестных — без номера.</p>
-      <figure><img class="full" src="../images/Pitboard_8.png" loading="lazy" decoding="async" alt="Pitboard — быстрое переключение и поиск картов" /></figure>
+      <p class="scenario-title">— Редактирование информации</p>
+      <p>Номер пилота и&nbsp;карта — неодинаковы. На&nbsp;протяжении всей гонки пилоты меняют карты, менеджер должен успевать за&nbsp;этим следить и&nbsp;отмечать в&nbsp;приложении.</p>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_6.png" loading="lazy" decoding="async" alt="Pitboard — редактирование информации" style="aspect-ratio: 1000 / 343;" /></figure>
 
-      <h3>Редактирование информации</h3>
-      <p>Изначально — у всех картов номер неизвестен. Это непубличная информация, только перед самой гонкой жеребьевкой определяется какой карт какому гонщику достанется, и это не оглашается. Чтобы узнать номер, менеджер наблюдает за гонкой и вписывает карт в приложение. Это происходит постепенно, потому что номер бывает сложно разглядеть.</p>
-      <p>После занесения номера карта приложение начинает записывать по нему аналитику: за сколько времени проезжаются круги, какое среднее время стинта.</p>
-      <p>На основе этой аналитики менеджер выставляет оценку — и карт меняет серую подложку на цвет соответствующей оценки, например, красный — ужасный, зеленый — очень хороший.</p>
-      <figure><img class="full" src="../images/Pitboard_9.png" loading="lazy" decoding="async" alt="Pitboard — редактирование информации о карте" /></figure>
-      <figure><img class="full" src="../images/Pitboard_10.png" loading="lazy" decoding="async" alt="Pitboard — выставление оценки карту" /></figure>
+      <div class="center-copy">
+        <p class="center-title">Изначально неизвестно — кто на каком карте поедет</p>
+        <p class="center-subtitle">Номера определяются жеребьевкой и не разглашаются</p>
+      </div>
 
-      <h3>Аналитика по карту</h3>
-      <p>В аналитике отображается лучшее время стинта и какой гонщик его сделал. Голубой график отображает лучшее время в каждом стинте.</p>
-      <p>Также отображается среднее время стинта. На графике оно представлено зеленым цветом. Отдельно выводится значение среднего времени последнего участника.</p>
-      <p>Можно посмотреть более подробную статистику. В таблице выводятся все записанные значения, цветом выделены лучшие результаты среди них. Можно провалиться еще глубже — перейти в каждый стинт по отдельности и посмотреть время, за которое конкретный пилот проезжал круги в своем стинте.</p>
-      <figure><img class="full" src="../images/Pitboard_11.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту" /></figure>
-      <figure><img class="full" src="../images/Pitboard_12.png" loading="lazy" decoding="async" alt="Pitboard — подробная статистика по карту" /></figure>
+      <p>Чтобы узнать номер, менеджер наблюдает за&nbsp;гонкой и&nbsp;вписывает номер карта соответствующего гонщика в&nbsp;приложение. Это происходит постепенно, потому что&nbsp;номер бывает сложно разглядеть. После этого менеджер может выставить оценку.</p>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_7.png" loading="lazy" decoding="async" alt="Pitboard — присвоение номеров и оценка картов" style="aspect-ratio: 1000 / 1410;" /></figure>
 
-      <h3>Аналитика по командам</h3>
-      <p>Чтобы посмотреть аналитику уже прошедших стинтов и как их проехали участники из других команд, нужно перейти в аналитику по командам. Там представлен список всех прошедших и текущего стинтов.</p>
-      <figure><img class="full" src="../images/Pitboard_13.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по командам" /></figure>
+      <p class="scenario-title">— Быстрое переключение</p>
+      <p>Реализовала удобный поиск картов: после нажатия на&nbsp;кнопку «Поиск» появляется окно-оверлей со&nbsp;списком уже&nbsp;указанных номеров картов и&nbsp;пока неизвестных — без&nbsp;номера.</p>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_8.png" loading="lazy" decoding="async" alt="Pitboard — быстрое переключение" style="aspect-ratio: 1000 / 696;" /></figure>
+
+      <p class="scenario-title">— Аналитика</p>
+      <p>После занесения номера карта приложение начинает записывать по&nbsp;нему аналитику: за&nbsp;сколько времени проезжаются круги, какое среднее время стинта. Именно эта информация помогает быстро оценить на сколько хорош карт.</p>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_8.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту" style="aspect-ratio: 1000 / 720;" /></figure>
+      <figure class="scenario-image tight-top"><img class="full" src="../images/Pitboard_9.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по карту, подробности" style="aspect-ratio: 1000 / 720;" /></figure>
+
+      <p class="scenario-title">— Аналитика по командам</p>
+      <p>Чтобы посмотреть аналитику уже&nbsp;прошедших стинтов и&nbsp;как их&nbsp;проехали участники из&nbsp;других команд, нужно перейти в&nbsp;аналитику по&nbsp;командам. Там представлен список всех прошедших и&nbsp;текущего стинтов.</p>
+      <figure class="scenario-image"><img class="full" src="../images/Pitboard_10.png" loading="lazy" decoding="async" alt="Pitboard — аналитика по командам" style="aspect-ratio: 1000 / 698;" /></figure>
+
+      <h2>Результаты</h2>
+      <p class="results-copy">Проект находится в активной разработке. На данный момент я:
+— Спроектировала и прототипировала основные сценарии: управление картами, отслеживание аналитики, оценка картов
+— Провела 3 итерации дизайна с обратной связью от заказчика
+— Собрала дизайн-систему на токенах, проработала состояния компонентов</p>
+      <p><span class="result-label">Что сейчас</span><br />Мы перешли к следующему этапу —&nbsp;подвязке приложения к реальным картинг-центрам. Приложение должно вытягивать данные о гонках (время, круги, пилоты) напрямую из системы трека.</p>
+      <p>На этом этапе я завязана на разработчиков — они определят системные ограничения и помогут реализовать интеграцию. Моя задача — адаптировать интерфейс под эти ограничения и сохранить удобство.</p>
+      <p><span class="result-label">Что дальше</span><br />После завершения интеграции мы планируем провести полноценное тестирование с реальными менеджерами гоночных команд. Это поможет проверить, насколько приложение решает их задачи в условиях гонки.</p>
+      <p><span class="result-label">Итог</span><br />Уже сейчас проделана большая работа — приложение готово к основным сценариям и способно заменить доску с магнитами. Осталось довести до ума интеграцию, и продукт будет готов к использованию.</p>
     </div>
   </article>
 
