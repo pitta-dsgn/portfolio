@@ -126,15 +126,17 @@
     /* ---------- Top navigation / text links ---------- */
     .topbar {
       width: 100%;
-      padding: 28px 100px 0;
+      padding: 28px clamp(32px, 6vw, 100px) 0;
     }
 
     .topbar-inner {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      gap: 500px;
+      justify-content: space-between;
+      gap: 48px;
       width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
     }
 
     .brand {
@@ -595,14 +597,10 @@
       }
     }
 
-    @media (max-width: 1200px) {
-      .topbar-inner { gap: 120px; }
-    }
-
     @media (max-width: 900px) {
       .hero { padding: 48px 0 16px; }
       .topbar { padding-left: 40px; padding-right: 40px; }
-      .topbar-inner { justify-content: space-between; gap: 32px; }
+      .topbar-inner { gap: 32px; }
 
       .traits-grid {
         grid-template-columns: 1fr;
@@ -638,7 +636,7 @@
       .birds-subtitle { font-size: 20px; }
       .birds-arrow { width: 84px; height: auto; }
       .topbar { padding: 20px 24px 0; }
-      .topbar-inner { align-items: flex-start; gap: 20px; }
+      .topbar-inner { align-items: center; gap: 20px; }
       .brand { gap: 12px; font-size: 16px; }
       .brand-icon { width: 24px; height: 24px; }
       .topbar-links { gap: 12px; }
@@ -788,7 +786,7 @@
       </div>
 
       <div class="cta">
-        <h2 class="cta-title">Давайте работать вместе :)<br />Свяжитесь со мной!</h2>
+        <h2 class="cta-title">Буду рада поработать вместе :)<br />Свяжитесь со мной!</h2>
         <img class="cta-kitty" src="images/Kitty.png" alt="Котик" loading="lazy" decoding="async" />
       </div>
       
