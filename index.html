@@ -542,14 +542,17 @@
     .deck .card:nth-child(4) { --card-rotate: 5deg;   --card-y: 4px;  animation-delay: 0.21s; }
     .deck .card:nth-child(5) { --card-rotate: 10deg;  --card-y: 14px; animation-delay: 0.28s; }
 
-    /* Hover: enlarge the selected card to approximately 318×520px. */
+    /* Hover: stop the reveal animation so it cannot override transform,
+       then enlarge the selected card to 318×520px. */
     .deck .card:hover {
+      animation: none;
+      opacity: 1;
       transform: translate3d(0, -118px, 150px) rotate(0deg)
         scale3d(1.5142857143, 1.5135714286, 1);
       z-index: 30;
       box-shadow:
-        0 14px 30px rgba(16, 16, 16, 0.045),
-        0 42px 88px rgba(16, 16, 16, 0.085);
+        0 12px 28px rgba(16, 16, 16, 0.04),
+        0 34px 72px rgba(16, 16, 16, 0.075);
       filter: saturate(1.015) contrast(1.005);
     }
 
