@@ -108,7 +108,7 @@
 
     .intro {
       font-size: 32px;
-      line-height: 1.36;
+      line-height: 1.4;
       letter-spacing: -0.03em;
       font-weight: 600;
       color: var(--ink);
@@ -352,11 +352,18 @@
     /* ---------- About ---------- */
     .about { padding: 20px 0 120px; }
 
+    /* The About section uses the exact Figma grid: at 1440px the grid is
+       1000px wide, centered, with 220px margins and 12px gutters.
+       It intentionally bypasses the regular .wrap's 24px internal padding. */
+    .about > .wrap {
+      max-width: none;
+    }
+
     .about-title {
       max-width: var(--measure);
       margin: 34px auto 0;
       font-size: 32px;
-      line-height: 1.36;
+      line-height: 1.4;
       letter-spacing: -0.03em;
       font-weight: 600;
       color: var(--ink);
@@ -366,10 +373,12 @@
     /* 1440px viewport: 1000px content area = 220px margins.
        16 columns with 12px gutters; cards start at columns 1, 6 and 12. */
     .traits-grid {
+      width: 1000px;
+      max-width: calc(100vw - 48px);
+      margin: 60px auto 0;
       display: grid;
       grid-template-columns: repeat(16, minmax(0, 1fr));
       column-gap: 12px;
-      margin-top: 60px;
     }
 
     .trait:nth-child(1) { grid-column: 1 / span 4; }
@@ -394,7 +403,7 @@
 
     .trait-title {
       font-size: 24px;
-      line-height: 1.36;
+      line-height: 1.4;
       font-weight: 400;
       letter-spacing: -0.02em;
       color: var(--ink);
@@ -530,7 +539,7 @@
     .cta-title {
       max-width: var(--measure);
       font-size: 32px;
-      line-height: 1.36;
+      line-height: 1.4;
       letter-spacing: -0.03em;
       font-weight: 600;
       color: var(--ink);
@@ -603,6 +612,10 @@
       .topbar-inner { gap: 32px; }
 
       .traits-grid {
+        width: auto;
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
         grid-template-columns: 1fr;
         row-gap: 40px;
       }
@@ -710,10 +723,6 @@
 
       <a class="project" href="pitboard/">
         <img src="images/Pitboard_preview.png" loading="lazy" decoding="async" alt="Pitboard — приложение для менеджеров гоночных команд" />
-      </a>
-
-      <a class="project" href="mendi/">
-        <img src="images/Mendi_preview.png" loading="lazy" decoding="async" alt="Mendi — приложение для отслеживания приема лекарств" />
       </a>
 
       <div class="project-period">
