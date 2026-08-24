@@ -154,6 +154,26 @@
       height: auto;
     }
 
+    .image-row {
+      width: 100%;
+      max-width: 1000px;
+      margin: 28px 0 0;
+      padding: 0;
+      justify-self: start;
+      overflow: visible;
+    }
+
+    .image-row img {
+      display: block;
+      width: 100%;
+      max-width: none;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      position: static;
+      transform: none;
+    }
+
     .center-copy {
       margin-top: 40px;
       text-align: center;
@@ -262,14 +282,14 @@
       <div class="solution-block">
         <p class="solution-title">— Структура экранов и&nbsp;навигация</p>
         <p>Я&nbsp;спроектировала навигацию с&nbsp;нуля. В&nbsp;системе 5 основных экранов, все доступны из&nbsp;бокового меню. Оператор видит, на&nbsp;каком экране находится, и&nbsp;может переключиться на&nbsp;любой другой в&nbsp;один клик.</p>
-        <img class="full-image" src="../images/HMI_3.png" alt="Структура экранов и навигация" />
+        <figure class="image-row"><img src="../images/HMI_3.png" alt="Структура экранов и навигация" /></figure>
       </div>
 
       <div class="solution-block">
         <p class="solution-title">— Глобальная строка уведомлений</p>
         <p>Вместо всплывающих окон — строка уведомлений, которая видна на&nbsp;всех экранах. Если возникает ошибка, оператор видит её&nbsp;сразу, даже если он&nbsp;находится в&nbsp;меню настроек.</p>
-        <img class="full-image" src="../images/HMI_4.png" alt="Глобальная строка уведомлений" />
-        <img class="full-image" src="../images/HMI_5.png" alt="Глобальная строка уведомлений на другом экране" />
+        <figure class="image-row"><img src="../images/HMI_4.png" alt="Глобальная строка уведомлений" /></figure>
+        <figure class="image-row"><img src="../images/HMI_5.png" alt="Глобальная строка уведомлений на другом экране" /></figure>
       </div>
 
       <div class="solution-block">
