@@ -4,22 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Интерфейс для HMI панели крана-манипулятора</title>
-  <meta name="description" content="Кейс: дизайн интерфейса HMI панели крана-манипулятора в Siemens TIA Portal. Безопасность оператора, структура экранов, светлая и тёмная темы, UI-Kit." />
+  <meta name="description" content="Кейс: дизайн интерфейса HMI панели крана-манипулятора. Безопасность оператора, структура экранов, темы, UI-Kit и проектные решения." />
 
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Екатерина Стойилкович — портфолио" />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:url" content="https://pitta-dsgn.github.io/portfolio/hmi/" />
   <meta property="og:title" content="Интерфейс для HMI панели крана-манипулятора" />
-  <meta property="og:description" content="UX/UI-кейс: безопасный интерфейс для оператора крана — структура экранов, темы, UI-Kit." />
+  <meta property="og:description" content="UX/UI-кейс: безопасный интерфейс для оператора крана — структура экранов, темы, UI-Kit и визуальные решения." />
   <meta property="og:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Екатерина Стойилкович — продуктовый дизайнер" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Интерфейс для HMI панели крана-манипулятора" />
-  <meta name="twitter:description" content="UX/UI-кейс: безопасный интерфейс для оператора крана — структура экранов, темы, UI-Kit." />
+  <meta name="twitter:description" content="UX/UI-кейс: безопасный интерфейс для оператора крана — структура экранов, темы, UI-Kit и визуальные решения." />
   <meta name="twitter:image" content="https://pitta-dsgn.github.io/portfolio/images/og_cover.png" />
 
   <link rel="icon" type="image/png" href="../images/profile.png" />
@@ -33,54 +32,39 @@
     :root {
       --bg: #FFFFFF;
       --ink: #101010;
-      --text: #101010;
-      --muted: #6B6B70;
-      --border: #ECECEC;
-      --hover: #F5F5F4;
+      --muted: #878787;
       --max: 1000px;
-      --measure: 800px;
-
-      /* holographic palette */
-      --blue: #6DBEFF;
-      --purple: #BF6DFF;
-      --pink: #FF6DBE;
-      --mint: #56F5AE;
-
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--ink);
       font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: 17px;
-      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a { color: inherit; }
 
-
     .wrap {
-      width: 100%;
+      width: calc(100% - 48px);
       max-width: var(--max);
       margin: 0 auto;
-      padding: 0 24px;
     }
 
-    .page { padding: 24px 0 100px; }
-
-    /* sticky back bar */
     .topnav {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: #fff;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
     }
-    .topnav .wrap { padding-top: 14px; padding-bottom: 14px; }
+
+    .topnav .wrap { padding: 14px 0; }
+
     .back {
       display: inline-flex;
       align-items: center;
@@ -91,131 +75,126 @@
       text-decoration: none;
       transition: color 0.25s ease;
     }
+
     .back:hover { color: var(--ink); }
 
-    h1 {
-      font-size: 38px;
-      font-weight: 700;
-      letter-spacing: -0.8px;
-      line-height: 1.15;
-      margin-bottom: 32px;
+    .page { padding: 24px 0 100px; }
+
+    .page .wrap {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(0, 1fr));
+      column-gap: 12px;
     }
 
-    h2 {
-      font-size: 27px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      margin: 64px 0 8px;
+    .page .wrap > * {
+      grid-column: 1 / -1;
+      min-width: 0;
     }
 
-
-    h3 {
-      font-size: 20px;
+    h1, h2 {
+      font-size: 32px;
+      line-height: 1.4;
+      letter-spacing: -0.03em;
       font-weight: 600;
-      letter-spacing: -0.2px;
-      margin: 32px 0 8px;
+      color: var(--ink);
     }
 
-    p { margin: 14px 0; }
+    h1 { margin: 0 0 12px; }
+    h2 { margin: 72px 0 20px; }
 
-    ul, ol { margin: 14px 0; padding-left: 22px; }
-    li { margin: 8px 0; }
-
-    /* readable text measure inside a wide container */
-    .page .wrap > h1,
-    .page .wrap > h2,
-    .page .wrap > h3,
-    .page .wrap > p,
-    .page .wrap > ul,
-    .page .wrap > ol,
-    .page .wrap > .callout { max-width: var(--measure); margin-left: auto; margin-right: auto; }
-
-    /* callout */
-    .callout {
-      background: var(--hover);
-      border-radius: 10px;
-      padding: 20px 22px;
-      margin: 24px 0;
+    p, li {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 400;
+      color: var(--muted);
     }
-    .callout p { margin: 8px 0; }
-    .callout p:first-child { margin-top: 0; }
-    .callout p:last-child { margin-bottom: 0; }
 
-    /* media */
-    figure { margin: 28px 0; }
-    .page img.full {
-      width: 100%;
-      height: auto;
+    p { margin: 0 0 14px; }
+
+    img {
       display: block;
-      border-radius: 10px;
-      cursor: zoom-in;
-    }
-    /* keep natural size, don't stretch */
-    .page img.natural {
-      width: auto;
+      width: 100%;
       max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    /* responsive embedded video */
-    .video {
-      position: relative;
-      width: 100%;
-      padding-top: 55.79%;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #000;
-    }
-    .video iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
+      height: auto;
     }
 
-    /* lightbox */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.92);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      cursor: zoom-out;
-      overflow: hidden;
+    figure { margin: 0; }
+
+    .case-subtitle {
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 400;
+      color: var(--muted);
+      margin: 0 0 32px;
     }
-    .lightbox.open { display: flex; }
-    .lightbox img {
+
+    .full-image {
+      width: 1000px;
       max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      cursor: zoom-in;
-      border-radius: 6px;
-      transition: transform 0.25s ease;
+      margin-top: 28px;
+      object-fit: cover;
     }
-    .lightbox.zoomed img { transform: scale(1.8); cursor: zoom-out; }
-    .lightbox-close {
-      position: fixed;
-      top: 14px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      font-size: 30px;
-      line-height: 1;
-      color: #fff;
-      background: none;
-      border: 0;
-      cursor: pointer;
-      z-index: 1001;
+
+    .center-copy {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .center-title {
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 400;
+      color: var(--ink);
+      text-align: center;
+      margin: 0 0 8px;
+    }
+
+    .center-subtitle {
+      font-size: 24px;
+      line-height: 1.4;
+      font-weight: 400;
+      color: var(--muted);
+      text-align: center;
+      margin: 0;
+    }
+
+    .preline {
+      white-space: pre-line;
+    }
+
+    .body-ink,
+    .body-ink li {
+      color: var(--ink);
+    }
+
+    .solution-block {
+      margin-top: 56px;
+    }
+
+    .solution-title {
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+
+    .solution-block .full-image {
+      margin-top: 28px;
+    }
+
+    .results-copy {
+      white-space: pre-line;
     }
 
     @media (max-width: 600px) {
-      body { font-size: 16px; }
-      h1 { font-size: 29px; }
-      h2 { font-size: 23px; }
+      .wrap { width: calc(100% - 32px); }
+      h1, h2 { font-size: 28px; }
+      .case-subtitle,
+      .center-title,
+      .center-subtitle { font-size: 20px; }
+      p, li, .solution-title { font-size: 18px; }
+      .page { padding-bottom: 80px; }
     }
   </style>
 </head>
@@ -226,117 +205,113 @@
 
   <article class="page">
     <div class="wrap">
-      <h1>Интерфейс для HMI панели крана-манипулятора</h1>
-
-      <figure><img class="full natural" src="../images/HMI_01.png" alt="HMI панель крана-манипулятора" /></figure>
-
-      <div class="callout">
-        <p><strong>Проблема:</strong> Промышленный интерфейс имеет большое значение для безопасности людей. Оператор в аварийной ситуации должен быстро оценить все важные параметры и предпринять правильные действия по устранению неисправности, иначе может случиться травма или поломка оборудования.</p>
-        <p><strong>Задача:</strong> Сделать интерфейс безопасным и понятным для операторов, работающих в стрессовых условиях.</p>
-      </div>
-
-      <h3>Ключевые требования</h3>
-      <ul>
-        <li>Вся критическая информация — на главном экране</li>
-        <li>Мгновенное оповещение об авариях (без необходимости переключаться по экранам)</li>
-        <li>Управление сенсорным экраном в перчатках (крупные кнопки)</li>
-        <li>Минимализм и чёткая структура</li>
-      </ul>
-
-      <!-- ============ Процесс и проектные решения ============ -->
-      <h2>Процесс и проектные решения</h2>
-      <p>У меня не было возможности провести полноценные интервью с операторами. Я сделала то, что было в моих силах:</p>
-      <ul>
-        <li>Обсудила с руководителем проекта его виденье интерфейса, какие параметры важно расположить на главном экране, а какие лучше убрать. За весь процесс создания произошло несколько итераций.</li>
-        <li>Изучила похожие проекты от других производителей</li>
-        <li>Ставила себя на место оператора: проходила по алгоритму его действий</li>
-      </ul>
-
-      <figure><img class="full" src="../images/HMI_01_01.png" alt="Процесс и проектные решения" /></figure>
-
-      <h3>Структура экранов и навигация</h3>
-      <p>Я спроектировала навигацию с нуля. В системе 5 основных экранов, все доступны из бокового меню. Оператор видит, на каком экране находится, и может переключиться на любой другой в один клик.</p>
-
-      <h3>Глобальная строка уведомлений</h3>
-      <p>Вместо всплывающих окон — строка уведомлений, которая видна на всех экранах. Если возникает ошибка, оператор видит её сразу, даже если он находится в меню настроек.</p>
-
-      <figure><img class="full" src="../images/HMI_01_02.png" alt="Глобальная строка уведомлений" /></figure>
-
-      <h3>Адаптация под сенсорное управление</h3>
-      <p>Все активные зоны — крупные (кнопки 170×48). Я продумала, чтобы оператор в перчатках мог попасть пальцем в нужную область, не задевая соседние. Активные элементы выделены голубым цветом.</p>
-
-      <h3>Палитра</h3>
-      <p>Я создала 2 темы: светлую и тёмную. Оператор может выбрать ту, которая удобнее в зависимости от времени суток и освещения.</p>
-
-      <figure><img class="full" src="../images/HMI_02.png" alt="Цветовые палитры светлой и тёмной тем" /></figure>
-
-      <h3>UI-Kit</h3>
-      <p>Был составлен UI-Kit с разными состояниями элементов. Так как проект был реализован в HMI от компании Siemens в Tia Portal, то состояний у кнопок 2 — только нажата или не нажата. В данном ПО нет возможности реализовать больше микро-взаимодействий.</p>
-
-      <figure><img class="full" src="../images/HMI_03.png" alt="UI-Kit с состояниями элементов" /></figure>
-
-      <!-- ============ Визуал ============ -->
-      <h2>Визуал</h2>
-
-      <h3>Главный экран</h3>
-      <p>Этот экран оператор видит в первую очередь. Здесь собраны все параметры, которые критически важны для безопасной работы:</p>
-      <ul>
-        <li><strong>Нагрузка на кран (R0 и Rn):</strong> Круговая диаграмма с чертой показывает значение R0. В центре диаграммы выводится крупно значение Rn. Когда волнения нет R0=Rn, значения совпадают. Когда есть волнение, значение Rn выше, чем R0. Например, абсолютная разрешенная нагрузка (R0) равна 70%, в то же время, если волнение сильное нагрузка Rn может быть уже 90% и работать опасно. Оператор видит оба значения (R0 на «спидометре», Rn в числовом формате) и понимает, что с краном все окей, но из-за волнения стоит временно приостановить работы.</li>
-        <li><strong>Длина каната:</strong> Абсолютная (сколько всего размотано) и относительная (оператор может обнулить точку отсчёта, чтобы видеть, на сколько именно опущен или поднят груз от «нулевой точки»).</li>
-        <li><strong>Положение крана:</strong> круговая диаграмма, где запретная зона отмечена красным.</li>
-        <li><strong>Режимы работы:</strong> какие режимы включены, есть ли ограничения.</li>
-      </ul>
-
-      <figure><img class="full" src="../images/HMI_04.png" alt="Главный экран HMI" /></figure>
-
-      <h3>Архив аварий</h3>
-      <p>Архив аварий — просмотр текущих и произошедших ранее происшествий аварийного и предупреждающего характера. Оператор не просто видит, что случилось. Он может проанализировать, почему это произошло, и предотвратить повторение. Инженеры используют этот экран для диагностики системы после инцидентов.</p>
-
-      <figure><img class="full" src="../images/HMI_05.png" alt="Архив аварий" /></figure>
-
-      <h3>Насосная станция</h3>
-      <p>За движением крана стоит сложная гидравлическая система. Этот экран показывает состояние каждого её элемента в реальном времени.</p>
-
-      <figure><img class="full" src="../images/HMI_06.png" alt="Насосная станция" /></figure>
-
-      <h3>Диагностика</h3>
-      <p>Здесь отображаются состояния всех остальных устройств системы.</p>
-
-      <figure><img class="full" src="../images/HMI_07.png" alt="Диагностика" /></figure>
-
-      <h3>Настройки</h3>
-      <p>Оператор работает с панелью часами, у него должна быть возможность настроить интерфейс под себя.</p>
-      <ul>
-        <li><strong>Тема:</strong> светлая и тёмная. В тёмное время суток или при плохой освещённости оператор может переключиться на тёмную тему, чтобы не напрягать глаза.</li>
-        <li><strong>Яркость:</strong> плавная регулировка для разных условий освещения (от солнечного света до тусклого освещения кабины).</li>
-      </ul>
-
-      <figure><img class="full" src="../images/HMI_08.png" alt="Настройки" /></figure>
-
-      <!-- ============ Результаты ============ -->
-      <h2>Результаты</h2>
-      <p>Проект не был запущен на момент моего ухода, я передала реализованный интерфейс команде. По моей оценке, спроектированный интерфейс позволяет оператору:</p>
-      <ul>
-        <li>Сократить время поиска критической ошибки с нескольких секунд до мгновенного считывания (глобальная строка уведомлений + цветовое кодирование)</li>
-        <li>Быстро оценивать два типа нагрузки (абсолютную и с учётом волнения) — это критически важно для безопасности в море</li>
-        <li>Управлять краном в перчатках без ошибок</li>
-      </ul>
+      <h1>Интерфейс для&nbsp;HMI панели крана-манипулятора</h1>
+      <p class="case-subtitle">Дизайн, программирование, наладка</p>
 
       <figure>
-        <div class="video">
-          <iframe
-            src="https://kinescope.io/embed/vvgrqAofqqbyzfd3bASBne"
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
-            frameborder="0"
-            allowfullscreen></iframe>
-        </div>
+        <img class="full-image" src="../images/HMI_1.png" alt="Интерфейс для HMI панели крана-манипулятора" />
+      </figure>
+
+      <h2>Контекст</h2>
+      <p>Была поставлена задача создать дизайн для HMI панели крана-манипулятора.</p>
+      <p>В таких системах интерфейс имеет большое значение для безопасности людей. Оператор в аварийной ситуации должен быстро оценить все важные параметры и предпринять правильные действия по устранению неисправности.</p>
+      <p>Именно чистое, аккуратное оформление, понятные состояния элементов, заметные уведомления помогают контролировать всю систему.</p>
+
+      <div class="center-copy">
+        <p class="center-title">Сложное оборудование нуждается в простом интерфейсе</p>
+        <p class="center-subtitle">Интерфейс должен быть безопасным и понятным</p>
+      </div>
+
+      <h2>Ключевые требования</h2>
+      <p class="preline body-ink">— Вся критическая информация — на&nbsp;главном экране
+— Мгновенное оповещение об&nbsp;авариях (без&nbsp;необходимости переключаться по&nbsp;экранам)
+— Управление сенсорным экраном в&nbsp;перчатках (крупные кнопки)
+— Минимализм и&nbsp;чёткая структура</p>
+
+      <h2>Процесс и&nbsp;проектные решения</h2>
+      <p class="preline">У&nbsp;меня не&nbsp;было возможности провести полноценные интервью с&nbsp;операторами.
+Я&nbsp;сделала то, что&nbsp;было в&nbsp;моих силах:
+
+— Обсудила с&nbsp;руководителем проекта его&nbsp;виденье интерфейса, какие параметры важно расположить на&nbsp;главном экране, а&nbsp;какие лучше убрать. За&nbsp;весь процесс создания произошло несколько итераций.
+— Изучила похожие проекты от&nbsp;других производителей
+— Ставила себя на&nbsp;место оператора: проходила по&nbsp;алгоритму его&nbsp;действий</p>
+
+      <figure>
+        <img class="full-image" src="../images/HMI_2.png" alt="Процесс и проектные решения для HMI панели" />
+      </figure>
+
+      <div class="solution-block">
+        <p class="solution-title">— Структура экранов и&nbsp;навигация</p>
+        <p>Я&nbsp;спроектировала навигацию с&nbsp;нуля. В&nbsp;системе 5 основных экранов, все доступны из&nbsp;бокового меню. Оператор видит, на&nbsp;каком экране находится, и&nbsp;может переключиться на&nbsp;любой другой в&nbsp;один клик.</p>
+        <img class="full-image" src="../images/HMI_3.png" alt="Структура экранов и навигация" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— Глобальная строка уведомлений</p>
+        <p>Вместо всплывающих окон — строка уведомлений, которая видна на&nbsp;всех экранах. Если возникает ошибка, оператор видит её&nbsp;сразу, даже если он&nbsp;находится в&nbsp;меню настроек.</p>
+        <img class="full-image" src="../images/HMI_4.png" alt="Глобальная строка уведомлений" />
+        <img class="full-image" src="../images/HMI_5.png" alt="Глобальная строка уведомлений на другом экране" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— Палитра</p>
+        <p>Я&nbsp;создала 2 темы: светлую и&nbsp;тёмную. Оператор может выбрать ту, которая удобнее в&nbsp;зависимости от&nbsp;времени суток и&nbsp;освещения.</p>
+        <img class="full-image" src="../images/HMI_6.png" alt="Светлая и тёмная темы интерфейса" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— UI-Kit</p>
+        <p>Составила UI-Kit с&nbsp;разными состояниями элементов. Так как&nbsp;проект был реализован в&nbsp;HMI от&nbsp;компании Siemens в&nbsp;Tia Portal, то&nbsp;состояний у&nbsp;кнопок 2 — только нажата или&nbsp;не нажата.
+В&nbsp;данном ПО&nbsp;нет возможности реализовать больше микро-взаимодействий.</p>
+        <p>Все кнопки — крупные. Я&nbsp;продумала, чтобы&nbsp;оператор в&nbsp;перчатках мог попасть пальцем в&nbsp;нужную область, не&nbsp;задевая соседние. Активные элементы выделены голубым цветом.</p>
+        <img class="full-image" src="../images/HMI_7.png" alt="UI-Kit для HMI панели" />
+      </div>
+
+      <h2>Визуал</h2>
+
+      <div class="solution-block">
+        <p class="solution-title">— Главный экран</p>
+        <p>Этот экран оператор видит в&nbsp;первую очередь. Здесь собраны все параметры, которые критически важны для&nbsp;безопасной работы.</p>
+        <img class="full-image" src="../images/HMI_8.png" alt="Главный экран HMI панели" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— Архив аварий</p>
+        <p>Просмотр текущих и&nbsp;произошедших ранее происшествий аварийного и&nbsp;предупреждающего характера. Оператор не&nbsp;просто видит, что&nbsp;случилось. Он&nbsp;может проанализировать, почему это&nbsp;произошло, и&nbsp;предотвратить повторение. Инженеры используют этот экран для&nbsp;диагностики системы после инцидентов.</p>
+        <img class="full-image" src="../images/HMI_9.png" alt="Архив аварий" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— Насосная станция</p>
+        <p>За&nbsp;движением крана стоит сложная гидравлическая система. Этот экран показывает состояние каждого её&nbsp;элемента в&nbsp;реальном времени.</p>
+        <img class="full-image" src="../images/HMI_10.png" alt="Экран насосной станции" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— Диагностика</p>
+        <p>Здесь отображаются состояния всех остальных устройств системы.</p>
+        <img class="full-image" src="../images/HMI_11.png" alt="Экран диагностики" />
+      </div>
+
+      <div class="solution-block">
+        <p class="solution-title">— Настройки</p>
+        <p>Оператор работает с&nbsp;панелью часами, у&nbsp;него должна быть возможность настроить интерфейс под&nbsp;себя.</p>
+        <img class="full-image" src="../images/HMI_12.png" alt="Экран настроек" />
+      </div>
+
+      <h2>Результаты</h2>
+      <p class="results-copy">Проект не&nbsp;был запущен на&nbsp;момент моего ухода, я&nbsp;передала реализованный интерфейс команде. По&nbsp;моей оценке, спроектированный интерфейс позволяет оператору:
+— Сократить время поиска критической ошибки с&nbsp;нескольких секунд до&nbsp;мгновенного считывания (глобальная строка уведомлений + цветовое кодирование)
+— Быстро оценивать два типа нагрузки (абсолютную и&nbsp;с учётом волнения) — это&nbsp;критически важно для&nbsp;безопасности в&nbsp;море
+— Управлять краном в&nbsp;перчатках без&nbsp;ошибок</p>
+
+      <figure>
+        <img class="full-image" src="../images/HMI_13.png" alt="Финальный визуал HMI панели крана-манипулятора" />
       </figure>
     </div>
   </article>
 
   <script>
-    /* Типографика: привязываем короткие предлоги и союзы к следующему слову
-       неразрывным пробелом, чтобы они не «висели» в конце строки. */
     (function () {
       var re = /(^|[\s(«„"'—–-])([A-Za-zА-Яа-яЁё]{1,2}|как|что|чтобы|это|или|для|при|под|над|про|без|чем|так|уже|где|там|его|её|их|они|она|оно|же|бы|ли)(\s)/g;
       function fix(s) {
@@ -357,38 +332,6 @@
         var v = fix(node.nodeValue);
         if (v !== node.nodeValue) node.nodeValue = v;
       });
-    })();
-
-    (function () {
-      var imgs = document.querySelectorAll('.page img.full');
-      if (!imgs.length) return;
-      var lb = document.createElement('div');
-      lb.className = 'lightbox';
-      lb.innerHTML = '<button class="lightbox-close" aria-label="Закрыть">×</button><img alt="" />';
-      document.body.appendChild(lb);
-      var lbImg = lb.querySelector('img');
-      var closeBtn = lb.querySelector('.lightbox-close');
-
-      function open(src, alt) {
-        lbImg.src = src;
-        lbImg.alt = alt || '';
-        lb.classList.add('open');
-        lb.classList.remove('zoomed');
-        document.body.style.overflow = 'hidden';
-      }
-      function close() {
-        lb.classList.remove('open', 'zoomed');
-        document.body.style.overflow = '';
-        lbImg.src = '';
-      }
-
-      imgs.forEach(function (im) {
-        im.addEventListener('click', function () { open(im.currentSrc || im.src, im.alt); });
-      });
-      lbImg.addEventListener('click', function (e) { e.stopPropagation(); lb.classList.toggle('zoomed'); });
-      closeBtn.addEventListener('click', close);
-      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     })();
   </script>
 </body>
