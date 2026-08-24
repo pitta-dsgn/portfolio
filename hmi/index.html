@@ -129,10 +129,29 @@
     }
 
     .full-image {
-      width: 1000px;
-      max-width: 100%;
+      display: block;
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
       margin-top: 28px;
-      object-fit: cover;
+      object-fit: initial;
+    }
+
+
+    .page .wrap > figure,
+    .page .wrap > .solution-block {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: 1000px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .solution-block img,
+    figure > img {
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
     }
 
     .center-copy {
