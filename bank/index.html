@@ -455,7 +455,7 @@
     }
 
     .progress-segment.active::after {
-      animation: carousel-fill 6.5s linear forwards;
+      animation: carousel-fill 3.25s linear forwards;
     }
 
     @keyframes carousel-fill {
@@ -803,7 +803,7 @@
         var segments = Array.prototype.slice.call(carousel.querySelectorAll('.progress-segment'));
         var index = 0;
         var timer = null;
-        var duration = 6500;
+        var duration = 3250;
         var visible = false;
 
         function render() {
