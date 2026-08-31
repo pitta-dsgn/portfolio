@@ -138,7 +138,7 @@
     .problem-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 48px;
+      gap: 36px;
       margin-top: 44px;
       align-items: start;
     }
@@ -161,6 +161,7 @@
     .problem-title {
       font-size: 24px;
       line-height: 1.4;
+      letter-spacing: -0.02em;
       font-weight: 400;
       color: var(--ink);
       margin: 0;
@@ -285,7 +286,7 @@
       font-size: 20px;
       line-height: 1.5;
       font-weight: 400;
-      color: var(--muted);
+      color: var(--ink);
     }
 
     .guide-content p { margin: 0 0 16px; }
@@ -561,7 +562,7 @@
         <div class="problem-item">
           <div class="problem-head">
             <img class="problem-icon chaos" src="../images/Icon_Chaos.png" alt="" aria-hidden="true" />
-            <p class="problem-title">Сложные условия<br />вызывают недоверие</p>
+            <p class="problem-title">Сложные условия вызывают недоверие</p>
           </div>
         </div>
 
@@ -645,17 +646,17 @@
       </div>
 
       <div class="finding">
-        <p class="finding-title">— Сложный путь</p>
+        <p class="finding-title">Сложный путь</p>
         <p>Респонденты путались в приложении и потратили много времени, чтобы найти путь к открытию счёта — он закопан глубоко в витрине.</p>
       </div>
 
       <div class="finding">
-        <p class="finding-title">— Описание не ориентировано на пользователя</p>
+        <p class="finding-title">Описание не ориентировано на пользователя</p>
         <p>Никто не смог объяснить почему выбрал тот или иной накопительного счёт.</p>
       </div>
 
       <div class="finding">
-        <p class="finding-title">— Неочевидность выгоды</p>
+        <p class="finding-title">Неочевидность выгоды</p>
         <p>Участники не понимали выгоду для себя и не посчитали данные накопительные счета хорошим предложением.</p>
       </div>
 
@@ -676,19 +677,19 @@
       <h2>Какие были сложности и как я их исправила?</h2>
 
       <div class="case-item">
-        <p class="case-item-title">— Респонденты нажимали на&nbsp;карточку «Сбор денег»</p>
+        <p class="case-item-title">Респонденты нажимали на&nbsp;карточку «Сбор денег»</p>
         <p>Это не&nbsp;система накопления, а&nbsp;способ организовать сбор с&nbsp;компании людей: например, на&nbsp;подарок другу или&nbsp;ремонт в&nbsp;подъезде. Я&nbsp;переименовала раздел.</p>
         <img class="case-image bank4" src="../images/Bank_4.png" alt="Исправление раздела «Сбор денег»" />
       </div>
 
       <div class="case-item">
-        <p class="case-item-title">— Трудный выбор</p>
+        <p class="case-item-title">Трудный выбор</p>
         <p>Пользователям было сложно понять отличия счетов, также были жалобы на&nbsp;мелкий текст. После тестирования они&nbsp;не смогли объяснить как&nbsp;выбрали тот или&nbsp;иной счет. Я&nbsp;изменила карточки.</p>
         <img class="case-image bank5" src="../images/Bank_5.png" alt="Переработанные карточки накопительных счетов" />
       </div>
 
       <div class="case-item">
-        <p class="case-item-title">— Витрина оказалась сложной</p>
+        <p class="case-item-title">Витрина оказалась сложной</p>
         <p>Посмотреть все доступные для&nbsp;открытия счета возможно только через витрину, но&nbsp;люди её&nbsp;игнорировали. А&nbsp;когда все же&nbsp;переходили в&nbsp;нее, долго пытались найти вкладку счета.</p>
 
         <div class="case-carousel" data-carousel>
@@ -708,19 +709,19 @@
       </div>
 
       <div class="case-item">
-        <p class="case-item-title">— Модернизация сценария открытия счёта</p>
+        <p class="case-item-title">Модернизация сценария открытия счёта</p>
         <p>Добавила выбор цели, чтобы&nbsp;сделать накопительные счета более персонализированными для&nbsp;каждого человека. Пользователь указывает сумму и&nbsp;срок, а&nbsp;банк даёт подсказку — план пополнения. Этот пункт можно пропустить, выбрав вариант «Без цели».</p>
         <img class="case-image bank9" src="../images/Bank_9.png" alt="Модернизация сценария открытия счёта" />
       </div>
 
       <div class="case-item">
-        <p class="case-item-title">— Пополнение счета — камень преткновения</p>
+        <p class="case-item-title">Пополнение счета — камень преткновения</p>
         <p>Респонденты нажимали переключатель на&nbsp;автомате, думая, что&nbsp;он обязателен. И&nbsp;застревали, потому что&nbsp;кнопка «Открыть счёт» становилась неактивной.</p>
         <img class="case-image bank10" src="../images/Bank_10.png" alt="Исправление сценария пополнения счёта" />
       </div>
 
       <div class="case-item">
-        <p class="case-item-title">— После открытия счёта респонденты не&nbsp;могли его&nbsp;найти</p>
+        <p class="case-item-title">После открытия счёта респонденты не&nbsp;могли его&nbsp;найти</p>
         <p>Есть подсказка, о&nbsp;том что&nbsp;счёт отобразится через несколько минут, но&nbsp;люди не&nbsp;обратили на&nbsp;это внимания. Они пытались найти счёт на&nbsp;главной, затем в&nbsp;истории и&nbsp;витрине.</p>
         <img class="case-image bank11" src="../images/Bank_11.png" alt="Отображение счёта после открытия" />
       </div>
@@ -742,7 +743,7 @@
       <p style="margin-top: 40px;">Обратная связь только положительная: все было понятно, при&nbsp;прохождении сценария пользователи чувствовали себя спокойно, интерфейс вызывал доверие.</p>
 
       <div class="case-item">
-        <p class="case-item-title">— Одно но</p>
+        <p class="case-item-title">Одно но</p>
         <p>Все респонденты проигнорировали уведомление, о&nbsp;том что&nbsp;счёт появится через несколько минут. Сказали, что&nbsp;даже не&nbsp;заметили его. Проблема осталась: люди долго не&nbsp;могли найти счёт и&nbsp;не понимали где&nbsp;он появится.</p>
         <p>Я&nbsp;убрала уведомление и&nbsp;заменила его&nbsp;на появление карточки со&nbsp;счетами.</p>
         <img class="case-image" src="../images/Bank_13.png" alt="Финальная доработка после тестирования" style="aspect-ratio: 1000 / 684;" />
