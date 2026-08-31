@@ -82,6 +82,10 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      width: calc(100% - 48px);
+      max-width: 1000px;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     .photo {
@@ -101,7 +105,7 @@
     /* --- hero copy --- */
     .hero-text {
       width: 100%;
-      max-width: var(--measure);
+      max-width: 1000px;
       margin-top: 32px;
       text-align: center;
     }
@@ -698,6 +702,7 @@
 
     @media (max-width: 600px) {
       body { font-size: 16px; }
+      .desktop-break { display: none; }
       .photo { width: 241px; height: 241px; }
       .intro { font-size: 28px; }
       .subtitle { font-size: 20px; }
@@ -763,10 +768,11 @@
       <div class="hero-text">
         <h1 class="intro fade d2">
           Привет! Я&nbsp;Катя, продуктовый дизайнер с&nbsp;2х-летним опытом
-          <br />и&nbsp;техническим бэкграундом в&nbsp;разработке HMI
+          <br class="desktop-break" />и&nbsp;техническим бэкграундом в&nbsp;разработке HMI
         </h1>
         <p class="subtitle fade d2">
-          Начинала с&nbsp;проектирования сложных интерфейсов для&nbsp;судового оборудования, сейчас веду дизайн в&nbsp;стартапе Pitboard, делаю B2C-приложение для&nbsp;картинга с&nbsp;нуля
+          Начинала с&nbsp;проектирования сложных интерфейсов для&nbsp;судового оборудования,
+          <br class="desktop-break" />сейчас веду дизайн в&nbsp;стартапе Pitboard, делаю B2C-приложение для&nbsp;картинга с&nbsp;нуля
         </p>
       </div>
     </div>
