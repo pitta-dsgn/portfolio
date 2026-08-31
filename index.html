@@ -107,7 +107,7 @@
     }
 
     .intro {
-      font-size: 32px;
+      font-size: 28px;
       line-height: 1.4;
       letter-spacing: -0.03em;
       font-weight: 600;
@@ -116,7 +116,7 @@
 
     .subtitle {
       margin-top: 12px;
-      font-size: 24px;
+      font-size: 20px;
       line-height: 1.5;
       letter-spacing: -0.015em;
       color: var(--muted);
@@ -762,11 +762,11 @@
 
       <div class="hero-text">
         <h1 class="intro fade d2">
-          Привет! Я&nbsp;Катя, продуктовый дизайнер
-          <br />с&nbsp;техническим бэкграундом
+          Привет! Я&nbsp;Катя, продуктовый дизайнер с&nbsp;2х-летним опытом
+          <br />и&nbsp;техническим бэкграундом в&nbsp;разработке HMI
         </h1>
         <p class="subtitle fade d2">
-          Проектирую мобильные приложения и&nbsp;сложные интерфейсы с&nbsp;нуля
+          Начинала с&nbsp;проектирования сложных интерфейсов для&nbsp;судового оборудования, сейчас веду дизайн в&nbsp;стартапе Pitboard, делаю B2C-приложение для&nbsp;картинга с&nbsp;нуля
         </p>
       </div>
     </div>
@@ -870,22 +870,29 @@
   </section>
 
   <script>
-    /* Типографика: привязываем короткие предлоги и союзы к следующему слову
-       неразрывным пробелом, чтобы они не «висели» в конце строки. */
+    /* Типографика: по всему документу связываем короткие служебные слова
+       с последующим словом неразрывным пробелом. Явные <br> остаются нетронутыми. */
     (function () {
-      var re = /(^|[\s(«„"'—–-])([A-Za-zА-Яа-яЁё]{1,2}|как|что|чтобы|это|или|для|при|под|над|про|без|чем|так|уже|где|там|его|её|их|они|она|оно|же|бы|ли)(\s)/g;
+      var re = /(^|[\s(«„"'—–-])((?:[A-Za-zА-Яа-яЁё]{1,2})|а|без|близ|бы|в|во|вроде|для|до|же|за|и|из|из-за|из-под|или|к|как|ко|ли|меж|между|на|над|не|ни|но|о|об|обо|от|ото|перед|по|под|подо|при|про|ради|с|со|сквозь|среди|у|через|что|чтобы|это|чем|так|уже|где|там|его|её|их|они|она|оно)([ \t\r\n]+)/gi;
       function fix(s) {
         var prev;
-        do { prev = s; s = s.replace(re, '$1$2\u00A0'); } while (s !== prev);
+        do {
+          prev = s;
+          s = s.replace(re, '$1$2\u00A0');
+        } while (s !== prev);
         return s;
       }
+
       var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
         acceptNode: function (n) {
           var t = n.parentNode && n.parentNode.nodeName;
-          if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEXTAREA') return NodeFilter.FILTER_REJECT;
+          if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEXTAREA' || t === 'CODE' || t === 'PRE') {
+            return NodeFilter.FILTER_REJECT;
+          }
           return /\S/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
         }
       });
+
       var nodes = [], n;
       while ((n = walker.nextNode())) nodes.push(n);
       nodes.forEach(function (node) {
