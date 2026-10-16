@@ -1,0 +1,22 @@
+name: Version bank case stylesheet
+on:
+  push:
+    paths: ['.github/workflows/version-case-css.yml']
+permissions:
+  contents: write
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: python
+        run: |
+          from pathlib import Path
+          p=Path('bank/index.html');s=p.read_text().replace('href="../case-polish.css"','href="../case-polish.css?v=20261016-2"');p.write_text(s)
+          Path('.github/workflows/version-case-css.yml').unlink()
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bank/index.html .github/workflows/version-case-css.yml
+          git commit -m "Version bank responsive stylesheet to refresh cached layouts"
+          git push
