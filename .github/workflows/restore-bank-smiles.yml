@@ -1,0 +1,26 @@
+name: Restore visible bank smiles
+on:
+  push:
+    paths: ['.github/workflows/restore-bank-smiles.yml']
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: python
+        run: |
+          from pathlib import Path
+          import re
+          p=Path('bank/index.html');s=p.read_text()
+          s=re.sub(r'<img class="asset-smile"[^>]*alt="([^"]*)"[^>]*>',lambda m:m[1],s)
+          assert 'class="asset-smile"' not in s
+          p.write_text(s)
+          Path('.github/workflows/restore-bank-smiles.yml').unlink()
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bank/index.html .github/workflows/restore-bank-smiles.yml
+          git commit -m "Restore visible emojis while keeping three-column mobile grid"
+          git push
