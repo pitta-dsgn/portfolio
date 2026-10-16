@@ -1,0 +1,34 @@
+name: Use bank SVG smiles
+on:
+  push:
+    paths: ['.github/workflows/bank-svg-smiles.yml']
+permissions:
+  contents: write
+jobs:
+  smiles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace emoji text with supplied SVG files
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          p=Path('bank/index.html');s=p.read_text()
+          names={'🤯':'shock','😡':'mad','😫':'sad','😵‍💫':'undr','🤬':'ultramad','😖':'ew','😌':'calm','👌':'ok','😊':'super','🫡':'strange','👍':'good','🙂':'fine','☺️':'super','😬':'ew'}
+          def replace(m):
+              opening,text=m[1],m[2].strip()
+              if text not in names:return m[0]
+              size=20 if 'chat-smile' in opening else 64
+              path=Path('new_images/smiles')/(names[text]+'_'+str(size)+'.svg')
+              assert path.is_file(),path
+              return opening+'<img class="asset-smile" src="../'+str(path)+'" alt="'+text+'" width="'+str(size)+'" height="'+str(size)+'" loading="lazy"></p>'
+          s=re.sub(r'(<p[^>]*>)([^<]+)</p>',replace,s)
+          p.write_text(s)
+          Path('.github/workflows/bank-svg-smiles.yml').unlink()
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bank/index.html .github/workflows/bank-svg-smiles.yml
+          git commit -m "Use uploaded SVG smiles throughout bank case"
+          git push
