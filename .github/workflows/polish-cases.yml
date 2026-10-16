@@ -1,0 +1,207 @@
+name: Polish bank and hmi layouts
+on:
+  push:
+    paths: ['.github/workflows/polish-cases.yml']
+permissions:
+  contents: write
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install lxml
+      - name: Apply responsive layout and typography fixes
+        shell: python
+        run: |
+          from pathlib import Path
+          from lxml import html,etree
+          import re,math,json
+          
+          def quant(n):
+           v=float(n);return str(int(math.copysign(math.floor(abs(v)/4+.5)*4,v)))
+          spacing=re.compile(r'^(?:margin(?:-.+)?|padding(?:-.+)?|gap|row-gap|column-gap|font-size|border(?:-.+)?-radius|border-radius|scroll-padding(?:-.+)?)$')
+          def declarations(css):
+           def change(m):
+            key,val=m[1],m[2]
+            if spacing.match(key):
+             val=re.sub(r'(-?(?:\d*\.)?\d+)px',lambda z:quant(z[1])+'px',val)
+            elif key in ('width','height','min-height','max-height','top','bottom','left','right'):
+             val=re.sub(r'(-?\d+\.\d+)px',lambda z:quant(z[1])+'px',val)
+            if key=='line-height':val='1.4'
+            return key+':'+val
+           return re.sub(r'([\w-]+):([^;{}]+)',change,css)
+          common='''
+          body{font-size:20px;line-height:1.4}
+          p,li,summary,button,a,figcaption{line-height:1.4}
+          h1,h2,h3,h4,h5,h6,[role="heading"],[role="heading"] *{line-height:1.3!important}
+          .image-zoom{cursor:default}
+          img,video{max-width:100%}
+          .prose-width{min-width:0;max-width:100%}
+          [role="heading"]{height:auto;min-width:0;max-width:100%;white-space:normal}
+          [role="heading"]>div,[role="heading"] p{white-space:normal;max-width:100%}
+          @media(max-width:900px){
+           .page-width{width:calc(100% - 40px);min-width:0}
+           .prose-width{width:100%;height:auto}
+           [role="heading"][aria-level="2"]>div{font-size:32px}
+           [role="heading"][aria-level="3"]>div{font-size:28px}
+           .hero{height:auto!important;overflow:hidden;padding-top:96px}
+           .hero-stage{position:relative;left:auto;top:auto;width:100%;height:auto;transform:none!important;display:flex;flex-direction:column;align-items:center;gap:32px;padding-bottom:40px}
+           .hero-stage>[role="heading"]{position:relative;inset:auto;display:block;width:calc(100% - 40px)}
+           .hero-stage>[role="heading"]>div{font-size:40px!important;text-align:center;width:100%}
+           .hero-stage>[role="heading"] p{white-space:normal}
+           .reveal-ready{transform:translateY(24px)}
+           .reveal-ready.visible{transform:none}
+          }
+          '''
+          bankcss='''
+          .artwork-item{display:contents}
+          .benchmark-image{overflow:hidden;border-radius:28px;width:268px;height:auto;aspect-ratio:1;flex:none}
+          .benchmark-image img{position:static;display:block;width:100%;height:auto;border-radius:28px;object-fit:contain}
+          @media(max-width:900px){
+           .hero-stage>[data-node-id="232:15138"]{position:relative;inset:auto;transform:none;font-size:20px;white-space:normal;width:calc(100% - 40px);text-align:center}
+           .hero-stage>[data-name="bank_preview1"],.hero-stage>[data-name="bank_preview2"]{position:relative;inset:auto;width:min(360px,calc(100% - 40px));height:auto;aspect-ratio:455/640;border-radius:28px}
+           .hero-stage>[data-name="bank_preview1"]>img,.hero-stage>[data-name="bank_preview2"]>img{position:static;width:100%!important;height:auto!important;max-width:100%!important}
+           .message-stack{left:16px;width:calc(100% - 32px);height:208px;bottom:40px}
+           .message-stack .chat-bubble{max-width:100%;height:48px;min-width:0;padding:8px 12px;gap:8px}
+           .chat-bubble>p:not(.chat-smile){font-size:12px;line-height:1.4;white-space:normal;min-width:0;flex-shrink:1}
+           .chat-smile{width:20px;height:20px}
+           .tests-panel{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px}
+           .tests-panel>div{max-width:360px;justify-self:center}
+           .respondent-task{padding:28px 24px}
+           .respondent-task>div{font-size:24px}
+           .emotion-row{display:flex;flex-direction:column;align-items:flex-start;gap:24px;width:100%}
+           .emotion-row>div:first-child{width:100%;white-space:normal;font-size:24px}
+           .emotion-row>div:nth-child(2){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 12px;width:100%;max-width:360px;align-self:center}
+           .emotion-row>div:nth-child(2)>div{width:100%;height:80px;min-width:0}
+           .emotion-row>div:nth-child(2)>div>div{transform:none;width:100%;height:100%}
+           .emotion-row>div:nth-child(2)>div>div>div{width:100%;height:100%}
+           .emotion-row .layout-64{inset:0;transform:none;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:64px}
+           .benchmark-image{width:min(360px,100%);height:auto}
+           .showroom-row{flex-direction:column;gap:24px}
+           .showroom-card,.scroll-panel{width:100%;min-width:0;padding:28px 24px}
+           [data-name="Figure"]{padding:24px;width:100%;min-width:0}
+           .artwork-shell,.showroom-card .artwork-shell{height:auto!important;width:100%;max-width:none;overflow:visible}
+           .artwork-canvas{width:100%!important;height:auto!important;transform:none!important;display:flex;flex-direction:column;gap:40px;align-items:center}
+           .artwork-item{display:flex;flex-direction:column;gap:20px;align-items:center;width:100%;min-width:0}
+           .artwork-item>.artwork-label{position:relative;inset:auto;transform:none;width:auto;max-width:100%;align-self:center;padding:12px 16px;border-radius:64px}
+           .artwork-label p{font-size:20px}
+           .artwork-item>.artwork-media{position:relative!important;inset:auto!important;transform:none!important;width:min(320px,100%);height:auto;aspect-ratio:var(--slot-ratio);overflow:hidden;min-width:0}
+           .artwork-media>img{width:var(--media-width,100%)!important;height:auto!important;max-width:none!important;position:absolute!important;left:var(--media-left,0%)!important;top:0!important;object-fit:contain!important}
+           .artwork-media>video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+           .artwork-notes{position:relative;inset:auto;transform:none;width:100%;max-width:320px;font-size:16px;white-space:normal;text-align:left}
+           .artwork-notes p{line-height:1.4}
+           .artwork-arrows{display:none}
+           .scroll-panel>div:not(.artwork-shell){width:100%;max-width:100%;height:auto;min-height:0}
+           .scroll-panel [data-name="Heading 3"],.showroom-card [data-name="Heading 3"]{height:auto;width:100%}
+           .scroll-panel p{white-space:normal}
+           .guide-summary>p{white-space:normal;min-width:0}
+           .guide-summary{gap:16px}
+           [data-node-id="232:15140"]{gap:80px}
+          }
+          '''
+          hmicss='''
+          @media(max-width:900px){
+           .hero-stage>[data-node-id="292:139307"]{position:relative;inset:auto;transform:none;font-size:20px;white-space:normal;width:calc(100% - 40px);text-align:center}
+           .hero-stage>.hero-device{position:relative;inset:auto;width:calc(100% - 40px);height:auto;aspect-ratio:1050/800;margin-top:8px}
+           .hero-device img{position:static;left:auto;top:auto;width:100%;max-width:100%;height:auto}
+           .crane-illustration{max-width:100%}
+           .screen-tab{padding:12px 16px;font-size:16px;line-height:1.4}
+           [data-node-id="308:139634"]{gap:12px;max-width:100%;min-width:0}
+           [data-node-id="308:139647"]{width:100%;padding-top:24px}
+           .screen-caption{font-size:20px;line-height:1.4}
+           .screen-caption p{line-height:1.4}
+           .results-list{font-size:20px;line-height:1.4}
+           [data-node-id="292:139309"]{gap:80px}
+          }
+          @media(max-width:600px){
+           [data-node-id="292:139362"]{grid-template-columns:minmax(0,1fr);gap:32px}
+           [data-node-id="292:139362"]>div{width:100%;height:auto}
+           [data-node-id="292:139362"] .layout-37{height:auto;min-width:40px}
+          }
+          '''
+          
+          def addclass(el,c):el.set('class',(el.get('class','')+' '+c).strip())
+          def process(path,kind):
+           before=Path(path).read_text();root=html.document_fromstring(before)
+           for style in root.xpath('//style'):
+            css=style.text or ''
+            css=re.sub(r'dialog[^{}]*\{[^{}]*\}','',css)
+            style.text=declarations(css).replace('cursor:zoom-in','cursor:default')
+           for el in root.xpath('//*[@style]'):el.set('style',declarations(el.get('style')))
+           for el in root.xpath('//*[contains(concat(" ",@class," ")," image-zoom ")]'):
+            el.set('class',' '.join(c for c in el.get('class','').split() if c!='image-zoom'))
+            for key in ('role','tabindex','aria-label'):el.attrib.pop(key,None)
+           for el in root.xpath('//dialog|//*[contains(concat(" ",@class," ")," motion-toggle ")]'):el.getparent().remove(el)
+           for el in root.xpath('//br'):
+            tail=el.tail or ''
+            if not tail.lstrip().startswith('—'):
+             prev=el.getprevious();par=el.getparent()
+             if prev is not None:prev.tail=(prev.tail or '')+' '+tail
+             else:par.text=(par.text or '')+' '+tail
+             par.remove(el)
+           for el in root.iter():
+            if el.tag in ('style','script'):continue
+            for field in ('text','tail'):
+             value=getattr(el,field)
+             if value:value=re.sub(r'(?<![\w-])(и|а|но|или|в|во|на|к|ко|с|со|у|о|об|обо|от|до|по|из|за|для|без|при|под|над|не|ни)\s+(?=\S)',lambda m:m[1]+'\u00a0',value,flags=re.I);setattr(el,field,value)
+           for script in root.xpath('//script'):
+            s=script.text or ''
+            if kind=='bank':s=re.sub(r" const dialog=document.querySelector\('dialog'\).*?(?= const videos=)",'',s,flags=re.S);s=s.replace('*50}px','*52}px')
+            else:
+             s=re.sub(r" const dialog=document.querySelector\('dialog'\).*?(?= const reduced=)",'',s,flags=re.S)
+             s=s.replace("document.querySelector('#screen-image').setAttribute('aria-label','Увеличить: '+SCREENS[index].alt)","document.querySelector('#screen-image').setAttribute('aria-label',SCREENS[index].alt)")
+            script.text=s
+           if kind=='bank':
+            bench=root.xpath('//*[@data-name="bank_benchmarking"]')[0];addclass(bench,'benchmark-image')
+            im=bench.xpath('.//img')[0];im.set('src','https://pitta-dsgn.github.io/portfolio/new_images/bank_benchmarking.png');im.set('style','width:100%;height:auto;object-fit:contain;border-radius:28px');im.attrib.pop('height',None)
+            # Preserve desktop canvas geometry; mobile groups each label with its own screen.
+            for canvas in root.xpath('//*[contains(concat(" ",@class," ")," artwork-canvas ")]'):
+             children=list(canvas)
+             media=[e for e in children if e.xpath('.//img[contains(@class,"exported-image")]|.//video')]
+             labels=[e for e in children if e.text_content().strip() in ('Было','Стало','Новое')]
+             notes=[e for e in children if e not in media and e not in labels and e.text_content().strip()]
+             arrows=[e for e in children if e not in media and e not in labels and e not in notes]
+             for i,e in enumerate(media):
+              im=(e.xpath('.//img|.//video'))[0];cl=e.get('class','')
+              dims={'layout-96':(320,276),'layout-97':(320,276),'layout-114':(270,507),'layout-115':(270,507),'layout-139':(320,654),'layout-140':(320,654),'layout-141':(320,654)}
+              w,h=next((v for k,v in dims.items() if k in cl.split()),(320,655))
+              wrapper=etree.Element('div',{'class':'artwork-item'})
+              canvas.append(wrapper)
+              if labels:
+               lab=labels[min(i,len(labels)-1)]
+               if lab.getparent() is canvas:addclass(lab,'artwork-label');wrapper.append(lab)
+              addclass(e,'artwork-media')
+              ratio=f'--slot-ratio:{w}/{h}'
+              if im.tag=='img':
+               iw=float(im.get('width',w));left=-(iw-w)/2
+               ratio+=f';--media-width:{iw/w*100}%;--media-left:{left/w*100}%'
+              e.set('style',(e.get('style','')+';'+ratio).lstrip(';'));wrapper.append(e)
+              if i==0:
+               for note in notes:addclass(note,'artwork-notes');wrapper.append(note)
+             for e in arrows:addclass(e,'artwork-arrows')
+           else:
+            for e in root.xpath('//*[contains(concat(" ",@class," ")," numbered-item ")]'):
+             if e.get('role')=='heading':e.attrib.pop('role',None);e.attrib.pop('aria-level',None)
+           style=etree.SubElement(root.find('head'),'style',id='case-polish-20261016');style.text=common+(bankcss if kind=='bank' else hmicss)
+           after='<!doctype html>'+html.tostring(root,encoding='unicode',method='html')
+           assert 'showModal()' not in after
+           # Font files must remain byte-for-byte unchanged.
+           assert re.findall(r'data:font[^)]+',before)==re.findall(r'data:font[^)]+',after)
+           Path(path).write_text(after)
+           print(path,'updated',len(after))
+          if False:
+           import sys
+           if len(sys.argv)>1:
+            process(sys.argv[1],'bank');process(sys.argv[2],'hmi')
+           else:
+            process('bank-favicon-source.html','bank');process('output/Zavod-Redesign.html','hmi')
+          process('bank/index.html','bank')
+          process('hmi/index.html','hmi')
+          Path('.github/workflows/polish-cases.yml').unlink()
+      - name: Commit updated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bank/index.html hmi/index.html .github/workflows/polish-cases.yml
+          git commit -m "Polish bank and hmi responsive layouts and typography"
+          git push
