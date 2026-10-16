@@ -2,3 +2,5 @@
  .showroom-card>div:not(.artwork-shell) *,.scroll-panel>div:not(.artwork-shell) *{max-width:100%;min-width:0}
  .showroom-card .layout-93{width:100%}
 }
+
+.layout-27,.layout-27 *,.layout-33,.layout-33 *,.layout-59,.layout-59 *,.layout-77,.layout-77 *,.layout-84,.layout-84 *,.layout-90,.layout-101,.layout-101 *,.layout-105,.layout-105 *,.layout-137,.layout-137 *,.layout-146,.layout-146 *{line-height:1.3!important}
