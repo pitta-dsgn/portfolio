@@ -1,0 +1,4 @@
+@media(max-width:900px){
+ .showroom-card>div:not(.artwork-shell) *,.scroll-panel>div:not(.artwork-shell) *{max-width:100%;min-width:0}
+ .showroom-card .layout-93{width:100%}
+}
