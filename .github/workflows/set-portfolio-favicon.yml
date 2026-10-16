@@ -1,0 +1,44 @@
+name: Set portfolio favicon
+on:
+  push:
+    paths:
+      - '.github/workflows/set-portfolio-favicon.yml'
+permissions:
+  contents: write
+jobs:
+  favicon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update favicon links
+        shell: python
+        run: |
+          import pathlib, re, subprocess, struct
+          icon = pathlib.Path("new_images/icon_16x16_portfolio.png")
+          data = icon.read_bytes()
+          assert data[:8] == b"\x89PNG\r\n\x1a\n"
+          assert struct.unpack(">II", data[16:24]) == (16, 16)
+          paths = ["index.html", "bank/index.html", "hmi/index.html", "mendi/index.html", "pitboard/index.html"]
+          tag = '<link rel="icon" type="image/png" sizes="16x16" href="/portfolio/new_images/icon_16x16_portfolio.png">'
+          def is_icon(match):
+              rel = re.search(r'\brel\s*=\s*["\x27]([^"\x27]*)["\x27]', match.group(), re.I)
+              return rel and rel.group(1).lower().strip() in ("icon", "shortcut icon")
+          def strip_icons(content):
+              return re.sub(r"<link\b[^>]*>", lambda m: "" if is_icon(m) else m.group(), content, flags=re.I)
+          for name in paths:
+              path = pathlib.Path(name)
+              original = path.read_bytes()
+              content = original.decode("utf-8")
+              assert len(re.findall(r"<head\b[^>]*>", content, re.I)) == 1, name
+              cleaned = strip_icons(content)
+              updated = re.sub(r"(<head\b[^>]*>)", lambda m: m.group() + tag, cleaned, count=1, flags=re.I)
+              assert strip_icons(updated) == cleaned, name
+              assert updated.count(tag) == 1, name
+              path.write_bytes(updated.encode("utf-8"))
+              print("Updated", name)
+          subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+          subprocess.run(["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"], check=True)
+          subprocess.run(["git", "add", "--", *paths], check=True)
+          subprocess.run(["git", "rm", "--", ".github/workflows/set-portfolio-favicon.yml"], check=True)
+          subprocess.run(["git", "commit", "-m", "Set portfolio favicon on all five pages"], check=True)
+          subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
