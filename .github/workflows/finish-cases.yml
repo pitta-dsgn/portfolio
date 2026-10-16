@@ -1,0 +1,31 @@
+name: Finish case polish
+on:
+  push:
+    paths: ['.github/workflows/finish-cases.yml']
+permissions:
+  contents: write
+jobs:
+  finish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add final responsive rules
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          for name in ['bank','hmi']:
+              p=Path(name+'/index.html');s=p.read_text()
+              if name=='bank':
+                  s=s.replace('</head>','<link rel="stylesheet" href="../case-polish.css"></head>')
+              # The first numbered requirement is a group, not a section heading.
+              if name=='hmi':
+                  s=re.sub(r'(<div[^>]*data-node-id="292:139363"[^>]*?) role="heading" aria-level="2"',r'\1',s)
+              p.write_text(s)
+          Path('.github/workflows/finish-cases.yml').unlink()
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bank/index.html hmi/index.html .github/workflows/finish-cases.yml
+          git commit -m "Finish responsive case copy and heading semantics"
+          git push
