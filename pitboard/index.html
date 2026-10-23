@@ -27,6 +27,16 @@
 .research-slides{display:grid;align-items:stretch}
 .research-slide,.research-slide[hidden]{grid-area:1 / 1;display:flex;visibility:hidden;pointer-events:none;animation:none}
 .research-slide.is-active{visibility:visible;pointer-events:auto;animation:slide-in .3s ease}
+
+/* Mobile context crop and research controls below the card. */
+@media(max-width:760px){
+ .team-figure img{width:calc(100% + 120px);max-width:none;margin-left:-60px}
+ .research-shell{background:transparent;overflow:visible}
+ .research-slides{background:var(--panel);border-radius:28px;overflow:hidden}
+ .research-slide{padding-inline:16px}
+ .research-nav{display:flex;justify-content:center;gap:20px;padding:16px 0 0;min-height:64px}
+ .research-arrow{position:static;inset:auto;transform:none;width:48px;height:48px;flex:none}
+}
 </style><!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4KC687KHJP"></script>
 <script>
