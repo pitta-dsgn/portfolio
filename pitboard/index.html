@@ -22,6 +22,11 @@
 @media(max-width:760px){.research-slide{padding-inline:64px}.research-arrow{width:40px;height:40px}.research-arrow.prev{left:8px}.research-arrow.next{right:8px}}
 
 .research-slide img.research-artifact{width:auto;max-width:100%;max-height:616px;height:auto;object-fit:contain}
+
+/* Equal height for all research slides, including responsive layouts. */
+.research-slides{display:grid;align-items:stretch}
+.research-slide,.research-slide[hidden]{grid-area:1 / 1;display:flex;visibility:hidden;pointer-events:none;animation:none}
+.research-slide.is-active{visibility:visible;pointer-events:auto;animation:slide-in .3s ease}
 </style><!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4KC687KHJP"></script>
 <script>
