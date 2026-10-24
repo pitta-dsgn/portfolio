@@ -6,3 +6,9 @@
 .layout-27,.layout-27 *,.layout-33,.layout-33 *,.layout-59,.layout-59 *,.layout-77,.layout-77 *,.layout-84,.layout-84 *,.layout-90,.layout-101,.layout-101 *,.layout-105,.layout-105 *,.layout-137,.layout-137 *,.layout-146,.layout-146 *{line-height:1.3!important}
 
 @media(max-width:900px){.layout-27{font-size:32px}}
+
+/* Keep mobile hero messages snug around their text and emoji. */
+@media(max-width:760px){
+ .message-stack .chat-bubble{width:fit-content;max-width:100%;justify-content:flex-start;text-align:left}
+ .message-stack .chat-bubble>p{margin:0}
+}
